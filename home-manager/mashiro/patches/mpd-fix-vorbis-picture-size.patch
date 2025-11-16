@@ -1,0 +1,13 @@
+diff --git a/src/lib/xiph/VorbisPicture.cxx b/src/lib/xiph/VorbisPicture.cxx
+index 8ed55f41f..a6b9cae35 100644
+--- a/src/lib/xiph/VorbisPicture.cxx
++++ b/src/lib/xiph/VorbisPicture.cxx
+@@ -11,7 +11,7 @@ void
+ ScanVorbisPicture(std::string_view value, TagHandler &handler) noexcept
+ {
+ #ifdef HAVE_BASE64
+-	if (value.size() > 1024 * 1024)
++	if (value.size() > 1024 * 1024 * 22)
+ 		/* ignore image files which are too huge */
+ 		return;
+ 
