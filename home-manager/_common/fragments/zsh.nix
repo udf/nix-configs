@@ -22,6 +22,15 @@ in
       share = false;
       extended = false;
     };
-    initContent = lib.mkOrder 1000 zshrc;
+    initContent = lib.mkMerge [
+      (lib.mkOrder 1000 zshrc)
+      (lib.mkOrder 1001 ''
+        # Add scripts directory to path
+        export PATH="$HOME/scripts:$PATH"
+
+        # Add npm package binaries to path
+        export PATH="$HOME/.npm-packages/bin:$PATH"
+      '')
+    ];
   };
 }

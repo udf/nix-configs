@@ -1,0 +1,28 @@
+export GPG_TTY=$(tty)
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+export TERM=xterm-color
+export LC_TIME=C
+
+# mpv aliases
+alias mpva='mpv --no-video'
+alias mpvas='mpv --no-video --shuffle'
+
+# shorthands
+alias code='vscodium'
+alias sv='sudo --preserve-env=HOME nvim'
+
+deemixf() {
+  i=0
+  for url in "$@"; do
+    i=$((i+1))
+    setwindowtitle "($i/$#) deemix $url"
+    echo "($i/$#) $ deemix -b flac $url"
+    deemix -b flac "$url"
+  done
+}
+
+# ddc
+alias dell_brightness='ddcutil --model "DELL S2721DGF" setvcp 10'
+
+# Add ruby gem binaries to path
+export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"

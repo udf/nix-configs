@@ -1,0 +1,14 @@
+# fnm
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
+
+# pnpm
+export PNPM_HOME="/home/sam/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export NODE_OPTIONS=--max_old_space_size=4096
+export TURBO_CONCURRENCY=16
+export TURBO_DAEMON=false
