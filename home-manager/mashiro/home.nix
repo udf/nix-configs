@@ -61,7 +61,9 @@ in
   #  /etc/profiles/per-user/sam/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    NODE_OPTIONS = "--max_old_space_size=4096";
+    TURBO_CONCURRENCY = "16";
+    TURBO_DAEMON = "false";
   };
 
   # Let Home Manager install and manage itself.

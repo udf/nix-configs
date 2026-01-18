@@ -1,7 +1,4 @@
 export GPG_TTY=$(tty)
-export LIBVIRT_DEFAULT_URI="qemu:///system"
-export TERM=xterm-color
-export LC_TIME=C
 
 # mpv aliases
 alias mpva='mpv --no-video'

@@ -44,7 +44,9 @@
   #  /etc/profiles/per-user/sam/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    LIBVIRT_DEFAULT_URI = "qemu:///system";
+    TERM = "xterm-color";
+    LC_TIME = "C";
   };
 
   # Let Home Manager install and manage itself.
