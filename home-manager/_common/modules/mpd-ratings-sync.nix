@@ -15,6 +15,12 @@ let
   # TODO: package this
   scriptDir = "${/home/sam/proj/p/mpdratingsync}";
   cfg = config.services.mpd-ratings-sync;
+  environmentVars = [
+    "PYTHONUNBUFFERED=1"
+  ]
+  ++ (optionals (cfg.mpdPassword != "") [
+    "PASSWORD=${cfg.mpdPassword}"
+  ]);
 in
 {
   options.services.mpd-ratings-sync = {
@@ -26,6 +32,11 @@ in
     mpdStickerDBPath = mkOption {
       type = types.str;
       description = "Path to the mpd sticker database file";
+    };
+    mpdPassword = mkOption {
+      type = types.str;
+      description = "Password for MPD";
+      default = "";
     };
   };
 
@@ -69,9 +80,7 @@ in
           };
 
           Service = {
-            Environment = [
-              "PYTHONUNBUFFERED=1"
-            ];
+            Environment = environmentVars;
             Type = "oneshot";
             ExecStart = "${pythonPath} ${scriptDir}/dump_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
@@ -88,9 +97,7 @@ in
           };
 
           Service = {
-            Environment = [
-              "PYTHONUNBUFFERED=1"
-            ];
+            Environment = environmentVars;
             Type = "oneshot";
             ExecStart = "${pythonPath} ${scriptDir}/load_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
