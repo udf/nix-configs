@@ -22,6 +22,8 @@ in
       share = false;
       extended = false;
     };
+    completionInit = "";
+    envExtra = "skip_global_compinit=1";
     initContent = lib.mkMerge [
       (lib.mkOrder 1000 zshrc)
       (lib.mkOrder 1001 ''
