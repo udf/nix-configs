@@ -1,12 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  mpdPkg = pkgs.mpd.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or [ ]) ++ [
-      ./patches/mpd-fix-vorbis-picture-size.patch
-    ];
-  });
-in
 {
   imports = [
     (import ../_autoload.nix ./.)
@@ -20,9 +13,8 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    gitprompt-rs
     fnm
-    mpdPkg
+    mpd
     mpc
     edir
     brotab
