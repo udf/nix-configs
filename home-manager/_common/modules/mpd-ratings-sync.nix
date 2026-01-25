@@ -84,6 +84,7 @@ in
             Type = "oneshot";
             ExecStart = "${pythonPath} ${scriptDir}/dump_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
+            StartLimitIntervalSec = "0";
           };
 
           Install = {
@@ -101,6 +102,7 @@ in
             Type = "oneshot";
             ExecStart = "${pythonPath} ${scriptDir}/load_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
+            StartLimitIntervalSec = "0";
           };
 
           Install = {
