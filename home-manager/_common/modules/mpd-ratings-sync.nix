@@ -77,14 +77,15 @@ in
         mpd-ratings-dump = {
           Unit = {
             Description = "Dumps ratings from mpd to the sync database";
+            StartLimitIntervalSec = "0";
           };
 
           Service = {
             Environment = environmentVars;
             Type = "oneshot";
+            ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
             ExecStart = "${pythonPath} ${scriptDir}/dump_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
-            StartLimitIntervalSec = "0";
           };
 
           Install = {
@@ -95,6 +96,7 @@ in
         mpd-ratings-load = {
           Unit = {
             Description = "Load MPD ratings from every synced database";
+            StartLimitIntervalSec = "0";
           };
 
           Service = {
@@ -102,7 +104,6 @@ in
             Type = "oneshot";
             ExecStart = "${pythonPath} ${scriptDir}/load_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
-            StartLimitIntervalSec = "0";
           };
 
           Install = {
