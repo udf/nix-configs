@@ -1,3 +1,5 @@
+alias python=python3
+
 # fnm
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
 
