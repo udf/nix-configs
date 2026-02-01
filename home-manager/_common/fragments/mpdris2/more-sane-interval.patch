@@ -1,0 +1,12 @@
+diff --git a/src/mpDris2.in.py b/src/mpDris2.in.py
+index eb6c400..c77dd97 100755
+--- a/src/mpDris2.in.py
++++ b/src/mpDris2.in.py
+@@ -779,7 +779,7 @@ class MPDWrapper(object):
+         return 'file://' + self._temp_cover.name
+ 
+     def last_status(self):
+-        if time.time() - self._time >= 2:
++        if time.time() - self._time >= 1:
+             self.timer_callback()
+         return self._status.copy()
