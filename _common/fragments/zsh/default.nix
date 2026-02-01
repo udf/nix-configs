@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  zshrc = (import ./zsh/zshrc.nix) { inherit lib pkgs; };
+  zshrc = (import ./zshrc.nix) { inherit lib pkgs; };
 in
 {
   users.defaultUserShell = pkgs.zsh;
