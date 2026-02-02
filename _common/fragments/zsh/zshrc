@@ -106,15 +106,15 @@ zstyle :zle:edit-command-line editor nvim
 
 # copy current command line to clipboard
 if (( $+commands[xclip] )); then
-  CLIPCMD='xclip -sel clip'
+  CLIPCMD=(xclip -sel clip)
 fi
 if (( $+commands[wl-copy] )); then
-  CLIPCMD=wl-copy
+  CLIPCMD=(wl-copy)
 fi
 
 if [[ -v CLIPCMD ]]; then
   function clip_cmd() {
-    echo -nE "$BUFFER" | $CLIPCMD
+    echo -nE "$BUFFER" | "${CLIPCMD[@]}"
   }
   zle -N clip_cmd
   bindkey "^X" clip_cmd
