@@ -48,6 +48,9 @@ setopt autocd
 # print error on glob match failiure
 setopt nomatch
 
+# more glob patterns
+setopt extendedglob
+
 # report background job status immediately
 setopt notify
 
