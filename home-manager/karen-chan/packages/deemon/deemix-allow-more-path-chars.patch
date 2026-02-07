@@ -1,0 +1,29 @@
+diff --git a/deemix/settings.py b/deemix/settings.py
+index 9cb0e7c..14736f7 100644
+--- a/deemix/settings.py
++++ b/deemix/settings.py
+@@ -36,7 +36,7 @@ DEFAULTS = {
+   "createSingleFolder": False,
+   "padTracks": True,
+   "paddingSize": "0",
+-  "illegalCharacterReplacer": "_",
++  "illegalCharacterReplacer": "-",
+   "queueConcurrency": 3,
+   "maxBitrate": str(TrackFormats.MP3_320),
+   "feelingLucky": False,
+diff --git a/deemix/utils/pathtemplates.py b/deemix/utils/pathtemplates.py
+index b654428..57fe60b 100644
+--- a/deemix/utils/pathtemplates.py
++++ b/deemix/utils/pathtemplates.py
+@@ -15,9 +15,9 @@ bitrateLabels = {
+     TrackFormats.LOCAL  : "MP3"
+ }
+ 
+-def fixName(txt, char='_'):
++def fixName(txt, char='-'):
+     txt = str(txt)
+-    txt = re.sub(r'[\0\/\\:*?"<>|]', char, txt)
++    txt = re.sub(r'[\0\/\\]', char, txt)
+     txt = normalize("NFC", txt)
+     return txt
+ 
