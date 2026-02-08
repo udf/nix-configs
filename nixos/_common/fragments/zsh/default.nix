@@ -12,5 +12,6 @@ in
     enableLsColors = false;
     shellAliases = {};
     interactiveShellInit = zshrc;
+    enableGlobalCompInit = false;
   };
 }
