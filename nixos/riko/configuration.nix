@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -49,34 +54,10 @@
     jack.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sam = {
-    isNormalUser = true;
-    description = "sam";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      kdePackages.kate
-      (vscodium.fhsWithPackages (
-        ps: with ps; [
-          nixfmt
-          nil
-        ]
-      ))
-    ];
+  services.logind.settings.Login = {
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    kdePackages.partitionmanager
-  ];
 
   programs.gnupg.agent = {
     enable = true;
