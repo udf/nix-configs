@@ -25,7 +25,7 @@
   fileSystems."/" = {
     device = "/dev/mapper/luks-f1c85b3e-84d7-4bfa-a6ad-c86852feadd8";
     fsType = "btrfs";
-    options = [ "relatime" "discard" ];
+    options = [ "relatime" "compress=zstd:3" "discard" ];
   };
 
   boot.initrd.luks.devices."luks-f1c85b3e-84d7-4bfa-a6ad-c86852feadd8".device =
