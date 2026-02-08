@@ -9,6 +9,11 @@ let
 in
 {
   options.services.watcher-bot = {
+    enable = mkOption {
+      default = true;
+      description = "Enable telegram watcher bot";
+      type = lib.types.bool;
+    };
     defaultPlugins = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -21,7 +26,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     services.watcher-bot.defaultPlugins = [ "systemd" "status" ];
 
     systemd.services.watcher-bot = {
