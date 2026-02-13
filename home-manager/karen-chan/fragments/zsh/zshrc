@@ -5,7 +5,6 @@ alias mpva='mpv --no-video'
 alias mpvas='mpv --no-video --shuffle'
 
 # shorthands
-alias code='vscodium'
 alias sv='sudo --preserve-env=HOME nvim'
 
 deemixf() {

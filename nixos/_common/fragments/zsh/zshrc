@@ -98,8 +98,9 @@ export EDITOR='nvim -p'
 if [[ -v DISPLAY ]] && (( $+commands[code] )); then
   export VISUAL='code --wait'
 fi
-if [[ -v DISPLAY ]] && (( $+commands[vscodium] )); then
-  export VISUAL='vscodium --wait'
+if [[ -v DISPLAY ]] && (( $+commands[codium] )); then
+  export VISUAL='codium --wait'
+  alias code='codium'
 fi
 
 # Edit command line with alt-e
