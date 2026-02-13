@@ -5,6 +5,8 @@ in
 {
   users.defaultUserShell = pkgs.zsh;
 
+  programs.command-not-found.enable = true;
+
   programs.zsh = {
     enable = true;
     setOptions = [];
