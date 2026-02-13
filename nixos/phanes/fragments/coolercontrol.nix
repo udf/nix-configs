@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   # coolercontrol is garbage and needs to be accessed locally
-  # ssh -L localhost:11988:localhost:11988 phanes
+  # ssh -L localhost:11980:localhost:11988 phanes
   programs.coolercontrol.enable = true;
   boot = {
     kernelModules = [ "thinkpad_acpi" ];
