@@ -20,9 +20,6 @@
   i18n.defaultLocale = "en_ZA.UTF-8";
   i18n.extraLocales = [ "en_GB.UTF-8/UTF-8" ];
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   services.xserver.xkb = {
     layout = "us";
     variant = "";
