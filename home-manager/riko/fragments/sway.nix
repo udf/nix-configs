@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  mod = config.wayland.windowManager.sway.config.modifier;
+in
 {
   home.pointerCursor.sway.enable = true;
 
@@ -20,6 +23,9 @@
       startup = [
         { command = "firefox"; }
       ];
+      keybindings = lib.mkOptionDefault {
+        "${mod}+Escape" = "exec swaylock";
+      };
       input = {
         "type:touchpad" = {
           tap = "enabled";
