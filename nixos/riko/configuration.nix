@@ -1,74 +1,38 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     (import ../_autoload.nix ./.)
   ];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "riko"; # Define your hostname.
+  networking = {
+    hostName = "riko";
+    networkmanager.enable = true;
+  };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
   time.timeZone = "Africa/Johannesburg";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_ZA.UTF-8";
   i18n.extraLocales = [ "en_GB.UTF-8/UTF-8" ];
 
-  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  services.logind.settings.Login = {
-    HandleLidSwitch = "lock";
-    HandleLidSwitchExternalPower = "ignore";
-    HandleLidSwitchDocked = "ignore";
-  };
 
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = lib.mkForce pkgs.pinentry-qt;
-  };
-
-  services.fprintd.enable = true;
-  services.fprintd.tod = {
-    enable = true;
-    driver = pkgs.libfprint-2-tod1-elan;
   };
 
   # This value determines the NixOS release from which the default
