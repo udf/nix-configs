@@ -19,17 +19,8 @@
     ];
   };
 
-  services.gnome.gnome-keyring.enable = true;
   security = {
     pam = {
-      loginLimits = [
-        {
-          domain = "@wheel";
-          item = "rtprio";
-          type = "-";
-          value = 1;
-        }
-      ];
       services = {
         greetd.enableGnomeKeyring = true;
         swaylock = {
@@ -42,7 +33,6 @@
         };
       };
     };
-    polkit.enable = true;
   };
 
   services.greetd = {
