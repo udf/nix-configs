@@ -6,6 +6,7 @@
 }:
 let
   mod = config.wayland.windowManager.sway.config.modifier;
+  laptopOutput = "eDP-1";
 in
 {
   home.pointerCursor.sway.enable = true;
@@ -32,6 +33,18 @@ in
           natural_scroll = "enabled";
           dwt = "enabled";
           drag_lock = "disabled";
+        };
+      };
+      bindswitches = {
+        "lid:on" = {
+          reload = true;
+          locked = true;
+          action = "output ${laptopOutput} disable";
+        };
+        "lid:off" = {
+          reload = true;
+          locked = true;
+          action = "output ${laptopOutput} enable";
         };
       };
     };
