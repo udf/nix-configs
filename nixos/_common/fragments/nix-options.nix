@@ -5,6 +5,10 @@
     settings = {
       auto-optimise-store = true;
       keep-outputs = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
 
     gc = {
@@ -16,7 +20,6 @@
     extraOptions = ''
       min-free = ${toString (1024 * 1024 * 1024)}
       max-free = ${toString (4096 * 1024 * 1024)}
-      extra-experimental-features = nix-command
     '';
 
     daemonCPUSchedPolicy = "idle";
