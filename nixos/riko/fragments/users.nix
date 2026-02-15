@@ -8,11 +8,10 @@
       "wheel"
     ];
     packages = with pkgs; [
-      kdePackages.kate
       (vscodium.fhsWithPackages (
         ps: with ps; [
           nixfmt
-          nil
+          nixd
         ]
       ))
     ];

@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     czkawka-full
-    nil
+    nixd
     nixfmt
     niv
     nix-tree
