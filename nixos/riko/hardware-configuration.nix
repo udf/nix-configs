@@ -22,14 +22,14 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  boot.initrd.luks.devices.cryptroot.device =
+    "/dev/disk/by-uuid/fe0d77fb-5d35-4a54-92e5-0aae90bd062d";
+
   fileSystems."/" = {
-    device = "/dev/mapper/luks-f1c85b3e-84d7-4bfa-a6ad-c86852feadd8";
+    device = "/dev/mapper/vg-root";
     fsType = "btrfs";
     options = [ "relatime" "compress=zstd:3" "discard" ];
   };
-
-  boot.initrd.luks.devices."luks-f1c85b3e-84d7-4bfa-a6ad-c86852feadd8".device =
-    "/dev/disk/by-uuid/f1c85b3e-84d7-4bfa-a6ad-c86852feadd8";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B5D6-BC15";
@@ -40,10 +40,8 @@
     ];
   };
 
-  boot.initrd.luks.devices."luks-7e217c3c-3bfa-4f08-8e95-64dd41131447".device =
-    "/dev/disk/by-uuid/7e217c3c-3bfa-4f08-8e95-64dd41131447";
   swapDevices = [
-    { device = "/dev/mapper/luks-7e217c3c-3bfa-4f08-8e95-64dd41131447"; }
+    { device = "/dev/mapper/vg-swap"; }
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
