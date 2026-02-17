@@ -16,6 +16,7 @@ in
     wrapperFeatures.gtk = true;
     systemd.variables = [ "--all" ];
     extraConfig = ''
+      output * adaptive_sync on
       include /etc/sway/config.d/*
     '';
     config = {
