@@ -102,6 +102,9 @@ in
           dwt = "enabled";
           drag_lock = "disabled";
         };
+        "type:keyboard" = {
+          xkb_options = "compose:ralt";
+        };
       };
       bindswitches = {
         "lid:on" = {
