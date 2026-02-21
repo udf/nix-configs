@@ -66,10 +66,10 @@ in
         "${mod}+Shift+Up" = "move up";
         "${mod}+Shift+Right" = "move right";
 
-        "${mod}+Ctrl+Left" = "resize shrink width 1 px or 1 ppt";
-        "${mod}+Ctrl+Right" = "resize grow width 1 px or 1 ppt";
-        "${mod}+Ctrl+Down" = "resize shrink height 1 px or 1 ppt";
-        "${mod}+Ctrl+Up" = "resize grow height 1 px or 1 ppt";
+        "${mod}+Ctrl+Left" = "resize shrink width 10 px";
+        "${mod}+Ctrl+Right" = "resize grow width 10 px";
+        "${mod}+Ctrl+Down" = "resize shrink height 10 px";
+        "${mod}+Ctrl+Up" = "resize grow height 10 px";
 
         "${mod}+h" = "splith";
         "${mod}+v" = "splitv";
