@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -27,6 +28,14 @@ in
       ];
       window = {
         hideEdgeBorders = "smart_no_gaps";
+        commands = [
+          {
+            command = "floating enable, sticky enable";
+            criteria = {
+              app_id = "com.saivert.pwvucontrol";
+            };
+          }
+        ];
       };
       keybindings = {
         # window manager management
@@ -41,6 +50,7 @@ in
         "${mod}+c" = "exec ${swayCfg.config.terminal}";
         "${mod}+d" = "exec ${swayCfg.config.menu}";
         "${mod}+n" = "exec firefox";
+        "${mod}+Ctrl+a" = ''exec "swaymsg '[app_id="com.saivert.pwvucontrol"]' kill || ${lib.getExe pkgs.pwvucontrol}"'';
 
         # window management
         "${mod}+Left" = "focus left";
