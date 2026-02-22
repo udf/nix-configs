@@ -81,6 +81,8 @@ in
         "${mod}+space" = "floating toggle";
         "${mod}+Shift+space" = "focus mode_toggle";
 
+        "${mod}+z" = "[urgent=latest] focus";
+
         # workspaces
         "${mod}+Mod1+Left" = "workspace prev_on_output";
         "${mod}+Mod1+Right" = "workspace next_on_output";
