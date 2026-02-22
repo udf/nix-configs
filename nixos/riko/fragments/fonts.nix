@@ -10,6 +10,7 @@
       source-han-sans
       source-han-serif
       hack-font
+      roboto
     ];
     fontconfig.defaultFonts = {
       serif = [
@@ -18,6 +19,7 @@
         "Source Han Serif"
       ];
       sansSerif = [
+        "Roboto"
         "Noto Sans"
         "Noto Sans CJK"
         "Source Han Sans"

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home.pointerCursor = {
     name = "Adwaita";
@@ -8,29 +8,42 @@
       enable = true;
       defaultCursor = "Adwaita";
     };
-  };
-
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
+    gtk.enable = true;
   };
 
   gtk = {
+    colorScheme = "dark";
     enable = true;
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Arc";
+      package = pkgs.arc-icon-theme;
     };
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Arc-Dark";
+      package = pkgs.arc-theme;
+    };
+    gtk3 = {
+      extraConfig.gtk-application-prefer-dark-theme = true;
     };
   };
 
   qt = {
     enable = true;
-    platformTheme.name = "adwaita";
-    style.name = "adwaita-dark";
+    platformTheme = {
+      name = "qtct";
+      package = pkgs.kdePackages.qt6ct;
+    };
+    style.name = "kvantum";
+
+    qt6ctSettings = {
+      Appearance = {
+        style = "kvantum";
+        icon_theme = config.gtk.iconTheme.name;
+      };
+      Fonts = {
+        general = ''"Roboto,11"'';
+        fixed = ''"Hack,10"'';
+      };
+    };
   };
 }
