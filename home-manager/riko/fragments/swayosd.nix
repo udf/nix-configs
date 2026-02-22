@@ -23,8 +23,8 @@ in
         "${mod}+Mod1+e" = "exec swayosd-client --output-volume mute-toggle";
 
         # Brightness Controls
-        "XF86MonBrightnessUp" = "exec swayosd-client --brightness raise";
-        "XF86MonBrightnessDown" = "exec swayosd-client --brightness lower";
+        "XF86MonBrightnessUp" = "exec swayosd-client --device amdgpu_bl2 --brightness +1";
+        "XF86MonBrightnessDown" = "exec swayosd-client --device amdgpu_bl2 --brightness -1";
 
         # Media Player Controls
         "XF86AudioPlay" = "exec swayosd-client --playerctl --player playerctld play-pause";
