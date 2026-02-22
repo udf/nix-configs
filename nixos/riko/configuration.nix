@@ -5,10 +5,21 @@
     (import ../_autoload.nix ./.)
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      systemd.enable = true;
+    };
+    resumeDevice = "/dev/mapper/vg-swap";
+    kernelParams = [
+      "preempt=full"
+      "hibernate_compression_threads=8"
+    ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   networking = {
     hostName = "riko";
