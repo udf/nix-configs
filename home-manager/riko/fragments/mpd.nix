@@ -11,7 +11,7 @@
       { command = "cantata"; }
     ];
     assigns = {
-      "9" = [
+      "10" = [
         {
           app_id = "dog.unix.cantata.Cantata";
         }

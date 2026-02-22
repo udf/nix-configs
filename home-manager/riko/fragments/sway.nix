@@ -50,7 +50,8 @@ in
         "${mod}+c" = "exec ${swayCfg.config.terminal}";
         "${mod}+d" = "exec ${swayCfg.config.menu}";
         "${mod}+n" = "exec firefox";
-        "${mod}+Ctrl+a" = ''exec "swaymsg '[app_id="com.saivert.pwvucontrol"]' kill || ${lib.getExe pkgs.pwvucontrol}"'';
+        "${mod}+Ctrl+a" =
+          ''exec "swaymsg '[app_id="com.saivert.pwvucontrol"]' kill || ${lib.getExe pkgs.pwvucontrol}"'';
 
         # window management
         "${mod}+Left" = "focus left";
@@ -101,11 +102,18 @@ in
       }
       # per workspace keys
       // lib.attrsets.mergeAttrsList (
-        lib.lists.forEach (lib.lists.map toString (lib.range 1 9)) (n: {
-          "${mod}+${n}" = "workspace ${n}";
-          "${mod}+Ctrl+${n}" = "move container to workspace ${n}";
-          "${mod}+Shift+${n}" = "move container to workspace ${n}; workspace ${n}";
-        })
+        lib.lists.forEach (lib.range 1 10) (
+          n:
+          let
+            key = toString (if n == 10 then 0 else n);
+            ws = toString n;
+          in
+          {
+            "${mod}+${key}" = "workspace ${ws}";
+            "${mod}+Ctrl+${key}" = "move container to workspace ${ws}";
+            "${mod}+Shift+${key}" = "move container to workspace ${ws}; workspace ${ws}";
+          }
+        )
       );
       input = {
         "type:touchpad" = {
