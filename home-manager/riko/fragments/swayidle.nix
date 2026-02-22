@@ -23,6 +23,11 @@ in
       }
       {
         timeout = 65;
+        command = "${lib.getExe config.namedPackages.kbd-backlight} 0";
+        resumeCommand = "${lib.getExe config.namedPackages.kbd-backlight} 1";
+      }
+      {
+        timeout = 65;
         command = display "off";
         resumeCommand = display "on";
       }

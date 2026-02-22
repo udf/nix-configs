@@ -10,6 +10,10 @@ let
       "down")
         ARGS=("s" "1-")
         ;;
+
+      *)
+        ARGS=("s" "$1")
+        ;;
     esac
 
     readarray -d ',' -t OUTPUT < <(${lib.getExe pkgs.brightnessctl} -m -d "asus::kbd_backlight" "''${ARGS[@]}")
