@@ -17,6 +17,8 @@ let
   '';
 in
 {
+  imports = [ ./swayosd.nix ];
+
   wayland.windowManager.sway = {
     config = {
       keybindings = {
