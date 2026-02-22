@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   kbdBacklight = pkgs.writeShellScriptBin "kbd-backlight.sh" ''
     ARGS=("i")
@@ -13,11 +13,13 @@ let
     esac
 
     readarray -d ',' -t OUTPUT < <(${lib.getExe pkgs.brightnessctl} -m -d "asus::kbd_backlight" "''${ARGS[@]}")
-    osd-notify.sh keyboard-brightness "" "''${OUTPUT[2]}:''${OUTPUT[4]%%[[:space:]]}"
+    ${lib.getExe config.namedPackages.osd-notify} keyboard-brightness "" "''${OUTPUT[2]}:''${OUTPUT[4]%%[[:space:]]}"
   '';
 in
 {
   imports = [ ./swayosd.nix ];
+
+  namedPackages.kbd-backlight = kbdBacklight;
 
   wayland.windowManager.sway = {
     config = {

@@ -42,7 +42,7 @@ in
     topMargin = 0.9;
   };
 
-  home.packages = [ osdNotify ];
+  namedPackages.osd-notify = osdNotify;
 
   wayland.windowManager.sway = {
     config = {
