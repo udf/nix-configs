@@ -37,7 +37,7 @@ in
       }
     ];
     events = {
-      "before-sleep" = lockCmd;
+      "before-sleep" = "${lockCmd}; ${lib.getExe pkgs.playerctl} --all-players pause";
     };
   };
 }
