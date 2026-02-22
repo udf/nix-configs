@@ -60,15 +60,6 @@ in
         # Brightness Controls
         "XF86MonBrightnessUp" = "exec swayosd-client --device amdgpu_bl2 --brightness +1";
         "XF86MonBrightnessDown" = "exec swayosd-client --device amdgpu_bl2 --brightness -1";
-
-        # Media Player Controls
-        "XF86AudioPlay" = "exec swayosd-client --playerctl --player playerctld play-pause";
-        "XF86AudioNext" = "exec swayosd-client --playerctl --player playerctld next";
-        "XF86AudioPrev" = "exec swayosd-client --playerctl --player playerctld prev";
-
-        "${mod}+Mod1+s" = "exec swayosd-client --playerctl --player playerctld play-pause";
-        "${mod}+Mod1+x" = "exec swayosd-client --playerctl --player playerctld next";
-        "${mod}+Mod1+z" = "exec swayosd-client --playerctl --player playerctld prev";
       };
     };
   };
