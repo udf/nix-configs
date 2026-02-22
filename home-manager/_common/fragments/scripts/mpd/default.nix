@@ -13,33 +13,27 @@ let
         propagatedBuildInputs = with python3Packages; [ mpd2 ];
         installPhase = ''
           mkdir -p "$out/${python3.sitePackages}"
-          cp "${./_mpd.py}" "$out/${python3.sitePackages}/_mpd.py"
+          cp "$src/_mpd.py" "$out/${python3.sitePackages}/_mpd.py"
         '';
       })
     ])
   );
+  scriptFiles = (
+    builtins.filter (file: !lib.hasPrefix "_" file) (listFilesWithExt {
+      dir = ./.;
+      relative = true;
+      ext = ".py";
+    })
+  );
 in
 {
-  home.file = lib.listToAttrs (
-    map
-      (
-        file:
-        (
-          (lib.nameValuePair "scripts/${builtins.toString file}" {
-            text = ''
-              #!${pythonBin}
-              ${builtins.readFile (./. + "/${file}")}
-            '';
-            executable = true;
-          })
-        )
-      )
-      (
-        builtins.filter (file: !lib.hasPrefix "_" file) (listFilesWithExt {
-          dir = ./.;
-          relative = true;
-          ext = ".py";
-        })
-      )
+  namedPackages = lib.listToAttrs (
+    map (file: ({
+      name = lib.removeSuffix ".py" (builtins.toString file);
+      value = pkgs.writeScriptBin (builtins.toString file) ''
+        #!${pythonBin}
+        ${builtins.readFile (./. + "/${file}")}
+      '';
+    })) scriptFiles
   );
 }

@@ -1,4 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  swayCfg = config.wayland.windowManager.sway;
+  mod = swayCfg.config.modifier;
+  getBin = name: (lib.getExe config.namedPackages."${name}");
+in
 {
   home.packages = with pkgs; [
     mpc
@@ -16,6 +26,15 @@
           app_id = "dog.unix.cantata.Cantata";
         }
       ];
+    };
+    keybindings = {
+      "--release ${mod}+Mod1+a" = "exec ${getBin "mpd-set-current-rating"} 8";
+      "--release ${mod}+Mod1+Shift+a" = "exec ${getBin "mpd-set-current-rating"} 10";
+      "--release ${mod}+Mod1+space" = "exec ${getBin "mpd-set-current-rating"} 2 --go-next";
+      "--release XF86AudioStop" = "exec ${getBin "mpd-set-current-rating"} 8";
+      "--release Shift+XF86AudioStop" = "exec ${getBin "mpd-set-current-rating"} 10";
+      "--release Shift+XF86AudioNext" = "exec ${getBin "mpd-set-current-rating"} 2 --go-next";
+      "--release ${mod}+Delete" = "exec ${getBin "mpd-q-pop"}";
     };
   };
 
