@@ -7,13 +7,5 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      (vscodium.fhsWithPackages (
-        ps: with ps; [
-          nixfmt
-          nixd
-        ]
-      ))
-    ];
   };
 }
