@@ -12,10 +12,19 @@ in
 {
   home.pointerCursor.sway.enable = true;
 
+  home.packages = with pkgs; [
+    brightnessctl
+    alacritty-graphics
+    wl-clipboard
+  ];
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     systemd.variables = [ "--all" ];
+    extraSessionCommands = ''
+      source "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh"
+    '';
     extraConfig = ''
       output * adaptive_sync on
       include /etc/sway/config.d/*

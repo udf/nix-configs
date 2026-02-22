@@ -12,12 +12,8 @@
 
   programs.sway = {
     enable = true;
+    package = null;
     wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      brightnessctl
-      alacritty-graphics
-      wl-clipboard
-    ];
   };
 
   security = {
