@@ -16,6 +16,7 @@
     extraPackages = with pkgs; [
       brightnessctl
       alacritty-graphics
+      wl-clipboard
     ];
   };
 
