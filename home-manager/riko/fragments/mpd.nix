@@ -24,6 +24,7 @@
     network.startWhenNeeded = true;
     musicDirectory = "${config.home.homeDirectory}/music";
     playlistDirectory = config.services.mpd.musicDirectory;
+    dataDir = "${config.home.homeDirectory}/.config/mpd";
     extraConfig = ''
       max_output_buffer_size "262144"
       restore_paused "yes"
@@ -36,5 +37,11 @@
       replaygain "track"
       filesystem_charset "UTF-8"
     '';
+  };
+
+  services.mpd-ratings-sync = {
+    enable = true;
+    ratingsDBDir = "${config.services.mpd.dataDir}/ratings_sync";
+    mpdStickerDBPath = "${config.services.mpd.dataDir}/sticker.sql";
   };
 }
