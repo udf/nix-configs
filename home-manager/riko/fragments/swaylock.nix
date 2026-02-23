@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = null;
     settings = {
       screenshots = true;
       show-failed-attempts = true;
@@ -15,6 +20,21 @@
       text-color = "ffffff";
       font = "Hack";
       font-size = "24";
+    };
+  };
+
+  systemd.user.services.swaylock = {
+    Unit = {
+      Description = "Screen locker";
+      ConditionEnvironment = [
+        "WAYLAND_DISPLAY"
+      ];
+      Requisite = [ config.wayland.systemd.target ];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = lib.getExe pkgs.swaylock-effects;
     };
   };
 }

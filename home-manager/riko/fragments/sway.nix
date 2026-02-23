@@ -55,7 +55,7 @@ in
         "${mod}+x" = "kill";
 
         # programs
-        "${mod}+Escape" = "exec swaylock";
+        "${mod}+Escape" = "exec systemctl start --user swaylock";
         "${mod}+c" = "exec ${swayCfg.config.terminal}";
         "${mod}+d" = "exec ${swayCfg.config.menu}";
         "${mod}+n" = "exec firefox";

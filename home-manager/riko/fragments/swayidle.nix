@@ -5,9 +5,9 @@
   ...
 }:
 let
-  lockCmd = "${lib.getExe config.programs.swaylock.package} --daemonize";
-  display =
-    status: "${config.wayland.windowManager.sway.package}/bin/swaymsg 'output * power ${status}'";
+  lockCmd = "${pkgs.systemd}/bin/systemctl start --no-block --user swaylock";
+  swaymsgPath = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
+  display = status: "${swaymsgPath} 'output * power ${status}'";
 in
 {
   services.swayidle = {
