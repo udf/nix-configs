@@ -25,6 +25,7 @@
     hostName = "riko";
     networkmanager.enable = true;
   };
+  services.openssh.enable = true;
 
   time.timeZone = "Africa/Johannesburg";
 
