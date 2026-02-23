@@ -33,7 +33,7 @@ in
       modifier = "Mod4";
       terminal = "alacritty";
       startup = [
-        { command = "firefox"; }
+        { command = ''swaymsg "workspace 1; exec firefox;"''; }
       ];
       window = {
         hideEdgeBorders = "smart_no_gaps";
