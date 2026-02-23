@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 
 {
   environment.systemPackages = with pkgs; [
@@ -21,5 +24,6 @@
     pipx
     expect
     jq
+    ldns
   ];
 }
