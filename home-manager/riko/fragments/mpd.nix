@@ -45,6 +45,7 @@ in
     playlistDirectory = config.services.mpd.musicDirectory;
     dataDir = "${config.home.homeDirectory}/.config/mpd";
     extraConfig = ''
+      auto_update "yes"
       max_output_buffer_size "262144"
       restore_paused "yes"
 
