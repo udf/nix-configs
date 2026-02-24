@@ -5,35 +5,38 @@
   ...
 }:
 let
-  lockCmd = "${pkgs.systemd}/bin/systemctl start --no-block --user swaylock";
-  swaymsgPath = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
-  display = status: "${swaymsgPath} 'output * power ${status}'";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
+  lockCmd = "${systemctl} start --no-block --user swaylock";
+  kbdBacklightCmd = level: "${lib.getExe config.namedPackages.kbd-backlight} ${toString level}";
+  swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
+  display = status: "${swaymsg} 'output * power ${status}'";
 in
 {
   services.swayidle = {
     enable = true;
     timeouts = [
       {
+        timeout = 20;
+        command = "${systemctl} --user is-active swaylock && ${display "off"} && ${kbdBacklightCmd 0}";
+        resumeCommand = "${display "on"} && ${kbdBacklightCmd 1}";
+      }
+      {
+        timeout = 50;
+        command = "${pkgs.libnotify}/bin/notify-send 'Session will be locked soon' -t 5000";
+      }
+      {
         timeout = 55;
-        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
-      }
-      {
-        timeout = 60;
-        command = lockCmd;
-      }
-      {
-        timeout = 65;
-        command = "${lib.getExe config.namedPackages.kbd-backlight} 0";
-        resumeCommand = "${lib.getExe config.namedPackages.kbd-backlight} 1";
-      }
-      {
-        timeout = 65;
-        command = display "off";
+        command = "${lib.getExe pkgs.chayang} && ${display "off"} && ${lockCmd}";
         resumeCommand = display "on";
       }
       {
+        timeout = 65;
+        command = kbdBacklightCmd 0;
+        resumeCommand = kbdBacklightCmd 1;
+      }
+      {
         timeout = 300;
-        command = "${lib.getExe' pkgs.systemd "systemd-ac-power"} || ${pkgs.systemd}/bin/systemctl suspend";
+        command = "${lib.getExe' pkgs.systemd "systemd-ac-power"} || ${systemctl} suspend";
       }
     ];
     events = {

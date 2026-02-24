@@ -33,7 +33,7 @@
     };
 
     Service = {
-      Type = "oneshot";
+      Type = "simple";
       ExecStart = lib.getExe pkgs.swaylock-effects;
     };
   };
