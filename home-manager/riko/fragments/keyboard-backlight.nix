@@ -1,6 +1,17 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   kbdBacklight = pkgs.writeShellScriptBin "kbd-backlight.sh" ''
+    SILENT=0
+    if [ "$1" = "--silent" ]; then
+      SILENT=1
+      shift
+    fi
+
     ARGS=("i")
     case "$1" in
       "up")
@@ -17,7 +28,9 @@ let
     esac
 
     readarray -d ',' -t OUTPUT < <(${lib.getExe pkgs.brightnessctl} -m -d "asus::kbd_backlight" "''${ARGS[@]}")
-    ${lib.getExe config.namedPackages.osd-notify} keyboard-brightness "" "''${OUTPUT[2]}:''${OUTPUT[4]%%[[:space:]]}"
+    if [ "$SILENT" -ne 1 ]; then
+      ${lib.getExe config.namedPackages.osd-notify} keyboard-brightness "" "''${OUTPUT[2]}:''${OUTPUT[4]%%[[:space:]]}"
+    fi
   '';
 in
 {

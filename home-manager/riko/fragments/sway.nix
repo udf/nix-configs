@@ -8,7 +8,8 @@ let
   swayCfg = config.wayland.windowManager.sway;
   mod = swayCfg.config.modifier;
   laptopOutput = "eDP-1";
-  kbdBacklightCmd = level: "${lib.getExe config.namedPackages.kbd-backlight} ${toString level}";
+  kbdBacklightCmd =
+    level: "${lib.getExe config.namedPackages.kbd-backlight} --silent ${toString level}";
 in
 {
   home.pointerCursor.sway.enable = true;
