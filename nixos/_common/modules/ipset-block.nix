@@ -251,11 +251,7 @@ in
         pkgs.coreutils
       ];
       after = [ "network-online.target" ];
-      wants = [
-        "network-online.target"
-        "${ipsetLoaderName}.service"
-      ];
-      partOf = [ "${ipsetLoaderName}.service" ];
+      wants = [ "network-online.target" ];
       serviceConfig = {
         Nice = 10;
         Type = "oneshot";

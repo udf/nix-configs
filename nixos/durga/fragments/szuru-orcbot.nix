@@ -23,10 +23,7 @@ in
     };
     services.szuru-ocrbot = {
       description = "Szuru OCRbot";
-      after = [
-        "network-online.target"
-        "szuru.service"
-      ];
+      after = [ "szuru.service" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         LD_LIBRARY_PATH = lib.makeLibraryPath libraryPkgs;
