@@ -7,5 +7,6 @@
     nixfmt
     niv
     nix-tree
+    git-crypt
   ];
 }
