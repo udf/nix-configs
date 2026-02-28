@@ -18,7 +18,7 @@
       indicator = true;
       indicator-radius = "75";
       text-color = "ffffff";
-      font = "Hack";
+      font = "Hack Nerd Font";
       font-size = "24";
     };
   };

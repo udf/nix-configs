@@ -9,7 +9,7 @@
       font-awesome
       source-han-sans
       source-han-serif
-      hack-font
+      nerd-fonts.hack
       roboto
     ];
     fontconfig.defaultFonts = {
@@ -25,7 +25,7 @@
         "Source Han Sans"
       ];
       monospace = [
-        "Hack"
+        "Hack Nerd Font"
       ];
     };
   };

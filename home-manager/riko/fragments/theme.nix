@@ -42,7 +42,7 @@
       };
       Fonts = {
         general = ''"Roboto,11"'';
-        fixed = ''"Hack,10"'';
+        fixed = ''"Hack Nerd Font,10"'';
       };
     };
   };
