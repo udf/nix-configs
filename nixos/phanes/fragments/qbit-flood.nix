@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  unstable = import <nixpkgs-unstable> { config = { allowUnfree = true; }; };
+  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
   serviceOpts = {
     serviceConfig = {
       Restart = lib.mkForce "always";

@@ -34,7 +34,6 @@
             {
               nix.nixPath = [
                 "nixpkgs=${pkgs}"
-                "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
               ];
               networking.hostName = host;
             }

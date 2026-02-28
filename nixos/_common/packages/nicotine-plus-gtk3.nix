@@ -1,4 +1,6 @@
 {
+  pkgs,
+  unstablePkgs,
   lib,
   fetchFromGitHub,
   wrapGAppsHook3,
@@ -13,7 +15,6 @@ let
   pname = "nicotine-plus";
   # MARK: pinned version
   version = "3.3.10";
-  unstablePkgs = import <nixpkgs-unstable> { };
 in
 assert unstablePkgs.nicotine-plus.version == version;
 python3Packages.buildPythonApplication {

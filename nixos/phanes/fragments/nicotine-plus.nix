@@ -1,8 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   userId = toString config.users.users.nicotine.uid;
   XDisplay = "100";
-  nicotinePkg = (pkgs.callPackage ../../_common/packages/nicotine-plus-gtk3.nix { });
+  unstablePkgs = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
+  nicotinePkg = (
+    pkgs.callPackage ../../_common/packages/nicotine-plus-gtk3.nix { unstablePkgs = unstablePkgs; }
+  );
 in
 {
   # TODO: move this to a generic module if more gui users are needed
@@ -56,7 +65,10 @@ in
 
   environment.etc."nicotine/plugins".source = "${../../_common/helpers/nicotine-plugins}";
 
-  fonts.packages = with pkgs; [ noto-fonts noto-fonts-cjk-sans ];
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+  ];
 
   programs.dconf.enable = true;
 
