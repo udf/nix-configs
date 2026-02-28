@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  options,
+  inputs,
   ...
 }:
 let
@@ -17,6 +17,7 @@ let
   ipsetCfg = config.custom.ipset-block;
 in
 {
+  imports = [ inputs.arion.nixosModules.arion ];
   users.extraUsers.szuru = {
     home = "/home/szuru";
     isSystemUser = true;

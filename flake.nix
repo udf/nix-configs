@@ -3,10 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    arion = {
+      url = "github:hercules-ci/arion";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager-unstable = {
       url = "github:nix-community/home-manager";
@@ -27,6 +28,7 @@
         }:
         pkgs.lib.nixosSystem {
           system = null;
+          specialArgs = { inherit inputs; };
           modules = [
             (import (./. + "/nixos/${host}/configuration.nix"))
             {
