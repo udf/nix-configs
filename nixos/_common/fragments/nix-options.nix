@@ -5,6 +5,7 @@
     settings = {
       auto-optimise-store = true;
       keep-outputs = true;
+      trusted-users = [ "@wheel" ];
       experimental-features = [
         "nix-command"
         "flakes"
