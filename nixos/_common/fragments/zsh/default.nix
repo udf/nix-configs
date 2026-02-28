@@ -5,14 +5,14 @@ in
 {
   users.defaultUserShell = pkgs.zsh;
 
-  programs.command-not-found.enable = true;
+  programs.nix-index.enableZshIntegration = true;
 
   programs.zsh = {
     enable = true;
-    setOptions = [];
+    setOptions = [ ];
     promptInit = "";
     enableLsColors = false;
-    shellAliases = {};
+    shellAliases = { };
     interactiveShellInit = zshrc;
     enableGlobalCompInit = false;
   };

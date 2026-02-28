@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -39,6 +44,7 @@
               ];
               networking.hostName = host;
             }
+            inputs.nix-index-database.nixosModules.default
           ]
           ++ lib.optionals (home-manager != null) [
             home-manager.nixosModules.home-manager
