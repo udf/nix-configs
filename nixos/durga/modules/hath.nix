@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.hath;
@@ -106,7 +111,8 @@ in
     systemd = {
       services.hath = {
         description = "Hentai@Home service";
-        after = [ "network.target" ];
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
