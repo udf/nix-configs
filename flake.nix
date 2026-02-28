@@ -30,7 +30,10 @@
           modules = [
             (import (./. + "/nixos/${host}/configuration.nix"))
             {
-              nix.nixPath = [ "nixpkgs=${pkgs}" ];
+              nix.nixPath = [
+                "nixpkgs=${pkgs}"
+                "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
+              ];
               networking.hostName = host;
             }
           ]
