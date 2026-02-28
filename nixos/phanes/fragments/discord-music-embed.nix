@@ -1,11 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  pythonPkg = pkgs.python312.withPackages (ps: with ps; [
-    aiohttp
-    yarl
-    pillow
-    mutagen
-  ]);
+  pythonPkg = pkgs.python313.withPackages (
+    ps: with ps; [
+      aiohttp
+      yarl
+      pillow
+      mutagen
+    ]
+  );
   port = 36900;
   coverCacheDir = "/var/cache/discord-music-embed/covers/";
   serverHost = (import ../../_common/constants/private.nix).homeHostname;

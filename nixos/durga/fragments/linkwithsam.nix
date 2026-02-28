@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  python-pkg = pkgs.python312.withPackages (ps: with ps; [
-    aiohttp
-    aiohttp-cors
-  ]);
+  python-pkg = pkgs.python313.withPackages (
+    ps: with ps; [
+      aiohttp
+      aiohttp-cors
+    ]
+  );
 in
 {
   systemd.services.linkwithsam = {

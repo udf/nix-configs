@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 let
-  pythonPkg = pkgs.python311;
-  venvSetupCode = import ../../_common/helpers/gen-venv-setup.nix { inherit pythonPkg; inherit pkgs; };
+  pythonPkg = pkgs.python313;
+  venvSetupCode = import ../../_common/helpers/gen-venv-setup.nix {
+    inherit pythonPkg;
+    inherit pkgs;
+  };
   libraryPkgs = [ pkgs.gcc-unwrapped ];
 in
 {
@@ -16,7 +23,10 @@ in
     };
     services.szuru-ocrbot = {
       description = "Szuru OCRbot";
-      after = [ "network.target" "szuru.service" ];
+      after = [
+        "network-online.target"
+        "szuru.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         LD_LIBRARY_PATH = lib.makeLibraryPath libraryPkgs;

@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 let
-  python-pkg = pkgs.python311.withPackages (ps: with ps; [
-    telethon
-  ]);
+  python-pkg = pkgs.python313.withPackages (
+    ps: with ps; [
+      telethon
+    ]
+  );
 in
 {
   systemd.services.yeetbot = {

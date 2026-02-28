@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  python-pkg = pkgs.python310.withPackages (ps: with ps; [
-    (callPackage ../../_common/packages/telethon.nix { })
-    (callPackage ../packages/bprint.nix { })
-  ]);
+  python-pkg = pkgs.python311.withPackages (
+    ps: with ps; [
+      (callPackage ../../_common/packages/telethon.nix { })
+      (callPackage ../packages/bprint.nix { })
+    ]
+  );
 in
 {
   systemd.services.stringifybot = {

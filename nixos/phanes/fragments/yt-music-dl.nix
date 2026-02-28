@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   playlists = {
@@ -241,14 +245,21 @@ let
   ytdlCookiesCredential = "yt-dl-cookies";
   tmpCookiesFile = "/tmp/cookies.txt";
   useYtCookiesCmd = "[ ! -f \"${tmpCookiesFile}\" ] && echo 'Cookies not found!' && exit 1";
-  getYtDownloadCmd = { dir, url, archive ? dir, filter ? "" }: ''
-    yt-dlp --cookies ${tmpCookiesFile} ${common-args} -o "${dir}/%(title)s-%(id)s.%(ext)s" --download-archive "${archive}.txt" \
-    --extractor-args "youtube:player-client=default,tv,web_safari,web_embedded" \
-    ${filter} \
-    -ciwx -f bestaudio \
-    --sleep-requests 0.5 --min-sleep-interval 10 --max-sleep-interval 15 \
-    --add-metadata --replace-in-metadata 'album' '.' "" --parse-metadata 'title:%(track)s' --parse-metadata 'uploader:%(artist)s' "${url}"
-  '';
+  getYtDownloadCmd =
+    {
+      dir,
+      url,
+      archive ? dir,
+      filter ? "",
+    }:
+    ''
+      yt-dlp --cookies ${tmpCookiesFile} ${common-args} -o "${dir}/%(title)s-%(id)s.%(ext)s" --download-archive "${archive}.txt" \
+      --extractor-args "youtube:player-client=default,tv,web_safari,web_embedded" \
+      ${filter} \
+      -ciwx -f bestaudio \
+      --sleep-requests 0.5 --min-sleep-interval 10 --max-sleep-interval 15 \
+      --add-metadata --replace-in-metadata 'album' '.' "" --parse-metadata 'title:%(track)s' --parse-metadata 'uploader:%(artist)s' "${url}"
+    '';
   musicDir = "/sync/downloads/lossy-music";
   sanitiseServiceName = name: (builtins.replaceStrings [ " " ] [ "_" ] name);
   commonServiceConfig = {
@@ -262,7 +273,10 @@ let
     partOf = [ "music-dl.target" ];
     wantedBy = [ "music-dl.target" ];
     upholds = [ "music-dl-busy.target" ];
-    path = [ "/home/yt-music-dl/.local" pkgs.ffmpeg ];
+    path = [
+      "/home/yt-music-dl/.local"
+      pkgs.ffmpeg
+    ];
     overrideStrategy = "asDropin";
   };
   # yt-dlp exits with a non-zero code if errors like missing pages occur, but
@@ -313,7 +327,7 @@ in
         serviceConfig = commonServiceConfig;
 
         script = ''
-          ${pkgs.python311.pkgs.pip}/bin/pip install --break-system-packages --user --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
+          ${pkgs.python313.pkgs.pip}/bin/pip install --break-system-packages --user --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
           rm -f /home/yt-music-dl/*.lock
         '';
       };
@@ -335,108 +349,123 @@ in
       };
 
       "music-dl-yt-playlist@" = {
-        after = [ "music-dl-pre.service" "music-dl-load-yt-cookies.service" ];
+        after = [
+          "music-dl-pre.service"
+          "music-dl-load-yt-cookies.service"
+        ];
         upholds = [ "music-dl-load-yt-cookies.service" ];
         path = [ "/home/yt-music-dl/.local" ];
         unitConfig = {
           JoinsNamespaceOf = "music-dl-load-yt-cookies.service";
         };
-        serviceConfig = commonServiceConfig // (
-          let
-            script = pkgs.writeShellScript "music-dl-yt-playlist.sh" ''
-              cd ${musicDir}/favourites
-              ${useYtCookiesCmd}
-              ${getYtDownloadCmd { dir = "$DIR"; url = "$URL"; }}
-              ${getPostamble "60"}
-            '';
-          in
-          {
-            ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-yt.lock";
-            ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-yt.lock";
-            ExecStart = "${script} %i";
-            PrivateTmp = "yes";
-          }
-        );
+        serviceConfig =
+          commonServiceConfig
+          // (
+            let
+              script = pkgs.writeShellScript "music-dl-yt-playlist.sh" ''
+                cd ${musicDir}/favourites
+                ${useYtCookiesCmd}
+                ${getYtDownloadCmd {
+                  dir = "$DIR";
+                  url = "$URL";
+                }}
+                ${getPostamble "60"}
+              '';
+            in
+            {
+              ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-yt.lock";
+              ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-yt.lock";
+              ExecStart = "${script} %i";
+              PrivateTmp = "yes";
+            }
+          );
       };
 
       "music-dl-yt-channel@" = {
-        after = [ "music-dl-pre.service" "music-dl-load-yt-cookies.service" ];
+        after = [
+          "music-dl-pre.service"
+          "music-dl-load-yt-cookies.service"
+        ];
         upholds = [ "music-dl-load-yt-cookies.service" ];
         path = [ "/home/yt-music-dl/.local" ];
         unitConfig = {
           JoinsNamespaceOf = "music-dl-load-yt-cookies.service";
         };
-        serviceConfig = commonServiceConfig // (
-          let
-            script = pkgs.writeShellScript "music-dl-yt-channel.sh" ''
-              cd ${musicDir}/lossy-downloads/yt
-              ${useYtCookiesCmd}
-              ${getYtDownloadCmd { 
-                dir = "%(upload_date)s/$DIR";
-                archive = "$DIR";
-                url = "$URL";
-                filter = "--match-filter 'duration >= 90 & duration <= 660 & original_url!*=/shorts/'";
-              }}
-              ${getPostamble "60"}
-            '';
-          in
-          {
-            ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-yt.lock";
-            ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-yt.lock";
-            ExecStart = "${script} %i";
-            PrivateTmp = "yes";
-          }
-        );
+        serviceConfig =
+          commonServiceConfig
+          // (
+            let
+              script = pkgs.writeShellScript "music-dl-yt-channel.sh" ''
+                cd ${musicDir}/lossy-downloads/yt
+                ${useYtCookiesCmd}
+                ${getYtDownloadCmd {
+                  dir = "%(upload_date)s/$DIR";
+                  archive = "$DIR";
+                  url = "$URL";
+                  filter = "--match-filter 'duration >= 90 & duration <= 660 & original_url!*=/shorts/'";
+                }}
+                ${getPostamble "60"}
+              '';
+            in
+            {
+              ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-yt.lock";
+              ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-yt.lock";
+              ExecStart = "${script} %i";
+              PrivateTmp = "yes";
+            }
+          );
       };
 
       "music-dl-bandcamp@" = {
         after = [ "music-dl-pre.service" ];
         path = [ "/home/yt-music-dl/.local" ];
-        serviceConfig = commonServiceConfig // (
-          let
-            script = pkgs.writeShellScript "music-dl-bandcamp.sh" ''
-              cd ${musicDir}/lossy-downloads/bandcamp
-              yt-dlp ${common-args} -ix -f 'flac/mp3' --download-archive "$1.txt" \
-                -o "$1/%(album,track)s/%(playlist_index)s. %(title)s.%(ext)s" \
-                "https://$1.bandcamp.com/music"
-              ${getPostamble "60"}
-            '';
-          in
-          {
-            ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-bc.lock";
-            ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-bc.lock";
-            ExecStart = "${script} %i";
-          }
-        );
+        serviceConfig =
+          commonServiceConfig
+          // (
+            let
+              script = pkgs.writeShellScript "music-dl-bandcamp.sh" ''
+                cd ${musicDir}/lossy-downloads/bandcamp
+                yt-dlp ${common-args} -ix -f 'flac/mp3' --download-archive "$1.txt" \
+                  -o "$1/%(album,track)s/%(playlist_index)s. %(title)s.%(ext)s" \
+                  "https://$1.bandcamp.com/music"
+                ${getPostamble "60"}
+              '';
+            in
+            {
+              ExecStartPre = "${pkgs.procmail}/bin/lockfile -3 /home/yt-music-dl/dl-bc.lock";
+              ExecStopPost = "${pkgs.coreutils}/bin/rm -f /home/yt-music-dl/dl-bc.lock";
+              ExecStart = "${script} %i";
+            }
+          );
       };
-    } // (
-      mapAttrs'
-        (name: url: nameValuePair "music-dl-yt-playlist@${sanitiseServiceName name}" (
-          dropinServiceOptions // {
-            environment = {
-              DIR = name;
-              URL = url;
-            };
-          }
-        ))
-        playlists
-    ) // (
-      mapAttrs'
-        (name: url: nameValuePair "music-dl-yt-channel@${sanitiseServiceName name}" (
-          dropinServiceOptions // {
-            environment = {
-              DIR = name;
-              URL = url;
-            };
-          }
-        ))
-        channels
-    ) // (
-      listToAttrs (map
-        (name: nameValuePair "music-dl-bandcamp@${name}" dropinServiceOptions)
-        bandcampUsers
+    }
+    // (mapAttrs' (
+      name: url:
+      nameValuePair "music-dl-yt-playlist@${sanitiseServiceName name}" (
+        dropinServiceOptions
+        // {
+          environment = {
+            DIR = name;
+            URL = url;
+          };
+        }
       )
-    );
+    ) playlists)
+    // (mapAttrs' (
+      name: url:
+      nameValuePair "music-dl-yt-channel@${sanitiseServiceName name}" (
+        dropinServiceOptions
+        // {
+          environment = {
+            DIR = name;
+            URL = url;
+          };
+        }
+      )
+    ) channels)
+    // (listToAttrs (
+      map (name: nameValuePair "music-dl-bandcamp@${name}" dropinServiceOptions) bandcampUsers
+    ));
   };
 
   users.extraUsers.yt-music-dl = {

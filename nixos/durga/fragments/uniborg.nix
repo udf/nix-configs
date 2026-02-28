@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../modules/uniborg.nix
@@ -17,7 +17,7 @@
           "mutagen"
           "hachoir"
         ];
-        python = pkgs.python311;
+        python = pkgs.python313;
       };
     };
   };
