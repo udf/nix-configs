@@ -6,14 +6,7 @@
 }:
 with lib;
 let
-  pythonPkg = pkgs.python3.withPackages (
-    ps: with ps; [
-      mpd2
-    ]
-  );
-  pythonPath = "${pythonPkg}/bin/python";
-  # TODO: package this
-  scriptDir = "${/home/sam/proj/p/mpdratingsync}";
+  pkg = pkgs.callPackage ../packages/mpd-ratings-sync.nix { };
   cfg = config.services.mpd-ratings-sync;
   environmentVars = [
     "PYTHONUNBUFFERED=1"
@@ -84,7 +77,7 @@ in
             Environment = environmentVars;
             Type = "oneshot";
             ExecStartPre = "${pkgs.coreutils}/bin/sleep 1";
-            ExecStart = "${pythonPath} ${scriptDir}/dump_ratings.py";
+            ExecStart = lib.getExe' pkg "dump_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
           };
 
@@ -102,7 +95,7 @@ in
           Service = {
             Environment = environmentVars;
             Type = "oneshot";
-            ExecStart = "${pythonPath} ${scriptDir}/load_ratings.py";
+            ExecStart = lib.getExe' pkg "load_ratings.py";
             WorkingDirectory = cfg.ratingsDBDir;
           };
 
