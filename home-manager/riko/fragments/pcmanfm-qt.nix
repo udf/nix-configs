@@ -8,7 +8,7 @@ in
     pcmanfm-qt
     lxmenu-data
     shared-mime-info
-    adwaita-icon-theme
+    kdePackages.qtsvg
   ];
 
   wayland.windowManager.sway = {

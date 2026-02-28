@@ -11,12 +11,16 @@
     gtk.enable = true;
   };
 
+  home.packages = with pkgs; [
+    kdePackages.breeze-icons
+  ];
+
   gtk = {
     colorScheme = "dark";
     enable = true;
     iconTheme = {
-      name = "Arc";
-      package = pkgs.arc-icon-theme;
+      name = "breeze-dark";
+      package = pkgs.kdePackages.breeze-icons;
     };
     theme = {
       name = "Arc-Dark";
@@ -25,6 +29,10 @@
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
     };
+  };
+
+  home.sessionVariables = {
+    GTK_THEME = config.gtk.theme.name;
   };
 
   qt = {

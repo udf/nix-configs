@@ -14,6 +14,23 @@ in
 {
   home.pointerCursor.sway.enable = true;
 
+  home.sessionVariables = {
+    GTK_USE_PORTAL = "1";
+    XDG_CURRENT_DESKTOP = "KDE";
+    XDG_DESKTOP_PORTAL_FILE_CHOOSER = "kde";
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      config.common = {
+        default = [ "kde" ];
+        "org.freedesktop.impl.portal.FileChooser" = "kde";
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     brightnessctl
     alacritty-graphics
