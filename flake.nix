@@ -31,6 +31,7 @@
             (import (./. + "/nixos/${host}/configuration.nix"))
             {
               nix.nixPath = [ "nixpkgs=${pkgs}" ];
+              networking.hostName = host;
             }
           ]
           ++ lib.optionals (home-manager != null) [
