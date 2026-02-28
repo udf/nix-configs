@@ -114,6 +114,7 @@ let
     "142002" = "SCLOUDPTELTD-AS Scloud Pte Ltd, SG";
     "148981" = "CHINANET-HUBEI-SHIYAN-IDC China Telecom, CN";
     "197183" = "OCCENTUS, ES";
+    "198953" = "PROTON66, RU";
     "200052" = "FERAL Feral Hosting, GB";
     "201579" = "HOSTGNOME-AS, GB";
     "201814" = "MEVSPACE, PL";
