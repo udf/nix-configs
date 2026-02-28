@@ -40,8 +40,8 @@ in
       }
       {
         timeout = 125;
-        command = kbdBacklightCmd 0;
-        resumeCommand = kbdBacklightCmd 1;
+        command = "${kbdBacklightCmd 0}; ${displays "off"}";
+        resumeCommand = "${kbdBacklightCmd 1}; ${displays "on"}";
       }
       {
         timeout = 300;
