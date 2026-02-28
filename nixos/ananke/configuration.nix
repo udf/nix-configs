@@ -1,15 +1,21 @@
-{ config, pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   private = (import ../_common/constants/private.nix).ananke;
-  sdImageFirmware = (pkgs.callPackage ./packages/sd-image-firmware.nix {});
+  sdImageFirmware = (pkgs.callPackage ./packages/sd-image-firmware.nix { });
 in
 {
   imports = [
-    <nixos-hardware/raspberry-pi/4>
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
     (import ../_autoload.nix ./.)
   ];
 
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
   custom.rpi-remote-build-durga.enable = true;
   custom.rpi-swapfile = {
     enable = true;
@@ -81,14 +87,18 @@ in
     hostName = "ananke";
     defaultGateway = "192.168.0.1";
     nameservers = [ "1.1.1.1" ];
-    interfaces.eth0.ipv4.addresses = [{
-      address = "192.168.0.3";
-      prefixLength = 24;
-    }];
-    interfaces.eth0.ipv6.addresses = [{
-      address = private.publicIPv6;
-      prefixLength = 64;
-    }];
+    interfaces.eth0.ipv4.addresses = [
+      {
+        address = "192.168.0.3";
+        prefixLength = 24;
+      }
+    ];
+    interfaces.eth0.ipv6.addresses = [
+      {
+        address = private.publicIPv6;
+        prefixLength = 64;
+      }
+    ];
     defaultGateway6 = {
       address = "fe80::76ac:b9ff:fe54:4f1";
       interface = "eth0";
