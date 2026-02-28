@@ -1,4 +1,2 @@
-_common/constants/private.nix
-_common/constants/*.env
 _common/constants/ipasn.dat.gz
 _common/constants/asnames.json
