@@ -1,8 +1,15 @@
-{ config, lib, pkgs, options, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.ipset-block;
   ipsetName = "badnets";
+  ipsetLoaderName = "ipset-${ipsetName}-load";
   bannedASNs = {
     "701" = "UUNET, US";
     "2518" = "BIGLOBE BIGLOBE Inc., JP";
@@ -150,69 +157,144 @@ let
     "400161" = "HAWAIIRESEARCH, US";
     "401120" = "CHEAPY-HOST, US";
   };
-  getBannedNetsScript =
-    let
-      pythonPkg = pkgs.python3.withPackages (ps: with ps; [ pyasn netaddr ]);
-    in
-    pkgs.writeScript "get-banned-nets.py" ''
-      #!${pythonPkg}/bin/python
-      import sys
-      import json
-      import pyasn
-      from netaddr import IPNetwork, cidr_merge
+  pythonPkg = pkgs.python3.withPackages (
+    ps: with ps; [
+      pyasn
+      netaddr
+    ]
+  );
+  getBannedNetsScript = pkgs.writeScript "get-banned-nets.py" ''
+    #!${pythonPkg}/bin/python
+    import sys
+    import json
+    import pyasn
+    from netaddr import IPNetwork, cidr_merge
 
-      bannedASNs = json.loads(''''
-      ${builtins.toJSON bannedASNs}
-      '''')
+    bannedASNs = json.loads(''''
+    ${builtins.toJSON bannedASNs}
+    '''')
 
-      print(f'Listing and merging nets for {len(bannedASNs)} ASNs', file=sys.stderr)
+    print(f'Listing and merging nets for {len(bannedASNs)} ASNs', file=sys.stderr)
 
-      asndb = pyasn.pyasn(
-        '${../constants/ipasn.dat.gz}',
-        as_names_file='${../constants/asnames.json}'
-      )
-      nets = set()
-      for asn, name in bannedASNs.items():
-        cur_name = asndb.get_as_name(asn)
-        if not cur_name != name:
-          print(f'<4>AS{asn} has an unexpected name! {name!r} != {cur_name!r}', file=sys.stderr)
-        prefixes = asndb.get_as_prefixes(asn)
-        if not prefixes:
-          print(f'<4>AS{asn} has no prefixes!', file=sys.stderr)
-          continue
-        nets.update(prefixes)
-      print(f'Got {len(nets)} nets', file=sys.stderr)
+    asndb = pyasn.pyasn(
+      '${cfg.asnDBDir}/ipasn.dat.gz',
+      as_names_file='${cfg.asnDBDir}/asnames.json'
+    )
+    nets = set()
+    for asn, name in bannedASNs.items():
+      cur_name = asndb.get_as_name(asn)
+      if not cur_name != name:
+        print(f'<4>AS{asn} has an unexpected name! {name!r} != {cur_name!r}', file=sys.stderr)
+      prefixes = asndb.get_as_prefixes(asn)
+      if not prefixes:
+        print(f'<4>AS{asn} has no prefixes!', file=sys.stderr)
+        continue
+      nets.update(prefixes)
+    print(f'Got {len(nets)} nets', file=sys.stderr)
 
-      merged = cidr_merge([IPNetwork(ip) for ip in nets])
-      num_ips = sum((net.hostmask.value or 0) + 1 for net in merged)
-      print(f'Merged into {len(merged)} nets ({num_ips} IPs) ({num_ips / 2**32 * 100:.2f}%)', file=sys.stderr)
-      print('\n'.join(f"add ${ipsetName} {net}" for net in merged))
-    '';
+    merged = cidr_merge([IPNetwork(ip) for ip in nets])
+    num_ips = sum((net.hostmask.value or 0) + 1 for net in merged)
+    print(f'Merged into {len(merged)} nets ({num_ips} IPs) ({num_ips / 2**32 * 100:.2f}%)', file=sys.stderr)
+    print('\n'.join(f"add ${ipsetName} {net} -exist" for net in merged))
+  '';
 in
 {
   options.custom.ipset-block = {
     enable = mkEnableOption "Enable blocking potentially malicious IPs with ipset";
+    # TODO: UDP
     exceptPorts = mkOption {
       description = "TCP ports to never block";
       type = types.listOf types.port;
       default = [ ];
     };
-    # TODO: UDP
+    user = mkOption {
+      type = types.str;
+      default = "ipset-asn";
+      description = "System user to run ASN DB generation and ipset scripts";
+    };
+    group = mkOption {
+      type = types.str;
+      default = "ipset-asn";
+      description = "System group for ASN DB generation and ipset scripts";
+    };
+    asnDBDirName = mkOption {
+      type = types.str;
+      default = "pyasndb";
+      description = "Directory name under /var/lib for ASN DB files";
+    };
+    asnDBDir = mkOption {
+      type = types.str;
+      readOnly = true;
+      default = "/var/lib/" + config.custom.ipset-block.asnDBDirName;
+      description = "Full path to ASN DB directory (read-only, derived from asnDBDirName).";
+    };
+    asnDBServiceName = mkOption {
+      type = types.str;
+      readOnly = true;
+      default = "generate-asn-db";
+      description = "Name of the generated service that updates/creates the ASN database ";
+    };
   };
 
   config = mkIf cfg.enable {
+    users.users."${cfg.user}" = {
+      isSystemUser = true;
+      group = cfg.group;
+      home = cfg.asnDBDir;
+    };
+    users.groups."${cfg.group}" = { };
+
+    systemd.services."${cfg.asnDBServiceName}" = {
+      description = "Generates a database of AS Names using pyasn";
+      path = [
+        pythonPkg
+        pkgs.coreutils
+      ];
+      after = [ "network-online.target" ];
+      wants = [
+        "network-online.target"
+        "${ipsetLoaderName}.service"
+      ];
+      partOf = [ "${ipsetLoaderName}.service" ];
+      serviceConfig = {
+        Nice = 10;
+        Type = "oneshot";
+        WorkingDirectory = cfg.asnDBDir;
+        StateDirectory = cfg.asnDBDirName;
+        User = cfg.user;
+        Group = cfg.group;
+      };
+
+      script = ''
+        if [ -f ipasn.dat.gz ] && [ $(find ipasn.dat.gz -mmin -$((24*60)) | wc -l) -gt 0 ]; then
+          echo "ipasn.dat.gz is fresh (<24h); skipping regeneration."
+          exit 0
+        fi
+        pyasn_util_download.py --latest
+        pyasn_util_convert.py --single rib.*.bz2 ipasn_tmp.dat
+        pyasn_util_asnames.py -o asnames.json
+        rm rib.*.bz2
+        ${lib.getExe pkgs.gzip} -f --best ipasn_tmp.dat
+        mv ipasn_tmp.dat.gz ipasn.dat.gz
+      '';
+    };
+
     systemd.services."ipset-${ipsetName}-load" = {
       description = "Load banned networks into ipset ${ipsetName}";
       requiredBy = [ "firewall.service" ];
       partOf = [ "firewall.service" ];
-      after = [ "firewall.service" ];
+      after = [
+        "firewall.service"
+        "${cfg.asnDBServiceName}.service"
+      ];
+      wants = [ "${cfg.asnDBServiceName}.service" ];
       path = [ pkgs.ipset ];
       serviceConfig = {
         Type = "oneshot";
       };
 
       script = ''
-        ${getBannedNetsScript} | ipset restore
+        ${lib.getExe pkgs.sudo} -u ${cfg.user} ${getBannedNetsScript} | ipset restore
       '';
     };
 
@@ -221,7 +303,9 @@ in
     networking.firewall =
       let
         ignorePorts = concatMapStringsSep "," (p: toString p) cfg.exceptPorts;
-        iptablesArgs = "-p tcp -m state --state NEW ${ optionalString (ignorePorts != "") "-m multiport ! --dports ${ignorePorts}" } -m set --match-set ${ipsetName} src -j DROP";
+        iptablesArgs = "-p tcp -m state --state NEW ${
+          optionalString (ignorePorts != "") "-m multiport ! --dports ${ignorePorts}"
+        } -m set --match-set ${ipsetName} src -j DROP";
       in
       {
         enable = true;
@@ -231,7 +315,7 @@ in
           ipset destroy ${ipsetName} || true
           ipset create ${ipsetName} hash:net
           iptables -I INPUT ${iptablesArgs}
-          systemctl start --no-block ipset-${ipsetName}-load.service
+          systemctl start --no-block ${ipsetLoaderName}.service
         '';
 
         extraStopCommands = ''

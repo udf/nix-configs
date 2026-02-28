@@ -1,10 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
-  python-pkg = pkgs.python312.withPackages (ps: with ps; [
-    (callPackage ../packages/watcher-bot.nix { })
-    pyasn
-  ]);
+  python-pkg = pkgs.python313.withPackages (
+    ps: with ps; [
+      (callPackage ../packages/watcher-bot.nix { })
+      pyasn
+    ]
+  );
   cfg = config.services.watcher-bot;
 in
 {
@@ -27,7 +34,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.watcher-bot.defaultPlugins = [ "systemd" "status" ];
+    services.watcher-bot.defaultPlugins = [
+      "systemd"
+      "status"
+    ];
 
     systemd.services.watcher-bot = {
       description = "Watchdog Telegram Bot";
@@ -45,7 +55,9 @@ in
         Restart = "always";
         RestartSec = 5;
         WorkingDirectory = "/home/watcher/";
-        ExecStart = "${python-pkg}/bin/python -m watcher-bot ${concatStringsSep " " (cfg.defaultPlugins ++ cfg.plugins)}";
+        ExecStart = "${python-pkg}/bin/python -m watcher-bot ${
+          concatStringsSep " " (cfg.defaultPlugins ++ cfg.plugins)
+        }";
       };
     };
 

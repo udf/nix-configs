@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  options,
   ...
 }:
 let
@@ -13,6 +14,7 @@ let
   UID = toString config.users.users.szuru.uid;
   GID = toString config.users.groups.szuru.gid;
   USER = "${UID}:${GID}";
+  ipsetCfg = config.custom.ipset-block;
 in
 {
   users.extraUsers.szuru = {
@@ -26,9 +28,12 @@ in
   };
 
   services.watcher-bot.plugins = [ "${../../_common/constants/watcher}/szuru_ip" ];
-  systemd.services.watcher-bot.environment = {
-    IPASN_DB = "${../../_common/constants/ipasn.dat.gz}";
-    ASNAMES_JSON = "${../../_common/constants/asnames.json}";
+  systemd.services.watcher-bot = {
+    wants = [ "${ipsetCfg.asnDBServiceName}.service" ];
+    environment = {
+      IPASN_DB = "${ipsetCfg.asnDBDir}/ipasn.dat.gz";
+      ASNAMES_JSON = "${ipsetCfg.asnDBDir}/asnames.json";
+    };
   };
 
   systemd.services.szuru =
