@@ -74,7 +74,7 @@ in
         "${mod}+x" = "kill";
 
         # programs
-        "${mod}+Escape" = "exec systemctl start --user swaylock";
+        "${mod}+Escape" = "exec loginctl lock-session";
         "${mod}+c" = "exec ${swayCfg.config.terminal}";
         "${mod}+d" = "exec ${swayCfg.config.menu}";
         "${mod}+n" = "exec firefox";
@@ -158,12 +158,12 @@ in
         "lid:on" = {
           reload = true;
           locked = true;
-          action = "output ${laptopOutput} disable; exec ${kbdBacklightCmd 0}";
+          action = "output ${laptopOutput} power off; exec ${kbdBacklightCmd 0}";
         };
         "lid:off" = {
           reload = true;
           locked = true;
-          action = "output ${laptopOutput} enable; exec ${kbdBacklightCmd 1}";
+          action = "output ${laptopOutput} power on; exec ${kbdBacklightCmd 1}";
         };
       };
     };
