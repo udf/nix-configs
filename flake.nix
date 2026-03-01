@@ -62,7 +62,7 @@
           home-manager = inputs.home-manager-unstable;
         };
         ananke = {
-          pkgs = inputs.nixpkgs-unstable;
+          pkgs = inputs.nixpkgs;
         };
         durga = {
           pkgs = inputs.nixpkgs;
