@@ -16,10 +16,10 @@
       effect-vignette = "0.5:0.5";
       clock = true;
       indicator = true;
-      indicator-radius = "75";
+      indicator-radius = "128";
       text-color = "ffffff";
-      font = "Hack Nerd Font";
-      font-size = "24";
+      font = "CyberpunkWaifus";
+      font-size = "48";
     };
   };
 
