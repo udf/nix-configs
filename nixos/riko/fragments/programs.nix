@@ -5,6 +5,7 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
+    e2fsprogs
     bottles
   ];
 }
