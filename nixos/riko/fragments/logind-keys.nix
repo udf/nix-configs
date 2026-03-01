@@ -4,5 +4,6 @@
     HandleLidSwitch = "lock";
     HandleLidSwitchExternalPower = "ignore";
     HandleLidSwitchDocked = "ignore";
+    HandlePowerKey = "sleep";
   };
 }
