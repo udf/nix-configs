@@ -29,11 +29,16 @@ in
     "/boot/firmware" = {
       device = "/dev/disk/by-label/FIRMWARE";
       fsType = "vfat";
+      depends = ["/boot"];
+    };
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXOS_BOOT";
+      fsType = "ext4";
     };
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = [ "noatime" ];
+      fsType = "btrfs";
+      options = [ "noatime" "compress=zstd:3" "discard" ];
     };
   };
   boot.loader.grub.enable = false;
@@ -122,6 +127,6 @@ in
     wol
     libraspberrypi
     raspberrypi-eeprom
+    compsize
   ];
-
 }
