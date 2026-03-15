@@ -54,7 +54,7 @@ in
       port = "auto";
       directives = [
         "default.battery.voltage.low = 46.0"
-        "default.battery.voltage.high = 56.0"
+        "default.battery.voltage.high = 54.5"
       ];
       # vendorid = "0665";
       # productid = "5161";
