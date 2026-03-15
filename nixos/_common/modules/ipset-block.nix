@@ -86,6 +86,7 @@ let
     "49581" = "FERDINANDZINK, DE";
     "49870" = "AS49870-BV, NL";
     "50304" = "BLIX, NO";
+    "50360" = "TAMATIYA-AS, BG";
     "50867" = "HOSTKEY-RU-AS, NL";
     "51167" = "CONTABO, DE";
     "51396" = "PFCLOUD, DE";
@@ -132,6 +133,7 @@ let
     "207812" = "DM_AUTO, BG";
     "208317" = "SF-DIGITALSERVICES, MD";
     "209132" = "AS209132, SC";
+    "209334" = "MODAT-01, NL";
     "209588" = "FLYSERVERS-ASN, PA";
     "209605" = "HOSTBALTIC, LT";
     "209805" = "SBCLOUD, RU";
@@ -142,6 +144,7 @@ let
     "211680" = "AS-BITSIGHT, PT";
     "211736" = "FDN3, UA";
     "213412" = "ONYPHE, FR";
+    "213438" = "COLOCATEL-INC Colocatel Network - High Bandwidth Dedicated Servers, SC";
     "213613" = "BOTSHIELD-LTD, GB";
     "214943" = "RAILNET, US";
     "215292" = "GRAVHOSTING, GB";
