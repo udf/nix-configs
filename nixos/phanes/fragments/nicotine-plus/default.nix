@@ -10,7 +10,7 @@ let
   XDisplay = "100";
   unstablePkgs = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
   nicotinePkg = (
-    pkgs.callPackage ../../_common/packages/nicotine-plus-gtk3.nix { unstablePkgs = unstablePkgs; }
+    pkgs.callPackage ../../../_common/packages/nicotine-plus-gtk3.nix { unstablePkgs = unstablePkgs; }
   );
 in
 {
@@ -63,7 +63,7 @@ in
     };
   };
 
-  environment.etc."nicotine/plugins".source = "${../../_common/helpers/nicotine-plugins}";
+  environment.etc."nicotine/plugins".source = "${./plugins}";
 
   fonts.packages = with pkgs; [
     noto-fonts
