@@ -11,7 +11,7 @@ in
       keybindings = {
         "XF86AudioPlay" = "exec playerctl -p playerctld play-pause";
         "XF86AudioNext" = "exec playerctl -p playerctld next";
-        "XF86AudioPrev" = "exec playerctl -p playerctld prev";
+        "XF86AudioPrev" = "exec playerctl -p playerctld previous";
 
         "${mod}+XF86AudioRaiseVolume" = "exec playerctl -p playerctld position 2+";
         "${mod}+XF86AudioLowerVolume" = "exec playerctl -p playerctld position 2-";
@@ -24,7 +24,7 @@ in
 
         "${mod}+Mod1+s" = "exec playerctl -p playerctld play-pause";
         "${mod}+Mod1+x" = "exec playerctl -p playerctld next";
-        "${mod}+Mod1+z" = "exec playerctl -p playerctld prev";
+        "${mod}+Mod1+z" = "exec playerctl -p playerctld previous";
 
         "${mod}+Mod1+f" = "exec playerctl -p playerctld volume 0.01+";
         "${mod}+Mod1+v" = "exec playerctl -p playerctld volume 0.01-";
