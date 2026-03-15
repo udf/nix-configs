@@ -9,6 +9,7 @@
   tqdm,
   mutagen,
   unidecode,
+  packaging
 }:
 
 buildPythonPackage rec {
@@ -33,6 +34,7 @@ buildPythonPackage rec {
     tqdm
     mutagen
     unidecode
+    packaging
   ];
 
   # Project has no tests
