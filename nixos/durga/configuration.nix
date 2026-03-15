@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  options,
+  inputs,
   ...
 }:
 {
@@ -51,12 +51,16 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
+    flake = inputs.self.outPath;
     operation = "boot";
-    flags = [ "--upgrade-all" ];
+    flags = [ "-L" ];
     dates = "Fri *-*-* 20:00:00";
   };
 
   systemd.services.nixos-upgrade.serviceConfig = {
+    ExecStartPre = pkgs.writeShellScript "etc-nixos-flake-update.sh" ''
+      ${lib.getExe' config.nix.package "nix"} flake update --flake "path:$(dirname $(readlink /etc/nixos/flake.nix))"
+    '';
     ExecStartPost = "${config.systemd.package}/bin/shutdown -r +1";
   };
 
