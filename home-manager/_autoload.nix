@@ -1,24 +1,12 @@
 sourceDir:
 { lib, ... }:
-with builtins;
-with lib;
 let
-  listFiles =
-    dir:
-    map (f: dir + "/${f}") (
-      attrNames (
-        filterAttrs (
-          k: v:
-          (v == "regular" && hasSuffix ".nix" k)
-          || (v == "directory" && pathExists ((dir + "/${k}/default.nix")))
-        ) (readDir dir)
-      )
-    );
+  listImportable = ((import ./_common/helpers/list-files.nix) { inherit lib; }).listImportable;
 in
 {
   imports = (
-    (listFiles ./_common/fragments)
-    ++ (listFiles ./_common/modules)
-    ++ (listFiles (sourceDir + "/fragments"))
+    (listImportable ./_common/fragments)
+    ++ (listImportable ./_common/modules)
+    ++ (listImportable (sourceDir + "/fragments"))
   );
 }
