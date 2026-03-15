@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   defaultServerHost = "churro.withsam.org";
   serverHost = (import ../../_common/constants/private.nix).homeHostname;
@@ -20,7 +25,10 @@ in
       };
       "${serverHost}" = {
         email = "tabhooked@gmail.com";
-        extraDomainNames = [ "*.${serverHost}" "trans-rights.withsam.org" ];
+        extraDomainNames = [
+          "*.${serverHost}"
+          "trans-rights.withsam.org"
+        ];
         dnsProvider = "ovh";
         credentialsFile = "/var/lib/secrets/ovh.certs.secret";
       };

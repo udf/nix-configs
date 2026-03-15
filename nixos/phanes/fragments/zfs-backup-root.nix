@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   srcDataset = "zpool";
   targetDataset = "backup/${config.networking.hostName}_bk";
@@ -60,7 +65,10 @@ in
     commands."${srcDataset}-root" = {
       source = "${srcDataset}/root";
       target = "${targetDataset}/root";
-      extraArgs = [ "--no-sync-snap" "--create-bookmark" ];
+      extraArgs = [
+        "--no-sync-snap"
+        "--create-bookmark"
+      ];
     };
     commands."${srcDataset}-nix" = {
       source = "${srcDataset}/nix";

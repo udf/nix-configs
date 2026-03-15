@@ -1,4 +1,10 @@
-{ config, lib, pkgs, options, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  options,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.fail2endlessh;
@@ -26,7 +32,7 @@ in
     services.endlessh = {
       enable = true;
       port = cfg.endlesshPort;
-      extraOptions = ["-d 360000"];
+      extraOptions = [ "-d 360000" ];
       openFirewall = true;
     };
 
@@ -45,32 +51,34 @@ in
       };
     };
 
-    environment.etc."fail2ban/action.d/endlessh.conf".source = let
-      dport = toString cfg.sshdPort;
-      to-port = toString cfg.endlesshPort;
-    in pkgs.writeText "endlessh.conf" ''
-      [INCLUDES]
-      before = iptables.conf
+    environment.etc."fail2ban/action.d/endlessh.conf".source =
+      let
+        dport = toString cfg.sshdPort;
+        to-port = toString cfg.endlesshPort;
+      in
+      pkgs.writeText "endlessh.conf" ''
+        [INCLUDES]
+        before = iptables.conf
 
-      [Definition]
-      actionstart = <iptables> -t nat -N f2b-<name>
-                    <iptables> -t nat -A f2b-<name> -j <returntype>
-                    <iptables> -t nat -I PREROUTING -p tcp --dport ${dport} -j f2b-<name>
+        [Definition]
+        actionstart = <iptables> -t nat -N f2b-<name>
+                      <iptables> -t nat -A f2b-<name> -j <returntype>
+                      <iptables> -t nat -I PREROUTING -p tcp --dport ${dport} -j f2b-<name>
 
-      actionstop = <iptables> -t nat -D PREROUTING -p tcp --dport ${dport} -j f2b-<name>
-                   <actionflush>
-                   <iptables> -t nat -X f2b-<name>
+        actionstop = <iptables> -t nat -D PREROUTING -p tcp --dport ${dport} -j f2b-<name>
+                     <actionflush>
+                     <iptables> -t nat -X f2b-<name>
 
-      actioncheck = <iptables> -t nat -n -L PREROUTING | grep -q 'f2b-<name>[ \t]'
+        actioncheck = <iptables> -t nat -n -L PREROUTING | grep -q 'f2b-<name>[ \t]'
 
-      actionban = <iptables> -t nat -I f2b-<name> 1 -p tcp -s <ip> -j REDIRECT --dport ${dport} --to-port ${to-port}
+        actionban = <iptables> -t nat -I f2b-<name> 1 -p tcp -s <ip> -j REDIRECT --dport ${dport} --to-port ${to-port}
 
-      actionunban = <iptables> -t nat -D f2b-<name> -p tcp -s <ip> -j REDIRECT --dport ${dport} --to-port ${to-port}
+        actionunban = <iptables> -t nat -D f2b-<name> -p tcp -s <ip> -j REDIRECT --dport ${dport} --to-port ${to-port}
 
-      actionflush = <iptables> -t nat -F f2b-<name>
+        actionflush = <iptables> -t nat -F f2b-<name>
 
-      [Init]
-      blocktype = blackhole
-    '';
+        [Init]
+        blocktype = blackhole
+      '';
   };
 }

@@ -29,7 +29,7 @@ in
     "/boot/firmware" = {
       device = "/dev/disk/by-label/FIRMWARE";
       fsType = "vfat";
-      depends = ["/boot"];
+      depends = [ "/boot" ];
     };
     "/boot" = {
       device = "/dev/disk/by-label/NIXOS_BOOT";
@@ -38,7 +38,11 @@ in
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:3" "discard" ];
+      options = [
+        "noatime"
+        "compress=zstd:3"
+        "discard"
+      ];
     };
   };
   boot.loader.grub.enable = false;

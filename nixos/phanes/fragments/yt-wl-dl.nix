@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   externalMount = "/external";
   downloadDir = "${externalMount}/downloads/yt";
@@ -10,7 +15,10 @@ let
   dlCookiesSocket = "/var/run/yt-wl/yt-store-dl-cookies.socket";
   helperScripts = "${../scripts/yt-wl}";
   pythonPkg = pkgs.python313.withPackages (ps: with ps; [ curl-cffi ]);
-  venvSetupCode = import ../../_common/helpers/gen-venv-setup.nix { inherit pythonPkg; inherit pkgs; };
+  venvSetupCode = import ../../_common/helpers/gen-venv-setup.nix {
+    inherit pythonPkg;
+    inherit pkgs;
+  };
 in
 {
   imports = [
@@ -73,7 +81,10 @@ in
       };
     };
     services.yt-wl-fetch = {
-      after = [ "network.target" "yt-wl-dl.service" ];
+      after = [
+        "network.target"
+        "yt-wl-dl.service"
+      ];
       upholds = [ "external.mount" ];
       unitConfig = {
         RequiresMountsFor = "/external";
@@ -153,8 +164,14 @@ in
     };
     services.yt-wl-dl = {
       after = [ "network.target" ];
-      path = [ pkgs.ffmpeg pkgs.deno ];
-      upholds = [ "external.mount" "yt-wl-trasher.timer" ];
+      path = [
+        pkgs.ffmpeg
+        pkgs.deno
+      ];
+      upholds = [
+        "external.mount"
+        "yt-wl-trasher.timer"
+      ];
       unitConfig = {
         RequiresMountsFor = "/external";
       };

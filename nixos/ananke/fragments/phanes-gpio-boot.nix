@@ -1,6 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  pythonPkg = pkgs.python3.withPackages (ps: with ps; [ gpiozero rpi-gpio ]);
+  pythonPkg = pkgs.python3.withPackages (
+    ps: with ps; [
+      gpiozero
+      rpi-gpio
+    ]
+  );
   gpioScript = pkgs.writeScript "gpio-pwr-btn.py" ''
     #!${pythonPkg}/bin/python
     import time

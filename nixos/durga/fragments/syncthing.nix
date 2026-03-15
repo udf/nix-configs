@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services.syncthing = {
@@ -20,7 +25,12 @@
   };
 
   users.users.sam.extraGroups = [ "syncthing" ];
-  users.users.syncthing.extraGroups = [ "cl_qbit" "cl_music" "cl_backups" "factorio" ];
+  users.users.syncthing.extraGroups = [
+    "cl_qbit"
+    "cl_music"
+    "cl_backups"
+    "factorio"
+  ];
 
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = 204800;

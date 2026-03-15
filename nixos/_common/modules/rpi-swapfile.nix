@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.rpi-swapfile;
@@ -14,7 +19,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    swapDevices = [{ device = "/swapfile"; size = 4096; }];
+    swapDevices = [
+      {
+        device = "/swapfile";
+        size = 4096;
+      }
+    ];
     boot.kernel.sysctl = mkIf cfg.disableSwappiness {
       "vm.swappiness" = 0;
     };

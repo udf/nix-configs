@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, callPackage, setuptools, aiohttp, systemd-python, telethon }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  callPackage,
+  setuptools,
+  aiohttp,
+  systemd-python,
+  telethon,
+}:
 
 buildPythonPackage {
   pname = "watcher-bot";

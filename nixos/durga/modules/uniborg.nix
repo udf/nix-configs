@@ -1,36 +1,64 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) const mapAttrs' mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    const
+    mapAttrs'
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 
   cfg = config.services.uniborg;
 
   attrPackageType =
     let
-      inherit (types) attrs coercedTo either nullOr package path
-        submodule str unspecified;
+      inherit (types)
+        attrs
+        coercedTo
+        either
+        nullOr
+        package
+        path
+        submodule
+        str
+        unspecified
+        ;
       pkgType = either package (either path str);
       coercePkg = pkg: { inherit pkg; };
     in
     coercedTo pkgType coercePkg (submodule {
       options = {
         pkg = mkOption {
-          description = ''Package to use.'';
+          description = "Package to use.";
           type = pkgType;
         };
         override = mkOption {
-          description = ''Overrides to apply.'';
+          description = "Overrides to apply.";
           default = null;
           type = nullOr attrs;
         };
         overrideAttrs = mkOption {
-          description = ''Attribute overrides to apply.'';
+          description = "Attribute overrides to apply.";
           default = null;
           type = nullOr unspecified;
         };
       };
     });
-  callAttrPackage = pkgs: { pkg, override, overrideAttrs, ... }:
+  callAttrPackage =
+    pkgs:
+    {
+      pkg,
+      override,
+      overrideAttrs,
+      ...
+    }:
     let
       isPackage = types.package.check pkg;
       isPath = !isPackage && types.path.check pkg;
@@ -44,19 +72,24 @@ let
           pkgs.callPackage pkg override'
         else if isStr then
           pkgs.${pkg}
-        else throw "unreachable";
+        else
+          throw "unreachable";
       pkg'' = if isOverridden then pkg'.override override' else pkg';
     in
-    if overrideAttrs == null then
-      pkg''
-    else
-      pkg''.overrideAttrs overrideAttrs;
+    if overrideAttrs == null then pkg'' else pkg''.overrideAttrs overrideAttrs;
 
   userOptions =
     let
-      inherit (types) either listOf nullOr package str;
+      inherit (types)
+        either
+        listOf
+        nullOr
+        package
+        str
+        ;
     in
-    { name, config, ... }: {
+    { name, config, ... }:
+    {
       options = {
         enable = mkEnableOption "this borg";
         extraPackages = mkOption {
@@ -75,18 +108,18 @@ let
         };
         name = mkOption {
           default = name;
-          description = ''Name of this borg.'';
+          description = "Name of this borg.";
           type = str;
         };
         python = mkOption {
           default = pkgs.python311;
           defaultText = "pkgs.python311";
-          description = ''Python package to use.'';
+          description = "Python package to use.";
           type = package;
         };
         telethon = mkOption {
           default = ../packages/telethon.nix;
-          description = ''Telethon package to use.'';
+          description = "Telethon package to use.";
           type = attrPackageType;
         };
         user = mkOption {
@@ -108,21 +141,29 @@ let
     };
 
   borg-service =
-    { enable
-    , extraPackages
-    , extraPythonPackages
-    , name
-    , python
-    , telethon
-    , user
-    , subdir
-    , ...
+    {
+      enable,
+      extraPackages,
+      extraPythonPackages,
+      name,
+      python,
+      telethon,
+      user,
+      subdir,
+      ...
     }:
     let
-      python-pkg = python.withPackages (ps:
+      python-pkg = python.withPackages (
+        ps:
         let
-          callPackage = callAttrPackage ps; in
-        [ (callPackage telethon) (ps.jsonpickle) ] ++ (map callPackage extraPythonPackages));
+          callPackage = callAttrPackage ps;
+        in
+        [
+          (callPackage telethon)
+          (ps.jsonpickle)
+        ]
+        ++ (map callPackage extraPythonPackages)
+      );
     in
     {
       name = "uniborg-${name}";

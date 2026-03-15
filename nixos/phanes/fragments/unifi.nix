@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   httpsPort = 8443;
   httpsCaptivePortalPort = 8843;
@@ -13,39 +18,46 @@ in
     privateNetwork = true;
     hostBridge = "br0";
     localAddress = "${containerIP}/24";
-    config = { config, pkgs, lib, ... }: {
-      imports = [
-        ../../_common/fragments/deterministic-ids.nix
-      ];
+    config =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        imports = [
+          ../../_common/fragments/deterministic-ids.nix
+        ];
 
-      system.stateVersion = "25.05";
+        system.stateVersion = "25.05";
 
-      networking = {
-        firewall = {
-          enable = true;
-          allowedTCPPorts = [ httpsPort ];
+        networking = {
+          firewall = {
+            enable = true;
+            allowedTCPPorts = [ httpsPort ];
+          };
+          defaultGateway = "192.168.0.1";
+          # Use systemd-resolved inside the container
+          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+          useHostResolvConf = lib.mkForce false;
         };
-        defaultGateway = "192.168.0.1";
-        # Use systemd-resolved inside the container
-        # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
-        useHostResolvConf = lib.mkForce false;
+
+        services.resolved.enable = true;
+
+        nixpkgs.config.allowUnfree = true;
+        services.unifi = {
+          enable = true;
+          openFirewall = true;
+          unifiPackage = pkgs.unifi;
+          mongodbPackage = pkgs.mongodb-ce;
+        };
+
+        environment.etc."unifi-mongodb.conf".text = ''
+          setParameter:
+            diagnosticDataCollectionEnabled: false
+        '';
       };
-
-      services.resolved.enable = true;
-
-      nixpkgs.config.allowUnfree = true;
-      services.unifi = {
-        enable = true;
-        openFirewall = true;
-        unifiPackage = pkgs.unifi;
-        mongodbPackage = pkgs.mongodb-ce;
-      };
-
-      environment.etc."unifi-mongodb.conf".text = ''
-        setParameter:
-          diagnosticDataCollectionEnabled: false
-      '';
-    };
   };
 
   # add rsa, for being able to ssh into unifi devices for manual management
@@ -54,7 +66,11 @@ in
     hostKeyAlgorithms = [ "+ssh-rsa" ];
   };
 
-  networking.firewall.allowedTCPPorts = [ httpsPort httpsCaptivePortalPort httpCaptivePortalPort ];
+  networking.firewall.allowedTCPPorts = [
+    httpsPort
+    httpsCaptivePortalPort
+    httpCaptivePortalPort
+  ];
 
   services.nginxProxy.paths."unifi" = {
     serverHost = "trans-rights.withsam.org";

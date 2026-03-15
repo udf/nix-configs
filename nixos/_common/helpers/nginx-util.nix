@@ -56,11 +56,9 @@ rec {
     }
 
     map $status $status_text {
-      ${
-        concatStringsSep "\n" (mapAttrsToList
-          (k: v: "${k} ${lib.strings.escapeNixString v};") statusCodes
-        )
-      }
+      ${concatStringsSep "\n" (
+        mapAttrsToList (k: v: "${k} ${lib.strings.escapeNixString v};") statusCodes
+      )}
       default "Something went wrong";
     }
 
@@ -95,7 +93,12 @@ rec {
       "@default".extraConfig = "";
     };
   };
-  addErrorPageOpts = opts: mkMerge [ errorPageOpts opts ];
+  addErrorPageOpts =
+    opts:
+    mkMerge [
+      errorPageOpts
+      opts
+    ];
   denyWriteMethods = "limit_except GET PROPFIND OPTIONS { deny all; }";
   gzipBombConfig = ''
     root /var/www;

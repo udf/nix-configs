@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -22,7 +27,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
 
-  boot.kernelParams = [ "preempt=full" "usbcore.autosuspend=-1" "usbcore.quirks=17ef:7205:k,1f75:0621:bk" ];
+  boot.kernelParams = [
+    "preempt=full"
+    "usbcore.autosuspend=-1"
+    "usbcore.quirks=17ef:7205:k,1f75:0621:bk"
+  ];
   boot.kernel.sysctl = lib.mkForce {
     "vm.swappiness" = 15;
     "vm.overcommit_memory" = 1;
@@ -61,4 +70,3 @@
     intel-gpu-tools
   ];
 }
-

@@ -28,7 +28,11 @@
   fileSystems."/" = {
     device = "/dev/mapper/vg-root";
     fsType = "btrfs";
-    options = [ "relatime" "compress=zstd:3" "discard" ];
+    options = [
+      "relatime"
+      "compress=zstd:3"
+      "discard"
+    ];
   };
 
   fileSystems."/boot" = {

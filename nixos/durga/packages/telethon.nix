@@ -1,4 +1,15 @@
-{ lib , buildPythonPackage , fetchFromGitHub , openssl , rsa , pyaes , pythonOlder , setuptools , pytest-asyncio , pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  openssl,
+  rsa,
+  pyaes,
+  pythonOlder,
+  setuptools,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "telethon";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   defaultServerHost = "donut.withsam.org";
   serverHost = "durga.withsam.org";

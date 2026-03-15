@@ -9,7 +9,7 @@
   tqdm,
   mutagen,
   unidecode,
-  packaging
+  packaging,
 }:
 
 buildPythonPackage rec {
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     (deemix.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [ ./deemix-allow-more-path-chars.patch ];
+      patches = (old.patches or [ ]) ++ [ ./deemix-allow-more-path-chars.patch ];
     }))
     requests
     click

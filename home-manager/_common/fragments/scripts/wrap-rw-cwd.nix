@@ -1,4 +1,4 @@
-{lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 {
   namedPackages.ro-cwd = pkgs.writeShellScriptBin "wrap-rw-cwd" ''
     ${lib.getExe pkgs.bubblewrap} \
@@ -10,5 +10,5 @@
       --tmpfs "$HOME/.ssh" \
       --unshare-user --unshare-pid --unshare-uts --unshare-ipc \
       --die-with-parent -- "$@"
-    '';
+  '';
 }

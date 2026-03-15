@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   # coolercontrol is garbage and needs to be accessed locally
   # ssh -L localhost:11980:localhost:11988 phanes

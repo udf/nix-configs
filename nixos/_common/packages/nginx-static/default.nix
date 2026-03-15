@@ -1,6 +1,11 @@
 { lib, pkgs, ... }:
 pkgs.stdenv.mkDerivation {
-  nativeBuildInputs = with pkgs; [ parallel findutils libwebp coreutils ];
+  nativeBuildInputs = with pkgs; [
+    parallel
+    findutils
+    libwebp
+    coreutils
+  ];
   name = "nginx-static";
   src = ./.;
   dontUnpack = true;

@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
-let 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   cachePath = "/var/cache/nginx/proxy";
-in 
+in
 {
   systemd.services.nginx.serviceConfig.ReadWritePaths = [ cachePath ];
 

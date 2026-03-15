@@ -1,56 +1,63 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   util = (import ../helpers/nginx-util.nix) { inherit lib pkgs; };
   proxyCfg = config.services.nginxProxy;
-  proxyPathOpts = { name, ... }: {
-    options = {
-      serverHost = mkOption {
-        description = "The host for the generated server block";
-        default = "${name}.${proxyCfg.serverHost}";
-        type = types.str;
-      };
-      port = mkOption {
-        description = "The local port to proxy";
-        type = types.port;
-      };
-      host = mkOption {
-        description = "The host to proxy";
-        default = "127.0.0.1";
-        type = types.str;
-      };
-      proto = mkOption {
-        description = "The protocol to connect to the host with";
-        default = "http";
-        type = types.str;
-      };
-      extraConfig = mkOption {
-        description = "Extra config to add to the @default location block";
-        default = "";
-        type = types.str;
-      };
-      extraServerConfig = mkOption {
-        description = "Extra config to add to the server block";
-        default = "";
-        type = types.str;
-      };
-      authMessage = mkOption {
-        description = "The message to display when prompting for authorization";
-        default = "Restricted area";
-        type = types.str;
-      };
-      useAuth = mkOption {
-        description = "Whether or not to use basic authorisation";
-        default = true;
-        type = types.bool;
-      };
-      useAuthCookie = mkOption {
-        description = "Whether or not to store the auth header in a session cookie (to fix issues with subpar browsers not sending the auth header with every request)";
-        default = false;
-        type = types.bool;
+  proxyPathOpts =
+    { name, ... }:
+    {
+      options = {
+        serverHost = mkOption {
+          description = "The host for the generated server block";
+          default = "${name}.${proxyCfg.serverHost}";
+          type = types.str;
+        };
+        port = mkOption {
+          description = "The local port to proxy";
+          type = types.port;
+        };
+        host = mkOption {
+          description = "The host to proxy";
+          default = "127.0.0.1";
+          type = types.str;
+        };
+        proto = mkOption {
+          description = "The protocol to connect to the host with";
+          default = "http";
+          type = types.str;
+        };
+        extraConfig = mkOption {
+          description = "Extra config to add to the @default location block";
+          default = "";
+          type = types.str;
+        };
+        extraServerConfig = mkOption {
+          description = "Extra config to add to the server block";
+          default = "";
+          type = types.str;
+        };
+        authMessage = mkOption {
+          description = "The message to display when prompting for authorization";
+          default = "Restricted area";
+          type = types.str;
+        };
+        useAuth = mkOption {
+          description = "Whether or not to use basic authorisation";
+          default = true;
+          type = types.bool;
+        };
+        useAuthCookie = mkOption {
+          description = "Whether or not to store the auth header in a session cookie (to fix issues with subpar browsers not sending the auth header with every request)";
+          default = false;
+          type = types.bool;
+        };
       };
     };
-  };
   authCookieName = "nginx_auth";
 in
 {
@@ -78,7 +85,10 @@ in
   };
 
   config = mkIf proxyCfg.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     users.groups.acme.members = [ "nginx" ];
 
@@ -120,71 +130,70 @@ in
         proxy_headers_hash_max_size 1024;
       '';
 
-      virtualHosts = mkMerge ([
-        {
-          # default server block (i.e. wrong/no domain)
-          "_" = {
-            default = true;
-            addSSL = true;
-            useACMEHost = proxyCfg.defaultServerACMEHost;
+      virtualHosts = mkMerge (
+        [
+          {
+            # default server block (i.e. wrong/no domain)
+            "_" = {
+              default = true;
+              addSSL = true;
+              useACMEHost = proxyCfg.defaultServerACMEHost;
 
-            extraConfig = util.gzipBombConfig;
-          };
-
-          "www.${proxyCfg.serverHost}" = {
-            useACMEHost = proxyCfg.serverHost;
-            forceSSL = true;
-            extraConfig = ''
-              rewrite ^/$ https://${proxyCfg.serverHost} permanent;
-            '';
-          };
-
-          "${proxyCfg.serverHost}" = util.addErrorPageOpts {
-            useACMEHost = proxyCfg.serverHost;
-            forceSSL = true;
-            root = "/dev/null";
-
-            locations = {
-              "/".extraConfig = ''
-                rewrite ^ ${proxyCfg.defaultRedirect};
-              '';
+              extraConfig = util.gzipBombConfig;
             };
-          };
-        }
-      ] ++ (
-        mapAttrsToList
-          (path: opts: {
-            "${opts.serverHost}" = util.addErrorPageOpts {
+
+            "www.${proxyCfg.serverHost}" = {
               useACMEHost = proxyCfg.serverHost;
               forceSSL = true;
-              extraConfig = opts.extraServerConfig;
-              locations."= /favicon.ico".extraConfig = lib.mkForce "try_files _ @default;";
-              locations."/".extraConfig = ''
-                ${optionalString (opts.useAuth && opts.useAuthCookie)''
-                more_set_input_headers "Authorization: $auth_header_from_cookie";
-                ''}
-
-                try_files _ @default;
-              '';
-              locations."@default".extraConfig = ''
-                ${optionalString opts.useAuth ''
-                auth_basic "${opts.authMessage}";
-                auth_basic_user_file /var/lib/secrets/nginx/auth/${path}.htpasswd;
-                ''}
-
-                ${optionalString (opts.useAuth && opts.useAuthCookie)''
-                add_header Set-Cookie "${authCookieName}=$http_authorization; Path=/; SameSite=Strict; Secure";
-                ''}
-
-                proxy_pass ${opts.proto}://${opts.host}:${toString opts.port};
-                proxy_set_header X-Forwarded-Host $host;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                ${opts.extraConfig}
+              extraConfig = ''
+                rewrite ^/$ https://${proxyCfg.serverHost} permanent;
               '';
             };
-          })
-          proxyCfg.paths
-      ));
+
+            "${proxyCfg.serverHost}" = util.addErrorPageOpts {
+              useACMEHost = proxyCfg.serverHost;
+              forceSSL = true;
+              root = "/dev/null";
+
+              locations = {
+                "/".extraConfig = ''
+                  rewrite ^ ${proxyCfg.defaultRedirect};
+                '';
+              };
+            };
+          }
+        ]
+        ++ (mapAttrsToList (path: opts: {
+          "${opts.serverHost}" = util.addErrorPageOpts {
+            useACMEHost = proxyCfg.serverHost;
+            forceSSL = true;
+            extraConfig = opts.extraServerConfig;
+            locations."= /favicon.ico".extraConfig = lib.mkForce "try_files _ @default;";
+            locations."/".extraConfig = ''
+              ${optionalString (opts.useAuth && opts.useAuthCookie) ''
+                more_set_input_headers "Authorization: $auth_header_from_cookie";
+              ''}
+
+              try_files _ @default;
+            '';
+            locations."@default".extraConfig = ''
+              ${optionalString opts.useAuth ''
+                auth_basic "${opts.authMessage}";
+                auth_basic_user_file /var/lib/secrets/nginx/auth/${path}.htpasswd;
+              ''}
+
+              ${optionalString (opts.useAuth && opts.useAuthCookie) ''
+                add_header Set-Cookie "${authCookieName}=$http_authorization; Path=/; SameSite=Strict; Secure";
+              ''}
+
+              proxy_pass ${opts.proto}://${opts.host}:${toString opts.port};
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              ${opts.extraConfig}
+            '';
+          };
+        }) proxyCfg.paths)
+      );
 
     };
   };

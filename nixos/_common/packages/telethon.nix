@@ -1,4 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchurl, openssl, rsa, pyaes, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchurl,
+  openssl,
+  rsa,
+  pyaes,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "telethon";

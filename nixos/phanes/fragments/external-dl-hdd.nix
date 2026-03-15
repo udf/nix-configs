@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   fileSystems."/external" = {
     device = "/dev/disk/by-uuid/2B0AACD0029C68C2";

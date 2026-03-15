@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   port = 3539;
@@ -26,21 +31,21 @@ in
     homeDir = "/home/flexget";
     systemScheduler = false;
     config = ''
-    tasks:
-      nyaa-subsplease:
-        rss: https://nyaa.si/?page=rss&q=subsplease+1080p&c=0_0&f=0
-        regexp:
-          accept:
-            - placeholderdoesnotmatch
-        download: /sync/downloads/flexget
-    schedules:
-      - tasks: 'nyaa-*'
-        interval:
-          minutes: 5
-    web_server:
-      bind: 127.0.0.1
-      port: ${toString port}
-      web_ui: yes
+      tasks:
+        nyaa-subsplease:
+          rss: https://nyaa.si/?page=rss&q=subsplease+1080p&c=0_0&f=0
+          regexp:
+            accept:
+              - placeholderdoesnotmatch
+          download: /sync/downloads/flexget
+      schedules:
+        - tasks: 'nyaa-*'
+          interval:
+            minutes: 5
+      web_server:
+        bind: 127.0.0.1
+        port: ${toString port}
+        web_ui: yes
     '';
   };
 
