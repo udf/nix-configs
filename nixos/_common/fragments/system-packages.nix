@@ -26,5 +26,6 @@
     expect
     jq
     ldns
+    moreutils
   ];
 }
