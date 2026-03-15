@@ -58,8 +58,8 @@ in
         "${mod}+Mod1+e" = "exec swayosd-client --output-volume mute-toggle";
 
         # Brightness Controls
-        "XF86MonBrightnessUp" = "exec swayosd-client --device amdgpu_bl2 --brightness +1";
-        "XF86MonBrightnessDown" = "exec swayosd-client --device amdgpu_bl2 --brightness -1";
+        "XF86MonBrightnessUp" = "exec swayosd-client --device amdgpu_bl2 --brightness +2";
+        "XF86MonBrightnessDown" = "exec swayosd-client --device amdgpu_bl2 --brightness -2";
       };
     };
   };
