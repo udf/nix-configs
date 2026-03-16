@@ -6,7 +6,7 @@
 }:
 let
   homeHostname = (import ../../_common/constants/private.nix).homeHostname;
-  serverHost = "durga.withsam.org";
+  serverHost = config.services.nginxProxy.serverHost;
   proxySubdomain = "gaia";
   subMap = "$sub_subdomain_${proxySubdomain}";
   util = (import ../../_common/helpers/nginx-util.nix) { inherit lib pkgs; };

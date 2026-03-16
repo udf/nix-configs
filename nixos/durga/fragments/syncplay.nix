@@ -7,7 +7,7 @@
 {
   services.syncplay = {
     enable = true;
-    useACMEHost = "durga.withsam.org";
+    useACMEHost = config.services.nginxProxy.serverHost;
   };
   systemd.services.syncplay.environment = {
     SYNCPLAY_PASSWORD = "hentai";

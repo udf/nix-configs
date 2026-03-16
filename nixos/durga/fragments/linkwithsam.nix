@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   python-pkg = pkgs.python313.withPackages (
     ps: with ps; [
@@ -6,6 +6,7 @@ let
       aiohttp-cors
     ]
   );
+  hostName = "l.withsam.org";
 in
 {
   systemd.services.linkwithsam = {
@@ -26,13 +27,17 @@ in
 
   services.nginxProxy.paths = {
     "linkwithsam" = {
-      serverHost = "l.withsam.org";
+      serverHost = hostName;
       useAuth = false;
       port = 9037;
       extraConfig = ''
         proxy_set_header X-Forwarded-For $remote_addr;
       '';
     };
+  };
+
+  security.acme.certs = {
+    "${config.services.nginxProxy.serverHost}".extraDomainNames = [ hostName ];
   };
 
   users.extraUsers.linkwithsam = {

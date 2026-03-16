@@ -81,11 +81,11 @@ in
   };
 
   services.nginx.virtualHosts."${hostName}" = {
-    useACMEHost = "durga.withsam.org";
+    useACMEHost = config.services.nginxProxy.serverHost;
     forceSSL = true;
   };
 
   security.acme.certs = {
-    "durga.withsam.org".extraDomainNames = [ hostName ];
+    "${config.services.nginxProxy.serverHost}".extraDomainNames = [ hostName ];
   };
 }

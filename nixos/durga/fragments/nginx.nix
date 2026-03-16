@@ -32,7 +32,6 @@ in
           "*.${serverHost}"
           "piracy.withsam.org"
           "music.withsam.org"
-          "l.withsam.org"
         ];
         dnsProvider = "ovh";
         credentialsFile = "/var/lib/secrets/ovh.certs.secret";
