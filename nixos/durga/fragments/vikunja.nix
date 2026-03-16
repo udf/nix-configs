@@ -20,6 +20,9 @@ in
         maxitemsperpage = 100;
         interface = lib.mkForce "127.0.0.1:${toString port}";
       };
+      backgrounds.providers.unsplash = {
+        enabled = true;
+      };
     };
     database = {
       type = "postgres";
@@ -35,6 +38,7 @@ in
   systemd.services.vikunja = {
     after = [ "postgresql.target" ];
     requires = [ "postgresql.target" ];
+    serviceConfig.EnvironmentFile = "/var/lib/private/vikunja/vikunja.env";
   };
 
   services.postgresql = {
