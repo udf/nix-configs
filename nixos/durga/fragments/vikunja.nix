@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -8,10 +9,38 @@ let
   secondsPerDay = 60 * 60 * 24;
   hostName = "soon.withsam.org";
   pgDatabase = "vikunja";
+
+  # Patch frontend with nerd fonts
+  srcPkg = pkgs.vikunja;
+  patchedFrontend = srcPkg.frontend.overrideAttrs (oldAttrs: {
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+      pkgs.nerd-font-patcher
+    ];
+
+    patchPhase = (oldAttrs.patchPhase or "") + ''
+      font=('src/assets/fonts/OpenSans[wght]'*.woff2)
+      tmpdir=$(mktemp -d)
+      nerd-font-patcher -c -out "$tmpdir" "$font"
+      patched=$(find "$tmpdir" -name '*.woff2' -print -quit)
+      cp "$patched" "$font"
+
+      substituteInPlace src/styles/common-imports.scss \
+        --replace-fail \
+        "$vikunja-font: 'Quicksand', sans-serif;" \
+        "$vikunja-font: 'Quicksand', 'Open Sans', sans-serif;"
+    '';
+  });
+  patchedPkg = srcPkg.overrideAttrs (oldAttrs: {
+    frontend = patchedFrontend;
+    prePatch = ''
+      cp -r ${patchedFrontend} frontend/dist
+    '';
+  });
 in
 {
   services.vikunja = {
     enable = true;
+    package = patchedPkg;
     settings = {
       service = {
         enableregistration = false;
