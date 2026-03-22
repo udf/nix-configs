@@ -7,6 +7,7 @@
 let
   swayCfg = config.wayland.windowManager.sway;
   mod = swayCfg.config.modifier;
+  # not to self: find icon names with icon-library
   osdNotify = pkgs.writeShellScriptBin "osd-notify.sh" ''
     if [ "$#" -lt 2 ]; then
       echo "Usage: $0 icon message [progress]"

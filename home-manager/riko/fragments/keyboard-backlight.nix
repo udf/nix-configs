@@ -29,7 +29,18 @@ let
 
     readarray -d ',' -t OUTPUT < <(${lib.getExe pkgs.brightnessctl} -m -d "asus::kbd_backlight" "''${ARGS[@]}")
     if [ "$SILENT" -ne 1 ]; then
-      ${lib.getExe config.namedPackages.osd-notify} keyboard-brightness "" "''${OUTPUT[2]}:''${OUTPUT[4]%%[[:space:]]}"
+      max_brightness="''${OUTPUT[4]%%[[:space:]]}"
+      current_brightness="''${OUTPUT[2]}"
+      icon=keyboard-brightness-medium-symbolic
+      case "$current_brightness" in
+        "0")
+          icon=keyboard-brightness-off-symbolic
+          ;;
+        "$max_brightness")
+          icon=keyboard-brightness-high-symbolic
+          ;;
+      esac
+      ${lib.getExe config.namedPackages.osd-notify} "$icon" "" "$current_brightness:$max_brightness"
     fi
   '';
 in

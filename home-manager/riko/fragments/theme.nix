@@ -13,6 +13,7 @@
 
   home.packages = with pkgs; [
     kdePackages.breeze-icons
+    adwaita-icon-theme
   ];
 
   gtk = {
