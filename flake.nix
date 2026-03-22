@@ -37,7 +37,7 @@
           system = null;
           specialArgs = { inherit inputs; };
           modules = [
-            (import (./. + "/nixos/${host}/configuration.nix"))
+            (./. + "/nixos/${host}/configuration.nix")
             {
               nix.nixPath = [
                 "nixpkgs=${pkgs}"
