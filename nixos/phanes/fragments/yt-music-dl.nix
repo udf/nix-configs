@@ -197,6 +197,7 @@ let
     "rorynearly20s"
     "rosehiprose"
     "sageisdead"
+    "segera"
     "serverofuser"
     "sfork"
     "sinksaiko"
