@@ -12,9 +12,8 @@ let
     level: "${lib.getExe config.namedPackages.kbd-backlight} --silent ${toString level}";
   swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
   displays = status: "${swaymsg} 'output * power ${status}' > /dev/null";
-  dimScreen =
-    duration:
-    "${lib.getExe (pkgs.callPackage ../packages/dim-screen.nix { })} --duration ${toString duration}";
+  dimScreenPkg = (pkgs.callPackage ../packages/dim-screen.nix { });
+  dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
 in
 {
   services.swayidle = {
