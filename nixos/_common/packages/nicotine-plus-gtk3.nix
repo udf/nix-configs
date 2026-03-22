@@ -1,5 +1,4 @@
 {
-  pkgs,
   unstablePkgs,
   lib,
   fetchFromGitHub,
