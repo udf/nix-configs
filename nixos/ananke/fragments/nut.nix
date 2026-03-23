@@ -20,6 +20,14 @@ let
   ];
 in
 {
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0665", ATTR{idProduct}=="5161", ACTION=="remove", RUN+="/run/current-system/systemd/bin/systemctl stop upsd.service upsmon.service"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0665", ATTR{idProduct}=="5161", ACTION=="add", RUN+="/run/current-system/systemd/bin/systemctl start upsd.service upsmon.service"
+  '';
+
+  systemd.services.upsd.serviceConfig.RestartPreventExitStatus = 1;
+  systemd.services.upsmon.serviceConfig.RestartPreventExitStatus = 1;
+
   systemd.services.clear-upsd-pids = {
     wantedBy = [
       "upsd.service"
@@ -56,6 +64,7 @@ in
         "default.battery.voltage.low = 46.0"
         "default.battery.voltage.high = 54.5"
       ];
+      shutdownOrder = -1;
       # vendorid = "0665";
       # productid = "5161";
       # product = "USB to Serial";
@@ -97,6 +106,7 @@ in
           status
           "EXEC"
         ]) states;
+        SHUTDOWNCMD = "/bin/true";
       };
     };
   };
@@ -107,6 +117,9 @@ in
     if [ "$NOTIFYTYPE" == "ONBATT" ]; then
       sleep 5
       ${pkgs.nut}/bin/upscmd -u sam -p '${private.upsd.pw}' $1 beeper.toggle
+    fi
+    if [ "$NOTIFYTYPE" == "LOWBATT" ]; then
+      ${pkgs.nut}/bin/upscmd -u sam -p '${private.upsd.pw}' $1 shutdown.return
     fi
   '';
 }
