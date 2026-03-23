@@ -20,13 +20,15 @@ let
   ];
 in
 {
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0665", ATTR{idProduct}=="5161", ACTION=="remove", RUN+="/run/current-system/systemd/bin/systemctl stop upsd.service upsmon.service"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0665", ATTR{idProduct}=="5161", ACTION=="add", RUN+="/run/current-system/systemd/bin/systemctl start upsd.service upsmon.service"
-  '';
-
-  systemd.services.upsd.serviceConfig.RestartPreventExitStatus = 1;
-  systemd.services.upsmon.serviceConfig.RestartPreventExitStatus = 1;
+  services.udev.extraRules =
+    let
+      systemctl = "${lib.getExe' pkgs.systemd "systemctl"}";
+      services = "upsd.service upsmon.service";
+    in
+    ''
+      SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", ENV{PRODUCT}=="665/5161/*", ACTION=="add", RUN+="${systemctl} start ${services}"
+      SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", ENV{PRODUCT}=="665/5161/*", ACTION=="remove", RUN+="${systemctl} stop ${services}"
+    '';
 
   systemd.services.clear-upsd-pids = {
     wantedBy = [
@@ -65,10 +67,6 @@ in
         "default.battery.voltage.high = 54.5"
       ];
       shutdownOrder = -1;
-      # vendorid = "0665";
-      # productid = "5161";
-      # product = "USB to Serial";
-      # vendor = "INNO TECH";
     };
 
     upsd.listen = [
