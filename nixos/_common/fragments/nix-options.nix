@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   nix = {
@@ -15,7 +15,7 @@
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 7d";
+      options = lib.mkDefault "--delete-older-than 7d";
     };
     # Free up to 4GiB whenever there is less than 1GiB left.
     extraOptions = ''
