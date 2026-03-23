@@ -26,12 +26,12 @@ in
         resumeCommand = "${displays "on"} && ${kbdBacklightCmd 1}";
       }
       {
-        timeout = 115;
+        timeout = 110;
         command = "${pkgs.libnotify}/bin/notify-send 'Session will be locked soon' -t 5000";
       }
       {
-        timeout = 115;
-        command = "${dimScreen 5}";
+        timeout = 110;
+        command = "${dimScreen 10}";
       }
       {
         timeout = 120;
