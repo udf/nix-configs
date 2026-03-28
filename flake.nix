@@ -20,6 +20,7 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
 
   outputs =
@@ -51,6 +52,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
           ];
         };
