@@ -51,7 +51,7 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = inputs.self.outPath;
+    # flake = inputs.self.outPath;
     operation = "boot";
     flags = [ "-L" ];
     dates = "Fri *-*-* 20:00:00";
