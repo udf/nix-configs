@@ -37,6 +37,10 @@
           pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
           home-manager = inputs.home-manager;
         };
+        mashiro = {
+          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+          home-manager = inputs.home-manager;
+        };
       };
     };
 }
