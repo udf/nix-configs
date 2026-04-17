@@ -204,6 +204,7 @@ let
     "skeinn"
     "softxoxos"
     "solarheavy"
+    "sorrowgarage"
     "sorryaboutmyface"
     "spurme"
     "staircatte"
