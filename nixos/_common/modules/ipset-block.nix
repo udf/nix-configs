@@ -124,6 +124,7 @@ let
     "197183" = "OCCENTUS, ES";
     "198953" = "PROTON66, RU";
     "200052" = "FERAL Feral Hosting, GB";
+    "200730" = "ISAEV, KZ";
     "201579" = "HOSTGNOME-AS, GB";
     "201814" = "MEVSPACE, PL";
     "202306" = "HOSTGLOBALPLUS-AS, GB";
@@ -143,6 +144,7 @@ let
     "211619" = "MAXKO, HR";
     "211680" = "AS-BITSIGHT, PT";
     "211736" = "FDN3, UA";
+    "212512" = "DETAI, GB";
     "213412" = "ONYPHE, FR";
     "213438" = "COLOCATEL-INC Colocatel Network - High Bandwidth Dedicated Servers, SC";
     "213613" = "BOTSHIELD-LTD, GB";
