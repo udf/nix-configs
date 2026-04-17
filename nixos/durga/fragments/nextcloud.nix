@@ -42,7 +42,7 @@ in
 
   virtualisation.oci-containers.containers.aio-imaginary = {
     # MARK: pinned version
-    image = "nextcloud/aio-imaginary:20260122_105751";
+    image = "nextcloud/aio-imaginary:20260306_081319";
     ports = [
       "127.0.0.1:9000:9000"
     ];
