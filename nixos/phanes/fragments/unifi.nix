@@ -1,7 +1,5 @@
 {
-  config,
-  pkgs,
-  lib,
+  inputs,
   ...
 }:
 let
@@ -18,9 +16,9 @@ in
     privateNetwork = true;
     hostBridge = "br0";
     localAddress = "${containerIP}/24";
+    nixpkgs = inputs.nixpkgs-unstable.outPath;
     config =
       {
-        config,
         pkgs,
         lib,
         ...
