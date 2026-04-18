@@ -6,17 +6,14 @@
 }:
 {
   fileSystems."/external" = {
-    device = "/dev/disk/by-uuid/2B0AACD0029C68C2";
-    fsType = "ntfs3";
+    device = "/dev/disk/by-uuid/34388cd0-575e-4d88-aabe-8b9958bd0a09";
+    fsType = "ext4";
     options = [
       "x-systemd.automount"
       "x-systemd.device-timeout=5s"
       "x-systemd.mount-timeout=5s"
       "x-systemd.rw-only"
       "nofail"
-      "uid=syncthing"
-      "gid=syncthing"
-      "umask=0077"
       "discard"
     ];
   };
