@@ -112,6 +112,7 @@ let
     "dracodracodracodraco"
     "dredcollective"
     "dubmood"
+    "dusqk"
     "eightiesheadachetape"
     "emptybluemusic"
     "end-user"
