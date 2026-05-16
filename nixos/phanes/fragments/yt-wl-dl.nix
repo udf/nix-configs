@@ -196,7 +196,7 @@ in
           "--trash-filter-re"
           "^wl/"
           "--delete-filter-re"
-          "^wl_720/"
+          "^$"
         ];
         PrivateTmp = "yes";
         StateDirectory = "yt-wl-dl";
@@ -245,7 +245,6 @@ in
         }
 
         do_download wl 1440
-        do_download wl_720 720
         cat < "$DL_LIST" > "$DL_DIR/wl.txt"
         rm -fr "$TEMP_DIR"
 
