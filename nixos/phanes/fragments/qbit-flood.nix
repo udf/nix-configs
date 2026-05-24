@@ -30,6 +30,7 @@ in
     openFirewall = true;
     host = "0.0.0.0";
     port = 3000;
+    package = unstable.flood;
   };
 
   environment.etc."qbit/on_done.sh".source = pkgs.writeScript "on_done.sh" ''
@@ -63,5 +64,10 @@ in
       };
     }
   ];
-  systemd.services.flood = serviceOpts;
+  systemd.services.flood = lib.mkMerge [
+    serviceOpts
+    {
+      serviceConfig.RestrictAddressFamilies = [ "AF_NETLINK" ];
+    }
+  ];
 }
