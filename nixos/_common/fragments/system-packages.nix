@@ -22,7 +22,6 @@
     zip
     atool
     unzip
-    pipx
     expect
     jq
     ldns
