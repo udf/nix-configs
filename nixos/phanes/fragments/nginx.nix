@@ -21,7 +21,7 @@ in
       "${defaultServerHost}" = {
         email = "tabhooked@gmail.com";
         dnsProvider = "ovh";
-        credentialsFile = "/var/lib/secrets/ovh.certs.secret";
+        environmentFile = "/var/lib/secrets/ovh.certs.secret";
       };
       "${serverHost}" = {
         email = "tabhooked@gmail.com";
@@ -30,7 +30,7 @@ in
           "trans-rights.withsam.org"
         ];
         dnsProvider = "ovh";
-        credentialsFile = "/var/lib/secrets/ovh.certs.secret";
+        environmentFile = "/var/lib/secrets/ovh.certs.secret";
       };
     };
   };
