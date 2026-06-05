@@ -330,7 +330,7 @@ in
         serviceConfig = commonServiceConfig;
 
         script = ''
-          ${pkgs.python313.pkgs.pip}/bin/pip install --break-system-packages --user --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
+          ${pkgs.python3.pkgs.pip}/bin/pip install --break-system-packages --user --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
           rm -f /home/yt-music-dl/*.lock
         '';
       };

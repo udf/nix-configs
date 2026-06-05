@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  python-pkg = pkgs.python313.withPackages (
+  python-pkg = pkgs.python3.withPackages (
     ps: with ps; [
       aiohttp
       aiohttp-cors

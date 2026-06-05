@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
   home.packages = [
-    (pkgs.python313Packages.callPackage ../packages/deemon { })
+    (pkgs.python3Packages.callPackage ../packages/deemon { })
   ];
 }

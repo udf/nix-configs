@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  pythonPkg = pkgs.python313.withPackages (
+  pythonPkg = pkgs.python3.withPackages (
     ps: with ps; [
       aiohttp
       yarl

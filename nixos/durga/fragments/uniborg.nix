@@ -17,7 +17,7 @@
           "mutagen"
           "hachoir"
         ];
-        python = pkgs.python313;
+        python = pkgs.python3;
       };
     };
   };
