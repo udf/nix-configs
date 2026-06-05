@@ -39,15 +39,7 @@ in
 
   systemd.services.szuru =
     let
-      genArionCmd = args: ''
-        arion --prebuilt-file "$ARION_PREBUILT" ${args} 1>&2
-      '';
-      rebuildScriptText = ''
-        cd "${SRC_DIR}"
-        echo BUILD_INFO=$VERSION > /run/szuru.env
-        export BUILD_INFO=$(${pkgs.git}/bin/git describe --always --dirty --long --tags)
-        ${genArionCmd "up --build --force-recreate --wait"}
-      '';
+      genArionCmd = args: "arion --prebuilt-file \"$ARION_PREBUILT\" ${args} 1>&2";
     in
     {
       after = [
@@ -63,19 +55,33 @@ in
         StandardOutput = "journal";
         StandardInput = "null";
         EnvironmentFile = "-/run/szuru.env";
-        ExecStartPre = pkgs.writeShellScript "szuru-rebuild.sh" rebuildScriptText;
-        ExecReload = pkgs.writeShellScript "szuru-reload.sh" (
-          rebuildScriptText
-          + ''
-            kill -HUP $MAINPID
-          ''
-        );
+        ExecReload = pkgs.writeShellScript "szuru-reload.sh" ''
+          cd "${SRC_DIR}"
+          echo BUILD_INFO=$VERSION > /run/szuru.env
+          export BUILD_INFO=$(${pkgs.git}/bin/git describe --always --dirty --long --tags)
+          ${genArionCmd "up --build --force-recreate --wait"}
+          kill -HUP $MAINPID
+        '';
         ExecStop = pkgs.writeShellScript "szuru-stop.sh" (genArionCmd "down");
         Restart = "always";
         RestartSec = 5;
         UMask = "0000";
       };
     };
+
+  systemd.services.szuru-rebuild = {
+    description = "Rebuild szuru containers";
+    after = [ "szuru.service" ];
+    wants = [ "szuru.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "szuru-trigger-reload.sh" ''
+        ${lib.getExe' pkgs.systemd "systemctl"} reload szuru.service || true
+      '';
+    };
+  };
 
   # based on https://github.com/rr-/szurubooru/blob/master/docker-compose.yml
   virtualisation.arion.projects.szuru = {
