@@ -100,7 +100,6 @@
       storageDriver = "overlay2";
       liveRestore = true;
       extraOptions = "--ip-forward-no-drop";
-      package = pkgs.docker_28;
     };
     arion.backend = "docker";
     oci-containers.backend = "docker";
