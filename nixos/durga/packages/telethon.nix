@@ -13,6 +13,7 @@
 
 buildPythonPackage rec {
   pname = "telethon";
+  # MARK: pinned version
   version = "1.34.0";
   format = "pyproject";
   disabled = pythonOlder "3.5";

@@ -15,6 +15,7 @@ in
     database.createLocally = true;
     configureRedis = true;
     maxUploadSize = "16G";
+    # MARK: pinned version
     package = pkgs.nextcloud32;
     hostName = hostName;
     config = {

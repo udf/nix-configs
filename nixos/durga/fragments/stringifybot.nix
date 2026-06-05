@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  # MARK: pinned version
   python-pkg = pkgs.python311.withPackages (
     ps: with ps; [
       (callPackage ../../_common/packages/telethon.nix { })

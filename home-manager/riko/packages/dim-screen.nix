@@ -6,6 +6,7 @@ pkgs.rustPlatform.buildRustPackage {
   pname = "dim-screen";
   version = "unstable";
 
+  # MARK: pinned version
   src = pkgs.fetchFromGitHub {
     owner = "marcelohdez";
     repo = "dim";

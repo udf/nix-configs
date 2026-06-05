@@ -10,6 +10,7 @@ let
   flexgetPkg = pkgs.flexget.overrideAttrs (oldAttrs: {
     srcs = [
       oldAttrs.src
+      # MARK: pinned version
       (pkgs.fetchzip {
         url = "https://github.com/Flexget/webui/releases/download/2.0.29/dist.zip";
         hash = "sha256:1330czk6y9z5iqfph3rsazfs102bwn9mg2jjxd7h0jyvc7y9cbgf";

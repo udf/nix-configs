@@ -12,6 +12,7 @@
 
 buildPythonPackage rec {
   pname = "telethon";
+  # MARK: pinned version
   version = "1.24.0";
   pyproject = true;
 

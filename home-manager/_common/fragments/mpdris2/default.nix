@@ -2,6 +2,8 @@
 {
   services.mpdris2.package = pkgs.mpdris2.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./more-sane-interval.patch ];
+    # MARK: pinned version
+    # https://github.com/eonpatapon/mpDris2/issues/170
     version = "0.9.1-rc";
     src = pkgs.fetchFromGitHub {
       owner = "eonpatapon";
