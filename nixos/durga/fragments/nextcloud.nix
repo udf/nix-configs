@@ -16,7 +16,7 @@ in
     configureRedis = true;
     maxUploadSize = "16G";
     # MARK: pinned version
-    package = pkgs.nextcloud32;
+    package = pkgs.nextcloud33;
     hostName = hostName;
     config = {
       dbtype = "pgsql";
@@ -43,7 +43,7 @@ in
 
   virtualisation.oci-containers.containers.aio-imaginary = {
     # MARK: pinned version
-    image = "nextcloud/aio-imaginary:20260409_094910";
+    image = "nextcloud/aio-imaginary:20260527_140826";
     ports = [
       "127.0.0.1:9000:9000"
     ];
