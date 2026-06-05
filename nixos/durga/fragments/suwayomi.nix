@@ -12,7 +12,7 @@ in
 {
   virtualisation.oci-containers.containers.suwayomi = {
     # MARK: pinned version
-    image = "ghcr.io/suwayomi/tachidesk:v2.2.2188";
+    image = "ghcr.io/suwayomi/tachidesk:v2.2.2194";
     ports = [
       "127.0.0.1:${toString PORT}:${toString PORT}"
     ];
@@ -41,6 +41,10 @@ in
     "suwayomi" = {
       port = PORT;
       authMessage = "*notices ur bulge* OwO, what's this?";
+      extraConfig = ''
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+      '';
     };
   };
 }

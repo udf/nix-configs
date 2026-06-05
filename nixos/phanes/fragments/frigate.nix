@@ -53,9 +53,8 @@
       useAuthCookie = true;
       authMessage = "The eye is watching us.";
       extraConfig = ''
-        proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $http_connection;
+        proxy_set_header Connection $connection_upgrade;
       '';
     };
   };
