@@ -244,6 +244,17 @@ let
     "zenkaso"
     "zhnoi"
   ];
+  pythonPkg = pkgs.python3.withPackages (ps: with ps; [ curl-cffi ]);
+  genVenvSetup = import ../../_common/helpers/gen-venv-setup.nix;
+  venvSetupCode = genVenvSetup {
+    inherit pythonPkg;
+    inherit pkgs;
+  };
+  roVenvSetupCode = genVenvSetup {
+    inherit pythonPkg;
+    inherit pkgs;
+    readOnly = true;
+  };
   common-args = "-P 'temp:/sync/tmp/yt-music' --no-progress --no-post-overwrites --add-metadata";
   ytdlCookiesCredential = "yt-dl-cookies";
   tmpCookiesFile = "/tmp/cookies.txt";
@@ -270,15 +281,15 @@ let
     User = "yt-music-dl";
     WorkingDirectory = "/home/yt-music-dl";
     UMask = "0000";
-    TimeoutStartSec = "infinity";
+    TimeoutStartSec = "23h";
   };
   dropinServiceOptions = {
     partOf = [ "music-dl.target" ];
     wantedBy = [ "music-dl.target" ];
     upholds = [ "music-dl-busy.target" ];
     path = [
-      "/home/yt-music-dl/.local"
       pkgs.ffmpeg
+      pkgs.deno
     ];
     overrideStrategy = "asDropin";
   };
@@ -326,11 +337,11 @@ in
       music-dl-pre = {
         partOf = [ "music-dl.target" ];
         wantedBy = [ "music-dl.target" ];
-        path = [ "/home/yt-music-dl/.local" ];
         serviceConfig = commonServiceConfig;
 
         script = ''
-          ${pkgs.python3.pkgs.pip}/bin/pip install --break-system-packages --user --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
+          ${venvSetupCode}
+          pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
           rm -f /home/yt-music-dl/*.lock
         '';
       };
@@ -352,12 +363,12 @@ in
       };
 
       "music-dl-yt-playlist@" = {
+        requires = [ "music-dl-pre.service" ];
         after = [
           "music-dl-pre.service"
           "music-dl-load-yt-cookies.service"
         ];
         upholds = [ "music-dl-load-yt-cookies.service" ];
-        path = [ "/home/yt-music-dl/.local" ];
         unitConfig = {
           JoinsNamespaceOf = "music-dl-load-yt-cookies.service";
         };
@@ -366,6 +377,7 @@ in
           // (
             let
               script = pkgs.writeShellScript "music-dl-yt-playlist.sh" ''
+                ${roVenvSetupCode}
                 cd ${musicDir}/favourites
                 ${useYtCookiesCmd}
                 ${getYtDownloadCmd {
@@ -385,12 +397,12 @@ in
       };
 
       "music-dl-yt-channel@" = {
+        requires = [ "music-dl-pre.service" ];
         after = [
           "music-dl-pre.service"
           "music-dl-load-yt-cookies.service"
         ];
         upholds = [ "music-dl-load-yt-cookies.service" ];
-        path = [ "/home/yt-music-dl/.local" ];
         unitConfig = {
           JoinsNamespaceOf = "music-dl-load-yt-cookies.service";
         };
@@ -399,6 +411,7 @@ in
           // (
             let
               script = pkgs.writeShellScript "music-dl-yt-channel.sh" ''
+                ${roVenvSetupCode}
                 cd ${musicDir}/lossy-downloads/yt
                 ${useYtCookiesCmd}
                 ${getYtDownloadCmd {
@@ -420,13 +433,14 @@ in
       };
 
       "music-dl-bandcamp@" = {
+        requires = [ "music-dl-pre.service" ];
         after = [ "music-dl-pre.service" ];
-        path = [ "/home/yt-music-dl/.local" ];
         serviceConfig =
           commonServiceConfig
           // (
             let
               script = pkgs.writeShellScript "music-dl-bandcamp.sh" ''
+                ${roVenvSetupCode}
                 cd ${musicDir}/lossy-downloads/bandcamp
                 yt-dlp ${common-args} -ix -f 'flac/mp3' --download-archive "$1.txt" \
                   -o "$1/%(album,track)s/%(playlist_index)s. %(title)s.%(ext)s" \
