@@ -271,8 +271,8 @@ in
           echo "ipasn.dat.gz is fresh (<24h); skipping regeneration."
           exit 0
         fi
-        if ! ${lib.getExe' pkgs.iputils "ping"} -q -c 1 -W 30 1.1.1.1 >/dev/null; then
-          >&2 echo "Unable to refresh ASN database, ping probe failed"
+        if ! ${lib.getExe pkgs.curl} -sf --max-time 30 -o /dev/null https://1.1.1.1; then
+          >&2 echo "Unable to refresh ASN database, connectivity check failed"
           exit 1
         fi
         pyasn_util_download.py --latest
