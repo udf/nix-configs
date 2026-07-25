@@ -10,7 +10,7 @@ let
         filterAttrs (
           k: v:
           (v == "regular" && hasSuffix ".nix" k)
-          || (v == "directory" && pathExists ((dir + "/${k}/default.nix")))
+          || (v == "directory" && pathExists (dir + "/${k}/default.nix"))
         ) (readDir dir)
       )
     );
