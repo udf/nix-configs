@@ -16,10 +16,15 @@ in
     privateNetwork = true;
     hostBridge = "br0";
     localAddress = "${containerIP}/24";
-    nixpkgs = inputs.nixpkgs-unstable.outPath;
+    specialArgs = {
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+    };
     config =
       {
-        pkgs,
+        pkgs-unstable,
         lib,
         ...
       }:
@@ -47,8 +52,8 @@ in
         services.unifi = {
           enable = true;
           openFirewall = true;
-          unifiPackage = pkgs.unifi;
-          mongodbPackage = pkgs.mongodb-ce;
+          unifiPackage = pkgs-unstable.unifi;
+          mongodbPackage = pkgs-unstable.mongodb-ce;
         };
 
         environment.etc."unifi-mongodb.conf".text = ''
