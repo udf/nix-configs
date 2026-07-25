@@ -20,11 +20,6 @@ in
       default = "/var/run/docker.sock";
       description = "Path to the docker/podman socket";
     };
-    configPath = mkOption {
-      type = types.str;
-      default = "/etc/diun/diun.yml";
-      description = "Path to the diun config file";
-    };
   };
 
   config = mkIf cfg.enable {

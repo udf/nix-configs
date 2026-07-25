@@ -18,7 +18,7 @@ notif:
     chatIDs:
       - "232787997"
     templateBody: |
-      *{{ escapeMarkdown .Meta.Hostname }}.diun.{{ .Entry.Provider }}*:
+      #diun *{{ escapeMarkdown .Meta.Hostname }}.{{ .Entry.Provider }}*:
       🐋 Docker tag {{ if .Entry.Image.HubLink }}[{{ .Entry.Image }}]({{ .Entry.Image.HubLink }}){{ else }}{{ .Entry.Image }}{{ end }} {{ if (eq .Entry.Status "new") }}is available{{ else }}has been updated{{ end }} on {{ .Entry.Image.Domain }} registry.
 
 providers:
