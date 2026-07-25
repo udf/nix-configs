@@ -6,8 +6,7 @@
 }:
 {
   virtualisation.oci-containers.containers.frigate = {
-    # MARK: pinned version
-    image = "ghcr.io/blakeblackshear/frigate:0.17.1";
+    image = config.custom.pinnedVersions.containers.frigate;
     ports = [
       # "8971:8971" # Web UI
       "8971:5000" # Web UI (no auth)

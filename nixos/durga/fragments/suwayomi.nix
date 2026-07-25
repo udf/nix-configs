@@ -11,8 +11,7 @@ let
 in
 {
   virtualisation.oci-containers.containers.suwayomi = {
-    # MARK: pinned version
-    image = "ghcr.io/suwayomi/tachidesk:v2.2.2194";
+    image = config.custom.pinnedVersions.containers.suwayomi-tachidesk;
     ports = [
       "127.0.0.1:${toString PORT}:${toString PORT}"
     ];

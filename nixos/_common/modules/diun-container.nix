@@ -35,8 +35,7 @@ in
     };
 
     virtualisation.oci-containers.containers.diun = {
-      # MARK: pinned version
-      image = "crazymax/diun:4.31";
+      image = config.custom.pinnedVersions.containers.diun;
       volumes = [
         "/var/lib/diun:/data"
         "${cfg.socketPath}:/var/run/docker.sock"

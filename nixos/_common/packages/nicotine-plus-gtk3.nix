@@ -9,11 +9,11 @@
   gtk3,
   glib,
   python3Packages,
+  config,
 }:
 let
   pname = "nicotine-plus";
-  # MARK: pinned version
-  version = "3.3.10";
+  version = config.custom.pinnedVersions.programs.nicotine-plus;
 in
 assert unstablePkgs.nicotine-plus.version == version;
 python3Packages.buildPythonApplication {

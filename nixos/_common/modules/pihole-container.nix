@@ -43,8 +43,7 @@ in
     ];
 
     virtualisation.oci-containers.containers.pihole = {
-      # MARK: pinned version
-      image = "pihole/pihole:2026.04.1";
+      image = config.custom.pinnedVersions.containers.pihole;
       ports = [
         "53:53/tcp"
         "53:53/udp"

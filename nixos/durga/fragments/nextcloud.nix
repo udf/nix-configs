@@ -15,8 +15,7 @@ in
     database.createLocally = true;
     configureRedis = true;
     maxUploadSize = "16G";
-    # MARK: pinned version
-    package = pkgs.nextcloud33;
+    package = config.custom.pinnedVersions.packages.nextcloud;
     hostName = hostName;
     config = {
       dbtype = "pgsql";
@@ -42,8 +41,7 @@ in
   };
 
   virtualisation.oci-containers.containers.aio-imaginary = {
-    # MARK: pinned version
-    image = "nextcloud/aio-imaginary:20260527_140826";
+    image = config.custom.pinnedVersions.containers.nextcloud-aio-imaginary;
     ports = [
       "127.0.0.1:9000:9000"
     ];
