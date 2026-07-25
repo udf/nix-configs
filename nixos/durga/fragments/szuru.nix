@@ -50,7 +50,7 @@ in
       wants = [ "network-online.target" ];
       script = lib.mkForce (genArionCmd "up");
       serviceConfig = {
-        TimeoutStartSec = 300;
+        TimeoutStartSec = 60 * 10;
         StandardError = "journal";
         StandardOutput = "journal";
         StandardInput = "null";
@@ -132,8 +132,7 @@ in
       };
 
       sql.service = {
-        # MARK: pinned version
-        image = "postgres:16-alpine";
+        image = config.custom.pinnedVersions.containers.szuru-postgres;
         command = [
           "postgres"
           "-c"
