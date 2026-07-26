@@ -6,8 +6,8 @@
 }:
 let
   systemctl = "${pkgs.systemd}/bin/systemctl";
-  lockCmd = "${systemctl} start --no-block --user swaylock";
-  lockIsActive = "${systemctl} --user is-active swaylock";
+  lockCmd = "${systemctl} start --no-block --user screen-locker";
+  lockIsActive = "${systemctl} --user is-active screen-locker";
   kbdBacklightCmd =
     level: "${lib.getExe config.namedPackages.kbd-backlight} --silent ${toString level}";
   swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";

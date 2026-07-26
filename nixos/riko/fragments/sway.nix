@@ -21,6 +21,10 @@
     pam = {
       services = {
         greetd.enableGnomeKeyring = true;
+        hyprlock = {
+          enable = true;
+          fprintAuth = true;
+        };
         swaylock = {
           # fingerprint auth is horribly broken in swaylock
           # requiring PAM changes to workaround: https://github.com/swaywm/swaylock/issues/61#issuecomment-965175390
