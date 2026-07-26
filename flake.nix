@@ -20,7 +20,8 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
+    # MARK: pinned version
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit/948aa87003f6c94080650804a6974182e5948ca1";
   };
 
   outputs =

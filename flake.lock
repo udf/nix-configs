@@ -265,6 +265,7 @@
       "original": {
         "owner": "rafaelrc7",
         "repo": "wayland-pipewire-idle-inhibit",
+        "rev": "948aa87003f6c94080650804a6974182e5948ca1",
         "type": "github"
       }
     }
