@@ -26,7 +26,8 @@ let
 in
 {
   systemd.services.press-phanes-pwr = {
-    after = [ "network.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";

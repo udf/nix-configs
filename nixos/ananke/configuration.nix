@@ -7,7 +7,6 @@
 
 let
   private = (import ../_common/constants/private.nix).ananke;
-  sdImageFirmware = (pkgs.callPackage ./packages/sd-image-firmware.nix { });
 in
 {
   imports = [
@@ -45,20 +44,8 @@ in
       ];
     };
   };
-  boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
-  # Mainline doesn't work yet
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
-
-  system.activationScripts = {
-    updateFirmware = ''
-      if [ "$(cat /boot/firmware/src.path 2>/dev/null || true)" != "${sdImageFirmware}" ]; then
-        echo Updating firmware from ${sdImageFirmware}
-        ${pkgs.rsync}/bin/rsync -rv "${sdImageFirmware}/firmware/" /boot/firmware/ && \
-        echo -n "${sdImageFirmware}" > /boot/firmware/src.path
-      fi
-    '';
-  };
+  # Override kernel from nixos-hardware to be mainline instead
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # ttyAMA0 is the serial console broken out to the GPIO
   boot.kernelParams = [
@@ -78,8 +65,11 @@ in
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  # Required for the Wireless firmware
   hardware = {
+    raspberry-pi.firmware = {
+      enable = true;
+      uboot.enable = true;
+    };
     enableRedistributableFirmware = true;
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;
     deviceTree = {
