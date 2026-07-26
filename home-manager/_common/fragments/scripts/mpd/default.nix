@@ -5,12 +5,12 @@ let
   pythonBin = lib.getExe (
     with pkgs;
     python3.withPackages (ps: [
-      (python3Packages.buildPythonPackage {
+      ps.mpd2
+      (ps.buildPythonPackage {
         pname = "mpd-client-helper";
         version = "0.1";
         src = ./.;
         format = "other";
-        propagatedBuildInputs = with python3Packages; [ mpd2 ];
         installPhase = ''
           mkdir -p "$out/${python3.sitePackages}"
           cp "$src/_mpd.py" "$out/${python3.sitePackages}/_mpd.py"
@@ -29,8 +29,8 @@ in
 {
   namedPackages = lib.listToAttrs (
     map (file: ({
-      name = lib.removeSuffix ".py" (builtins.toString file);
-      value = pkgs.writeScriptBin (builtins.toString file) ''
+      name = lib.removeSuffix ".py" (toString file);
+      value = pkgs.writeScriptBin (toString file) ''
         #!${pythonBin}
         ${builtins.readFile (./. + "/${file}")}
       '';

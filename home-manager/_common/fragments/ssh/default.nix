@@ -8,7 +8,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = { };
+    settings."*" = { };
     extraConfig = builtins.readFile ./config;
   };
 }

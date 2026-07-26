@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   home.pointerCursor = {
+    enable = true;
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
     size = 24;
@@ -51,6 +52,7 @@
         icon_theme = config.gtk.iconTheme.name;
       };
       Fonts = {
+        # TODO: maybe use Adwaita Sans?
         general = ''"Roboto,11"'';
         fixed = ''"Hack Nerd Font,10"'';
       };
