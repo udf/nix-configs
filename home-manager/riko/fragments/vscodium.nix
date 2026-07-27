@@ -1,4 +1,18 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  colorOverrides = {
+    mocha = {
+      base = "#000000";
+      # mantle = "#1a1a1a";
+      # crust = "#262626";
+    };
+  };
+in
 {
   programs.vscodium = {
     enable = true;
@@ -12,6 +26,13 @@
         '';
       })
     );
+    profiles.default.extensions = [
+      (config.catppuccin.sources.vscode.override {
+        catppuccinOptions = {
+          inherit colorOverrides;
+        };
+      })
+    ];
   };
 
   home.packages = with pkgs; [

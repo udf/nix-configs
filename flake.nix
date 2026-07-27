@@ -20,8 +20,11 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Third party sources
     # MARK: pinned version
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit/948aa87003f6c94080650804a6974182e5948ca1";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
@@ -34,6 +37,8 @@
         {
           pkgs,
           home-manager ? null,
+          extraModules ? [ ],
+          extraHomeManagerModules ? [ ],
         }:
         pkgs.lib.nixosSystem {
           system = null;
@@ -48,12 +53,14 @@
             }
             inputs.nix-index-database.nixosModules.default
           ]
+          ++ extraModules
           ++ lib.optionals (home-manager != null) [
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.sharedModules = extraHomeManagerModules;
             }
           ];
         };
@@ -63,6 +70,8 @@
         riko = {
           pkgs = inputs.nixpkgs-unstable;
           home-manager = inputs.home-manager-unstable;
+          extraModules = [ inputs.catppuccin.nixosModules.catppuccin ];
+          extraHomeManagerModules = [ inputs.catppuccin.homeModules.catppuccin ];
         };
         ananke = {
           pkgs = inputs.nixpkgs;
