@@ -33,7 +33,6 @@ in
 
   home.packages = with pkgs; [
     brightnessctl
-    alacritty-graphics
     wl-clipboard
   ];
 
