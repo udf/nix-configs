@@ -24,9 +24,9 @@
     colorScheme = "dark";
     enable = true;
     theme = {
-      name = "Catppuccin-GTK-Lavender-Dark";
+      name = "Catppuccin-GTK-Mauve-Dark";
       package = pkgs.magnetic-catppuccin-gtk.override {
-        accent = [ "lavender" ];
+        accent = [ "mauve" ];
       };
     };
     gtk3 = {

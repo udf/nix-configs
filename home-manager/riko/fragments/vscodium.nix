@@ -2,16 +2,11 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
-  colorOverrides = {
-    mocha = {
-      base = "#000000";
-      # mantle = "#1a1a1a";
-      # crust = "#262626";
-    };
-  };
+  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") { inherit lib; };
 in
 {
   programs.vscodium = {
@@ -29,7 +24,7 @@ in
     profiles.default.extensions = [
       (config.catppuccin.sources.vscode.override {
         catppuccinOptions = {
-          inherit colorOverrides;
+          colorOverrides = catppucinOptions.prefixedColorOverrides;
         };
       })
     ];

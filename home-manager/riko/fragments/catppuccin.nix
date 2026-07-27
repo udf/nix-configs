@@ -5,28 +5,22 @@
   ...
 }:
 let
-  colorOverrides = {
-    mocha = {
-      # TODO: this might be too dark, probably want to use a dimmed default instead of pure black
-      base = "000000";
-      # mantle = "010101";
-      # crust = "020202";
-    };
-  };
+  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") { inherit lib; };
+  hostPlatform = pkgs.stdenv.hostPlatform.system;
 in
 {
   catppuccin = {
     enable = true;
     autoEnable = true;
-    flavor = "mocha";
-    accent = "lavender";
+    flavor = catppucinOptions.flavor;
+    accent = catppucinOptions.accent;
 
     cursors.enable = false;
     vscodium.profiles.default.enable = false;
     kvantum.apply = true;
     gtk.icon.enable = true;
 
-    sources = inputs.catppuccin.packages.${pkgs.system}.overrideScope (
+    sources = inputs.catppuccin.packages.${hostPlatform}.overrideScope (
       final: prev: {
         whiskers = pkgs.symlinkJoin {
           name = "whiskers-wrapped";
@@ -36,7 +30,7 @@ in
 
           postBuild = ''
             wrapProgram $out/bin/whiskers \
-              --add-flag ${lib.escapeShellArg "--color-overrides=${builtins.toJSON colorOverrides}"}
+              --add-flag ${lib.escapeShellArg "--color-overrides=${builtins.toJSON catppucinOptions.colorOverrides}"}
           '';
 
           meta.mainProgram = "whiskers";
