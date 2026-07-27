@@ -11,13 +11,13 @@ pkgs.stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkgs.makeWrapper ];
-  buildInputs = [ (pkgs.python3.withPackages (ps: [ ps.mpd2 ])) ];
+  buildInputs = [ (pkgs.python3.withPackages (ps: [ ps.python-mpd2 ])) ];
 
   installPhase = ''
     install -d $out/share/mpd-ratings-sync
     cp *.py $out/share/mpd-ratings-sync/
     for f in dump_ratings.py load_ratings.py; do
-      makeWrapper ${pkgs.python3.withPackages (ps: [ ps.mpd2 ])}/bin/python3 "$out/bin/$f" \
+      makeWrapper ${pkgs.python3.withPackages (ps: [ ps.python-mpd2 ])}/bin/python3 "$out/bin/$f" \
         --add-flags "$out/share/mpd-ratings-sync/$f"
       chmod +x "$out/bin/$f"
     done
