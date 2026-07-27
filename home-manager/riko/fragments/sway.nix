@@ -50,6 +50,12 @@ in
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      fonts = {
+        names = [
+          "Hack Nerd Font"
+        ];
+        size = 8.0;
+      };
       startup = [
         { command = ''swaymsg "workspace 1; exec firefox;"''; }
       ];
