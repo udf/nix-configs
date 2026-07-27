@@ -5,12 +5,13 @@ let
   pythonBin = lib.getExe (
     with pkgs;
     python3.withPackages (ps: [
-      ps.mpd2
+      ps.python-mpd2
       (ps.buildPythonPackage {
         pname = "mpd-client-helper";
         version = "0.1";
         src = ./.;
         format = "other";
+        propagatedBuildInputs = [ ps.python-mpd2 ];
         installPhase = ''
           mkdir -p "$out/${python3.sitePackages}"
           cp "$src/_mpd.py" "$out/${python3.sitePackages}/_mpd.py"
