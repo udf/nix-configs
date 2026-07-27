@@ -1,10 +1,10 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 {
+  services.xserver.enable = true;
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
@@ -37,13 +37,9 @@
     };
   };
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
+  services.displayManager.defaultSession = "sway";
+  services.displayManager.gdm.enable = true;
+
+  services.displayManager.sessionPackages = [ pkgs.sway ];
+
 }
