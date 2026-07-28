@@ -13,11 +13,7 @@ in
   inherit colorOverrides;
 
   prefixedColorOverrides = lib.mapAttrs (
-    _flavor: overrides:
-    lib.mapAttrs (
-      _name: value:
-      if builtins.isString value && !(lib.strings.hasPrefix "#" value) then "#${value}" else value
-    ) overrides
+    _flavor: overrides: lib.mapAttrs (_name: value: "#${value}") overrides
   ) colorOverrides;
 
   flavor = "mocha";
