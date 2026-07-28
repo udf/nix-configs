@@ -6,7 +6,13 @@
   ...
 }:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") { inherit lib; };
+  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit
+      lib
+      pkgs
+      inputs
+      ;
+  };
 in
 {
   programs.vscodium = {

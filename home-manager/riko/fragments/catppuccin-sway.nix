@@ -1,6 +1,17 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") { inherit lib; };
+  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit
+      lib
+      pkgs
+      inputs
+      ;
+  };
 in
 {
   wayland.windowManager.sway.config.colors =
