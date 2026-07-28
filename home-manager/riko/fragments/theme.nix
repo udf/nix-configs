@@ -1,4 +1,13 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") { inherit lib; };
+in
 {
   home.pointerCursor = {
     enable = true;
@@ -24,9 +33,9 @@
     colorScheme = "dark";
     enable = true;
     theme = {
-      name = "Catppuccin-GTK-Mauve-Dark";
+      name = "Catppuccin-GTK-${lib.toSentenceCase catppucinOptions.accent}-Dark";
       package = pkgs.magnetic-catppuccin-gtk.override {
-        accent = [ "mauve" ];
+        accent = [ catppucinOptions.accent ];
       };
     };
     gtk3 = {
