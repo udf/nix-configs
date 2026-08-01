@@ -4,6 +4,7 @@ let
     "systemd"
     "services"
     "environment"
+    "security"
   ];
 
   forwardedSystemConfig = builtins.listToAttrs (
