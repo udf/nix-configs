@@ -39,9 +39,10 @@ in
     colorScheme = "dark";
     enable = true;
     theme = {
-      name = "Catppuccin-GTK-${lib.toSentenceCase catppucinOptions.accent}-Dark";
-      package = pkgs.magnetic-catppuccin-gtk.override {
-        accent = [ catppucinOptions.accent ];
+      name = "catppuccin-${catppucinOptions.flavor}-${catppucinOptions.accent}-standard";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ catppucinOptions.accent ];
+        variant = catppucinOptions.flavor;
       };
     };
     gtk3 = {
