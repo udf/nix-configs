@@ -15,11 +15,12 @@
     pam = {
       services = {
         greetd.enableGnomeKeyring = true;
+        sddm.fprintAuth = false;
       };
     };
   };
 
   services.displayManager.defaultSession = "sway";
   services.displayManager.sessionPackages = [ pkgs.sway ];
-  services.displayManager.gdm.enable = true;
+  services.displayManager.sddm.enable = true;
 }
