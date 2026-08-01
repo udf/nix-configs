@@ -6,6 +6,8 @@
         saveAfterCopy = true;
         savePath = "/tmp/screenshots";
         savePathFixed = true;
+        showStartupLaunchMessage = false;
+        showAbortNotification = false;
       };
     };
   };
