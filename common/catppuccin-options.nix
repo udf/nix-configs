@@ -2,15 +2,18 @@
   lib,
   pkgs,
   inputs,
+  blackBackground ? false,
 }:
 let
   colorOverrides = {
-    mocha = {
-      # TODO: this might be too dark, probably want to use a dimmed default instead of pure black
-      base = "000000";
-      # mantle = "010101";
-      # crust = "020202";
-    };
+    mocha =
+      (lib.optionalAttrs blackBackground {
+        base = "000000";
+      })
+      // {
+        # mantle = "010101";
+        # crust = "020202";
+      };
   };
 
   prefixedColorOverrides = lib.mapAttrs (
