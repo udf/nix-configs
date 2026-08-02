@@ -16,6 +16,8 @@ let
   dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
 in
 {
+  imports = [ ./screen-locker.nix ];
+
   services.swayidle = {
     enable = true;
     extraArgs = [ ];

@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ./hyprlock.nix ];
+
   systemd.user.services.screen-locker = {
     Unit = {
       Description = "Screen locker";
