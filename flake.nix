@@ -24,6 +24,9 @@
     # Third party sources
     # MARK: pinned version
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit/948aa87003f6c94080650804a6974182e5948ca1";
+    # MARK: pinned version
+    nix-colorizer.url = "github:nutsalhan87/nix-colorizer/c9ce6c710f4ed749f773104a8092a3e542dd1d7c";
+
     catppuccin.url = "github:catppuccin/nix";
   };
 

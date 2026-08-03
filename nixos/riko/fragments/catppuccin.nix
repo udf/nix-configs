@@ -11,7 +11,6 @@ let
       pkgs
       inputs
       ;
-    blackBackground = true;
   };
 in
 {
