@@ -36,7 +36,7 @@ let
 
   hostPlatform = pkgs.stdenv.hostPlatform.system;
 in
-{
+rec {
   inherit colorOverrides prefixedColorOverrides;
 
   sources = inputs.catppuccin.packages.${hostPlatform}.overrideScope (
@@ -66,4 +66,6 @@ in
 
   flavor = "mocha";
   accent = "mauve";
+
+  palette = (lib.importJSON "${sources.palette}/palette.json").${flavor}.colors;
 }
