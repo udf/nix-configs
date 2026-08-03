@@ -2,9 +2,15 @@
 
 {
   home.packages = with pkgs; [
+    # gui tools
     xpra
-    vesktop
+
+    # graphics editors
     gimp
+    inkscape
+
+    # chat
+    vesktop
 
     # node
     nodejs
