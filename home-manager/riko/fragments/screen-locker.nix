@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ ./hyprlock.nix ];
+  imports = [ ./hyprlock ];
 
   systemd.user.services.screen-locker = {
     Unit = {
