@@ -35,6 +35,7 @@ let
     if assignments == [ ] then "." else lib.concatStringsSep " | " assignments;
 
   hostPlatform = pkgs.stdenv.hostPlatform.system;
+  darken = inputs.nix-colorizer.hex.darken;
 in
 rec {
   inherit colorOverrides prefixedColorOverrides;
@@ -67,5 +68,30 @@ rec {
   flavor = "mocha";
   accent = "mauve";
 
+  mkDark = colorHex: darken colorHex 0.12;
   palette = (lib.importJSON "${sources.palette}/palette.json").${flavor}.colors;
+  paletteHex = lib.mapAttrs (_name: color: color.hex) palette;
+  paletteHexExtra = lib.listToAttrs (
+    map
+      (name: {
+        name = "dark${lib.toSentenceCase name}";
+        value = mkDark paletteHex.${name};
+      })
+      [
+        "rosewater"
+        "flamingo"
+        "pink"
+        "mauve"
+        "red"
+        "maroon"
+        "peach"
+        "yellow"
+        "green"
+        "teal"
+        "sky"
+        "sapphire"
+        "blue"
+        "lavender"
+      ]
+  );
 }
