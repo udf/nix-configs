@@ -5,18 +5,15 @@
   ...
 }:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
-    inherit
-      lib
-      pkgs
-      inputs
-      ;
+  catppuccinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit lib pkgs inputs;
   };
+  inherit (catppuccinOptions) accent;
 in
 {
   wayland.windowManager.sway.config.colors =
     let
-      accentColour = "$" + catppucinOptions.accent;
+      accentColour = "$" + accent;
       urgentColor = "$red";
       indicatorColour = "$peach";
     in

@@ -6,12 +6,8 @@
   ...
 }:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
-    inherit
-      lib
-      pkgs
-      inputs
-      ;
+  catppuccinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit lib pkgs inputs;
   };
 in
 {
@@ -38,13 +34,17 @@ in
   gtk = {
     colorScheme = "dark";
     enable = true;
-    theme = {
-      name = "catppuccin-${catppucinOptions.flavor}-${catppucinOptions.accent}-standard";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ catppucinOptions.accent ];
-        variant = catppucinOptions.flavor;
+    theme =
+      let
+        inherit (catppuccinOptions) flavor accent;
+      in
+      {
+        name = "catppuccin-${flavor}-${accent}-standard";
+        package = pkgs.catppuccin-gtk.override {
+          accents = [ accent ];
+          variant = flavor;
+        };
       };
-    };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
     };

@@ -5,17 +5,13 @@
   ...
 }:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
-    inherit
-      lib
-      pkgs
-      inputs
-      ;
+  catppuccinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit lib pkgs inputs;
   };
-  accentColour = catppucinOptions.palette.${catppucinOptions.accent};
-  accentColourHex = accentColour.hex;
+  inherit (catppuccinOptions) accent paletteHex;
+  accentColourHex = paletteHex.${accent};
   accentColorRGBA = "rgba(${lib.removePrefix "#" accentColourHex}ff)";
-  backgroundColourHex = catppucinOptions.palette.base.hex;
+  backgroundColourHex = paletteHex.base;
   hyprlockAccentLineWebp =
     pkgs.runCommandLocal "gray0-ctp-on-line-accent-webp"
       {

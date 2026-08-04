@@ -6,12 +6,8 @@
   ...
 }:
 let
-  catppucinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
-    inherit
-      lib
-      pkgs
-      inputs
-      ;
+  catppuccinOptions = import (inputs.self + "/common/catppuccin-options.nix") {
+    inherit lib pkgs inputs;
   };
 in
 {
@@ -30,7 +26,7 @@ in
     profiles.default.extensions = [
       (config.catppuccin.sources.vscode.override {
         catppuccinOptions = {
-          colorOverrides = catppucinOptions.prefixedColorOverrides;
+          colorOverrides = catppuccinOptions.prefixedColorOverrides;
         };
       })
     ];
