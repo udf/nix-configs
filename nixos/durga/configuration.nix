@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  hostFlakePath,
   ...
 }:
 {
@@ -59,7 +59,9 @@
 
   systemd.services.nixos-upgrade.serviceConfig = {
     ExecStartPre = pkgs.writeShellScript "etc-nixos-flake-update.sh" ''
-      ${lib.getExe' config.nix.package "nix"} flake update --flake "path:$(dirname $(readlink /etc/nixos/flake.nix))"
+      cd "$(dirname $(readlink /etc/nixos/flake.nix))"
+      ${lib.getExe' config.nix.package "nix"} flake update --flake "${hostFlakePath}"
+      ${lib.getExe' config.nix.package "nix"} flake update
     '';
     ExecStartPost = "${config.systemd.package}/bin/shutdown -r +1";
   };

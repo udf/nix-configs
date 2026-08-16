@@ -2,50 +2,43 @@
   description = "Sam's NixOS configurations";
 
   inputs = {
+    # MARK: pinned version
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    arion = {
-      url = "github:hercules-ci/arion";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # Third party sources
-    # MARK: pinned version
-    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit/948aa87003f6c94080650804a6974182e5948ca1";
-    # MARK: pinned version
-    nix-colorizer.url = "github:nutsalhan87/nix-colorizer/c9ce6c710f4ed749f773104a8092a3e542dd1d7c";
-
-    catppuccin.url = "github:catppuccin/nix";
+    # host inputs
+    ananke.url = "path:./nixos/ananke";
+    durga.url = "path:./nixos/durga";
+    phanes.url = "path:./nixos/phanes";
+    riko.url = "path:./nixos/riko";
   };
 
   outputs =
     inputs:
     let
       inherit (inputs.nixpkgs) lib;
-      inherit (lib.attrsets) mapAttrs;
       mkConfig =
-        host:
         {
-          pkgs,
-          home-manager ? null,
-          extraModules ? [ ],
-          extraHomeManagerModules ? [ ],
+          host,
+          flake,
+          hostFlakePath ? "",
         }:
+        let
+          allInputs = inputs // flake.inputs;
+          pkgs = flake.inputs.nixpkgs;
+          home-manager = flake.inputs.home-manager or null;
+          extraModules = flake.extraModules or [ ];
+          extraHomeManagerModules = flake.extraHomeManagerModules or [ ];
+        in
         pkgs.lib.nixosSystem {
           system = null;
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inputs = allInputs;
+            hostFlakePath = lib.removePrefix "path:" hostFlakePath;
+          };
           modules = [
             (./. + "/nixos/${host}/configuration.nix")
             {
@@ -62,29 +55,22 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inputs = allInputs;
+              };
               home-manager.sharedModules = extraHomeManagerModules;
             }
           ];
         };
     in
     {
-      nixosConfigurations = mapAttrs mkConfig {
-        riko = {
-          pkgs = inputs.nixpkgs-unstable;
-          home-manager = inputs.home-manager-unstable;
-          extraModules = [ inputs.catppuccin.nixosModules.catppuccin ];
-          extraHomeManagerModules = [ inputs.catppuccin.homeModules.catppuccin ];
-        };
-        ananke = {
-          pkgs = inputs.nixpkgs;
-        };
-        durga = {
-          pkgs = inputs.nixpkgs;
-        };
-        phanes = {
-          pkgs = inputs.nixpkgs;
-        };
-      };
+      nixosConfigurations = lib.genAttrs [ "ananke" "durga" "phanes" "riko" ] (
+        h:
+        mkConfig {
+          host = h;
+          flake = inputs.${h};
+          hostFlakePath = "./nixos/${h}";
+        }
+      );
     };
 }

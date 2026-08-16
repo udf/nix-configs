@@ -45,7 +45,7 @@ in
     };
   };
   # Override kernel from nixos-hardware to be mainline instead
-  boot.kernelPackages = pkgs.linuxPackages;
+  # boot.kernelPackages = pkgs.linuxPackages;
 
   # ttyAMA0 is the serial console broken out to the GPIO
   boot.kernelParams = [
