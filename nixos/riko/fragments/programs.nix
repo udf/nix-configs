@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-  # programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -8,5 +7,6 @@
     gparted-full
     e2fsprogs
     bottles
+    bintools
   ];
 }
