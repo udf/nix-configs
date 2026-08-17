@@ -6,14 +6,15 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-YE9mTlhnxYshSRqO0lijrxz2RAVKCAeqBfVUwIzmCwU=",
         "path": "./nixos/ananke",
         "type": "path"
       },
       "original": {
         "path": "./nixos/ananke",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "arion": {
       "inputs": {
@@ -62,14 +63,15 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-STgD3uHrSXchjohveIk1NR7Qu9SxDemjWXEqQr+l/5g=",
         "path": "./nixos/durga",
         "type": "path"
       },
       "original": {
         "path": "./nixos/durga",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "flake-parts": {
       "inputs": {
@@ -139,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786887553,
-        "narHash": "sha256-0J8EwNSJ/2OeyuvXgfG+k5uBT1gkg0ww7VEo+14xl50=",
+        "lastModified": 1786929086,
+        "narHash": "sha256-kzpwMyT7i2fTQ41tf/WlsIHuJtf3e0leRBEPkBhUzBY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5bd505963717a894b02a57cdbcc00db28d9b029f",
+        "rev": "aac4965ddb7ea2ff0f3cadd9502c7042b7aa07ba",
         "type": "github"
       },
       "original": {
@@ -289,11 +291,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1786711500,
-        "narHash": "sha256-QvnceIGTBeDvDd9oCn+GvdsnkquliuwbVgpiRH68qaQ=",
+        "lastModified": 1786943417,
+        "narHash": "sha256-b4qgjdFtlz5TAZ1Hi7DFJeqX3sjaDUnrwr9OO+O1rM0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "02e08985a27c65ffd33d434eeb2e660a2e4dc84d",
+        "rev": "0dd31db7e6dbf9ce05697c4545f6fe01accec994",
         "type": "github"
       },
       "original": {
@@ -383,14 +385,15 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-LAY3w1xUFa1KJ2wz9mQesSGwBNsRn2d+A4WkBCOiMnY=",
         "path": "./nixos/phanes",
         "type": "path"
       },
       "original": {
         "path": "./nixos/phanes",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "riko": {
       "inputs": {
@@ -402,14 +405,15 @@
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
       },
       "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-L1d3YK0Z+28ZIopqF1rH35EGllDlxHXw3qJSDpQYGlA=",
         "path": "./nixos/riko",
         "type": "path"
       },
       "original": {
         "path": "./nixos/riko",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "root": {
       "inputs": {
