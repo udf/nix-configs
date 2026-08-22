@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 [ -z "$1" ] && echo "No host supplied" && exit 1
 
