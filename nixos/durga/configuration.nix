@@ -61,7 +61,7 @@
     ExecStartPre = pkgs.writeShellScript "etc-nixos-flake-update.sh" ''
       cd "$(dirname $(readlink /etc/nixos/flake.nix))"
       ${lib.getExe' config.nix.package "nix"} flake update --flake "${hostFlakePath}"
-      ${lib.getExe' config.nix.package "nix"} flake update
+      ${lib.getExe' config.nix.package "nix"} flake update "${config.networking.hostName}"
     '';
     ExecStartPost = "${config.systemd.package}/bin/shutdown -r +1";
   };

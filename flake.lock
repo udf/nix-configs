@@ -6,18 +6,14 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "dir": "nixos/ananke",
-        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
-        "dirtyShortRev": "b97f604-dirty",
-        "lastModified": 1787356851,
-        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
-        "type": "git",
-        "url": "file:./"
+        "lastModified": 1,
+        "narHash": "sha256-YE9mTlhnxYshSRqO0lijrxz2RAVKCAeqBfVUwIzmCwU=",
+        "path": "./nixos/ananke",
+        "type": "path"
       },
       "original": {
-        "dir": "nixos/ananke",
-        "type": "git",
-        "url": "file:./"
+        "path": "./nixos/ananke",
+        "type": "path"
       }
     },
     "arion": {
@@ -67,18 +63,14 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "dir": "nixos/durga",
-        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
-        "dirtyShortRev": "b97f604-dirty",
-        "lastModified": 1787356851,
-        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
-        "type": "git",
-        "url": "file:./"
+        "lastModified": 1,
+        "narHash": "sha256-dgLIDhqDJN5UbxKlzdTS4auKz5S6DwXbq4I8pBnoN1A=",
+        "path": "./nixos/durga",
+        "type": "path"
       },
       "original": {
-        "dir": "nixos/durga",
-        "type": "git",
-        "url": "file:./"
+        "path": "./nixos/durga",
+        "type": "path"
       }
     },
     "flake-parts": {
@@ -251,11 +243,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1786862985,
-        "narHash": "sha256-FBJRXmbGXiSUDvYEbfLYRkckayyZ6SK1UEqhCrIZ2Cs=",
+        "lastModified": 1787135253,
+        "narHash": "sha256-RD2kNWCG+Bjo6h+JVjWVNntZs2GtRoeY2xHjts/FNkA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e5bdc4a41d4c072fe1e3787eaa0320a384741d44",
+        "rev": "ffb3c9b700e759be2ef13237c9d8f953b32a1e46",
         "type": "github"
       },
       "original": {
@@ -315,11 +307,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1786711500,
-        "narHash": "sha256-QvnceIGTBeDvDd9oCn+GvdsnkquliuwbVgpiRH68qaQ=",
+        "lastModified": 1787204541,
+        "narHash": "sha256-OURZPknrTjQrlNyxPdqzyqmU/81Wes1CUP/Ft1Rv/YI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "02e08985a27c65ffd33d434eeb2e660a2e4dc84d",
+        "rev": "5880666fd9eb563038431edb35c2d0aa595884e6",
         "type": "github"
       },
       "original": {
@@ -393,18 +385,14 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "dir": "nixos/phanes",
-        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
-        "dirtyShortRev": "b97f604-dirty",
-        "lastModified": 1787356851,
-        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
-        "type": "git",
-        "url": "file:./"
+        "lastModified": 1,
+        "narHash": "sha256-F/OfSSh4KS80eB0/NaCcaZkkvY4jNAcTYIq20MQJFtE=",
+        "path": "./nixos/phanes",
+        "type": "path"
       },
       "original": {
-        "dir": "nixos/phanes",
-        "type": "git",
-        "url": "file:./"
+        "path": "./nixos/phanes",
+        "type": "path"
       }
     },
     "riko": {
@@ -417,18 +405,14 @@
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
       },
       "locked": {
-        "dir": "nixos/riko",
-        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
-        "dirtyShortRev": "b97f604-dirty",
-        "lastModified": 1787356851,
-        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
-        "type": "git",
-        "url": "file:./"
+        "lastModified": 1,
+        "narHash": "sha256-2N6AksLd47VJ0lKvQQGpuNDIg4ZyVE7ZIVNL7mdw/0M=",
+        "path": "./nixos/riko",
+        "type": "path"
       },
       "original": {
-        "dir": "nixos/riko",
-        "type": "git",
-        "url": "file:./"
+        "path": "./nixos/riko",
+        "type": "path"
       }
     },
     "root": {
