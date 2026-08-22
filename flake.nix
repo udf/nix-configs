@@ -10,10 +10,10 @@
     };
 
     # host inputs
-    ananke.url = "path:./nixos/ananke";
-    durga.url = "path:./nixos/durga";
-    phanes.url = "path:./nixos/phanes";
-    riko.url = "path:./nixos/riko";
+    ananke.url = "git+file:./?dir=nixos/ananke";
+    durga.url = "git+file:./?dir=nixos/durga";
+    phanes.url = "git+file:./?dir=nixos/phanes";
+    riko.url = "git+file:./?dir=nixos/riko";
   };
 
   outputs =

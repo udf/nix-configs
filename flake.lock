@@ -6,14 +6,18 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-YE9mTlhnxYshSRqO0lijrxz2RAVKCAeqBfVUwIzmCwU=",
-        "path": "./nixos/ananke",
-        "type": "path"
+        "dir": "nixos/ananke",
+        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
+        "dirtyShortRev": "b97f604-dirty",
+        "lastModified": 1787356851,
+        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
+        "type": "git",
+        "url": "file:./"
       },
       "original": {
-        "path": "./nixos/ananke",
-        "type": "path"
+        "dir": "nixos/ananke",
+        "type": "git",
+        "url": "file:./"
       }
     },
     "arion": {
@@ -63,14 +67,18 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-NGTmxEZ/mv3bQw8Kvwr4o3ou8ZPRkLUIxN3tqWMu8xU=",
-        "path": "./nixos/durga",
-        "type": "path"
+        "dir": "nixos/durga",
+        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
+        "dirtyShortRev": "b97f604-dirty",
+        "lastModified": 1787356851,
+        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
+        "type": "git",
+        "url": "file:./"
       },
       "original": {
-        "path": "./nixos/durga",
-        "type": "path"
+        "dir": "nixos/durga",
+        "type": "git",
+        "url": "file:./"
       }
     },
     "flake-parts": {
@@ -385,14 +393,18 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-LAY3w1xUFa1KJ2wz9mQesSGwBNsRn2d+A4WkBCOiMnY=",
-        "path": "./nixos/phanes",
-        "type": "path"
+        "dir": "nixos/phanes",
+        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
+        "dirtyShortRev": "b97f604-dirty",
+        "lastModified": 1787356851,
+        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
+        "type": "git",
+        "url": "file:./"
       },
       "original": {
-        "path": "./nixos/phanes",
-        "type": "path"
+        "dir": "nixos/phanes",
+        "type": "git",
+        "url": "file:./"
       }
     },
     "riko": {
@@ -405,14 +417,18 @@
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-2N6AksLd47VJ0lKvQQGpuNDIg4ZyVE7ZIVNL7mdw/0M=",
-        "path": "./nixos/riko",
-        "type": "path"
+        "dir": "nixos/riko",
+        "dirtyRev": "b97f604a926c23626345e6d508458bffe80d9d06-dirty",
+        "dirtyShortRev": "b97f604-dirty",
+        "lastModified": 1787356851,
+        "narHash": "sha256-tG11PQMrOlZe6GrMsIjL/WxLprlA0bAJs9PBdoXkTl4=",
+        "type": "git",
+        "url": "file:./"
       },
       "original": {
-        "path": "./nixos/riko",
-        "type": "path"
+        "dir": "nixos/riko",
+        "type": "git",
+        "url": "file:./"
       }
     },
     "root": {
