@@ -5,6 +5,8 @@
     settings = {
       auto-optimise-store = true;
       keep-outputs = true;
+      keep-derivations = true;
+      keep-env-derivations = true;
       trusted-users = [ "@wheel" ];
       experimental-features = [
         "nix-command"
