@@ -26,5 +26,7 @@
     jq
     ldns
     moreutils
+    usbutils
+    pciutils
   ];
 }
