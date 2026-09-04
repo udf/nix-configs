@@ -35,6 +35,11 @@ in
       fsType = "zfs";
       options = zfs_auto_options;
     };
+    "/backup/mom" = {
+      device = "backup/mom";
+      fsType = "zfs";
+      options = zfs_auto_options;
+    };
   };
 
   services.smartd.devices = [
