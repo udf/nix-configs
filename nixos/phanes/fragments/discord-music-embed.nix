@@ -56,7 +56,7 @@ in
         locations = {
           "~ [^/]$".extraConfig = ''
             error_page 420 = @embed;
-            if ($args ~ "(?:^|&)embed(?:[=&]|$)") {
+            if ($args ~ "(?:^|&)(?:embed|cover)(?:[=&]|$)") {
               return 420;
             }
             try_files _ @default;

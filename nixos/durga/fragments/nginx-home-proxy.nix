@@ -26,8 +26,9 @@ in
         ~/$ "1";
         default "0";
       }
-      map $args $args_has_embed {
-        ~(?:^|&)embed(?:[=&]|$) "1";
+      map $args $embed_key {
+        ~(?:^|&)embed(?:[=&]|$) "embed";
+        ~(?:^|&)cover(?:[=&]|$) "cover";
         default "0";
       }
     '';
@@ -60,7 +61,7 @@ in
             proxy_read_timeout 20s;
 
             proxy_cache diskcache; 
-            proxy_cache_key "$scheme$host$uri$args_has_embed";
+            proxy_cache_key "$scheme$host$uri$embed_key";
             proxy_cache_bypass $arg_nocache;
             proxy_no_cache $uri_is_dir;
             proxy_cache_lock on;
