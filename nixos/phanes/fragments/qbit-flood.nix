@@ -8,12 +8,13 @@
 let
   unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
   serviceOpts = {
+    after = [ "backup-qbit.automount" ];
+    requires = [ "backup-qbit.automount" ];
     serviceConfig = {
       Restart = lib.mkForce "always";
       RestartSec = lib.mkForce 5;
       RestartMode = lib.mkForce "direct";
     };
-    unitConfig.RequiresMountsFor = "/backup/qbit";
   };
 in
 {

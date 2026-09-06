@@ -84,11 +84,10 @@ in
       after = [
         "network.target"
         "yt-wl-dl.service"
+        "external.automount"
       ];
+      requires = [ "external.automount" ];
       upholds = [ "external.mount" ];
-      unitConfig = {
-        RequiresMountsFor = "/external";
-      };
       serviceConfig = {
         Type = "oneshot";
         DynamicUser = "yes";
@@ -140,10 +139,9 @@ in
       };
     };
     services.yt-wl-trasher = {
+      after = [ "external.automount" ];
+      requires = [ "external.automount" ];
       upholds = [ "external.mount" ];
-      unitConfig = {
-        RequiresMountsFor = "/external";
-      };
       serviceConfig = {
         Type = "oneshot";
         User = "yt-wl-dl";
@@ -163,7 +161,11 @@ in
       };
     };
     services.yt-wl-dl = {
-      after = [ "network.target" ];
+      after = [
+        "network.target"
+        "external.automount"
+      ];
+      requires = [ "external.automount" ];
       path = [
         pkgs.ffmpeg
         pkgs.deno
@@ -172,9 +174,6 @@ in
         "external.mount"
         "yt-wl-trasher.timer"
       ];
-      unitConfig = {
-        RequiresMountsFor = "/external";
-      };
       serviceConfig = {
         Type = "oneshot";
         User = "yt-wl-dl";

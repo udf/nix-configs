@@ -20,16 +20,20 @@ in
   # TODO: move this to a generic module if more gui users are needed
   systemd.services.xpra-nicotine = {
     description = "Xpra for nicotine";
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "backup-music.automount"
+      "backup-soulseek\x2ddownloads.automount"
+    ];
+    requires = [
+      "backup-music.automount"
+      "backup-soulseek\x2ddownloads.automount"
+    ];
     wantedBy = [ "multi-user.target" ];
 
     environment = {
       XDG_RUNTIME_DIR = "/run/user/${userId}";
       GTK_A11Y = "none";
-    };
-
-    unitConfig = {
-      RequiresMountsFor = "/backup/music /backup/soulseek-downloads";
     };
 
     serviceConfig = {

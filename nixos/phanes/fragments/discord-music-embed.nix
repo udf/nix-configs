@@ -15,7 +15,11 @@ in
 {
   systemd.services.discord-music-embed = {
     description = "music embed generator for discord";
-    after = [ "network.target" ];
+    after = [
+      "network.target"
+      "backup-music.automount"
+    ];
+    requires = [ "backup-music.automount" ];
     wantedBy = [ "multi-user.target" ];
     path = [ pythonPkg ];
     environment = {
@@ -26,9 +30,6 @@ in
       MUSIC_DIR = "/backup/music/music";
       COVER_DIR = coverCacheDir;
       # SERVE_FILES = "1";
-    };
-    unitConfig = {
-      RequiresMountsFor = "/backup/music";
     };
 
     serviceConfig = {
