@@ -28,5 +28,7 @@
     moreutils
     usbutils
     pciutils
+    compsize
+    ripgrep
   ];
 }
