@@ -6,6 +6,11 @@
       bwrap_bin="${lib.getExe pkgs.bubblewrap}"
     fi
 
+    if [[ "''${NIX_CONFIG-}" != *"eval-cache = false"* ]]; then
+      NIX_CONFIG+=$'\neval-cache = false'
+    fi
+    export NIX_CONFIG
+
     exec "$bwrap_bin" \
       --ro-bind / / \
       --bind "$PWD" "$PWD" \
