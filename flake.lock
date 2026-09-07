@@ -7,7 +7,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Er1tgaMxx9HuK/jD0Kpj9c5oy3itsr3Ev8xF6NNqxME=",
+        "narHash": "sha256-RWTWLi9GuwKQxX0Xl1ojSgcSa0E99T04FGeEAujqE2Y=",
         "path": "./nixos/ananke",
         "type": "path"
       },
@@ -284,17 +284,17 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1788584326,
-        "narHash": "sha256-Fd3OB8J9JhgliQwOKcqx4M672CInxi1I5VnwsaXeSQo=",
+        "lastModified": 1786313170,
+        "narHash": "sha256-9BG7OgUWdu0ONDO5X2q6+K4bsuBITkX/3W4nNJu1Ito=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6713828a351efa628b025a1adf7f43cbf8597513",
+        "rev": "fcb8fcd6bf2d0adecae5bd491afaaaf8311b758d",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-26.05",
         "repo": "nixpkgs",
+        "rev": "fcb8fcd6bf2d0adecae5bd491afaaaf8311b758d",
         "type": "github"
       }
     },

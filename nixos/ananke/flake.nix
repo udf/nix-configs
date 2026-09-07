@@ -3,8 +3,8 @@
 
   inputs = {
     # MARK: pinned version
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    # TODO: unpin this back to /master
+    # TODO: unpin these back to /nixos-26.05 and /master
+    nixpkgs.url = "github:nixos/nixpkgs/fcb8fcd6bf2d0adecae5bd491afaaaf8311b758d";
     nixos-hardware.url = "github:NixOS/nixos-hardware/7aefd9ab01eef691c5c688d9ca4d1ea003cca284";
   };
 
