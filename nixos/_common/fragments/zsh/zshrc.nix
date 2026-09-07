@@ -13,6 +13,8 @@ in
   export RPROMPT='$(${lib.getExe pkgs.gitprompt-rs} zsh)'
 
   # syntax highlighting plugin
+  typeset -gA FAST_BLIST_PATTERNS
+  FAST_BLIST_PATTERNS[/mnt/*]=1
   source "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 
   # fzf + custom commands
