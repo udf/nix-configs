@@ -9,8 +9,5 @@
     wrapperFeatures.gtk = true;
   };
 
-  services.displayManager = {
-    defaultSession = "sway";
-    sessionPackages = [ pkgs.sway ];
-  };
+  services.displayManager.sessionPackages = [ pkgs.sway ];
 }

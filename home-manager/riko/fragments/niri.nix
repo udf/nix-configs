@@ -15,5 +15,8 @@ in
     wl-mirror
   ];
 
-  system.services.displayManager.sessionPackages = [ niriPkg ];
+  system.services.displayManager = {
+    defaultSession = "niri";
+    sessionPackages = [ niriPkg ];
+  };
 }
