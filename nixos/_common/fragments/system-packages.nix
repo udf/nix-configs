@@ -5,30 +5,41 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # version control
     git
     git-crypt
+
+    # network and transfer utilities
     wget
+    aria2
+
+    # archiving
+    zip
+    unzip
+    atool
+
+    # hardware/system inspection
     tree
     file
-    htop
-    iotop-c
-    btop
-    tmux
-    lm_sensors
-    ncdu
-    pv
     lsof
-    aria2
-    zip
-    atool
-    unzip
-    expect
-    jq
-    ldns
-    moreutils
+    lm_sensors
     usbutils
     pciutils
     compsize
+
+    # shell utilities
+    jq
+    ldns
+    moreutils
     ripgrep
+    pv
+    expect
+
+    # interactive
+    ncdu
+    tmux
+    htop
+    iotop-c
+    btop
   ];
 }
