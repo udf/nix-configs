@@ -4,9 +4,15 @@
   ...
 }:
 {
-  environment.etc."sudo-auth-success-motd".text = ''
-    Success!
-  '';
+  environment.etc."pam-sudo-success-message.sh" = {
+    mode = "0755";
+    text = ''
+      #!${pkgs.runtimeShell}
+      if [ "$PAM_TYPE" = "open_session" ] && [ -n "$PAM_TTY" ] && [ -w "$PAM_TTY" ]; then
+        printf 'sudo: authentication successful!\n' > "$PAM_TTY"
+      fi
+    '';
+  };
 
   services.gnome.gnome-keyring.enable = true;
 
@@ -21,15 +27,14 @@
         }
       ];
       services.sudo = {
-        fprintAuth = true;
         rules.session = {
-          successMotd = {
+          successTty = {
             order = 12300;
             control = "optional";
-            modulePath = "${config.security.pam.package}/lib/security/pam_motd.so";
+            modulePath = "${config.security.pam.package}/lib/security/pam_exec.so";
             args = [
-              "motd=/etc/sudo-auth-success-motd"
-              "noupdate"
+              "seteuid"
+              "/etc/pam-sudo-success-message.sh"
             ];
           };
         };
