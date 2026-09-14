@@ -23,11 +23,11 @@ in
     after = [
       "network.target"
       "backup-music.automount"
-      "backup-soulseek\x2ddownloads.automount"
+      "backup-soulseek\\x2ddownloads.automount"
     ];
     requires = [
       "backup-music.automount"
-      "backup-soulseek\x2ddownloads.automount"
+      "backup-soulseek\\x2ddownloads.automount"
     ];
     wantedBy = [ "multi-user.target" ];
 

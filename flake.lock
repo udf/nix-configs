@@ -382,7 +382,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-FwL9xyCqSzm5lUO+NtqR7WAe1Z3ROxmZXyE4byp942Y=",
+        "narHash": "sha256-95WRsYe6hPE41US7X7IaZz3WN0RvpyJZjjy+ygMx4+M=",
         "path": "./nixos/phanes",
         "type": "path"
       },
@@ -403,7 +403,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-MyioeyLTfQFNwRrwZzLIO6O+iO1Q9VdFCY7jSiitpuY=",
+        "narHash": "sha256-SVE7GaGkBzamy1G4Oy/EtSSGh1mHjOxptG01DF40884=",
         "path": "./nixos/riko",
         "type": "path"
       },
