@@ -382,7 +382,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-95WRsYe6hPE41US7X7IaZz3WN0RvpyJZjjy+ygMx4+M=",
+        "narHash": "sha256-Ga/gYTuXbEch0gaJJFUJ4rco0KQdXuntyISi4L4Eytg=",
         "path": "./nixos/phanes",
         "type": "path"
       },

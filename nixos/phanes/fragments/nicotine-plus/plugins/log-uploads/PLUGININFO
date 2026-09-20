@@ -1,0 +1,4 @@
+Version = "2026-09-18"
+Authors = ["Samara"]
+Name = "Upload Logger"
+Description = "Writes a log entry for every uploaded file to a user-specified folder."
