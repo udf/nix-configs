@@ -25,6 +25,9 @@
           name = "sam@${host}";
           value = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
+            extraSpecialArgs = {
+              inherit inputs;
+            };
             modules = modules ++ [
               (./. + "/${host}/home.nix")
             ];
@@ -34,10 +37,6 @@
     {
       homeConfigurations = mapAttrs' mkConfig {
         karen-chan = {
-          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-          home-manager = inputs.home-manager;
-        };
-        mashiro = {
           pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
           home-manager = inputs.home-manager;
         };
