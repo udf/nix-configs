@@ -18,7 +18,7 @@
       flexget-webui = "2.0.29";
     };
     packages = {
-      nextcloud = pkgs.nextcloud33;
+      nextcloud = pkgs.nextcloud35;
     };
   };
 }
