@@ -7,47 +7,26 @@
         ]
       },
       "locked": {
-        "lastModified": 1788651960,
-        "narHash": "sha256-v9wJd32eZ2bvhBzVOd7TIjLQd011P7nwOhjKtWlci5I=",
+        "lastModified": 1793757180,
+        "narHash": "sha256-gyV7AtCwLnOImcrfSETP4J3Ie96bz19DY47B7m7Y3HM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2c0350c759688177331b8f5242311fae8877bdb3",
+        "rev": "b787c48e2ec57a9d098f5c2721882a3bc1e16f97",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "mpd-discord-rpc": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787679769,
-        "narHash": "sha256-fM64kDcp0+nnJR2ATAurcF34V9E86KJfEYny63WCEYw=",
-        "owner": "udf",
-        "repo": "mpd-discord-rpc",
-        "rev": "1207ffd59375a79732061770a19d04ed5cf2f874",
-        "type": "github"
-      },
-      "original": {
-        "owner": "udf",
-        "ref": "url-formatting",
-        "repo": "mpd-discord-rpc",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1788752844,
-        "narHash": "sha256-VaWGJ6+cIYN2erfSecbRV+4ljI185Ty2wUrXyvQbgOw=",
+        "lastModified": 1793726008,
+        "narHash": "sha256-jQp1wKvbwWdLBASTXkSi/VYmDJ5AbBi1WvcMt9HWJC8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "dc5d91f840324650bac8c379428c7037a416959a",
+        "rev": "1d060086d60cb76a40cf37109f979d88a5bd6396",
         "type": "github"
       },
       "original": {
@@ -60,7 +39,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "mpd-discord-rpc": "mpd-discord-rpc",
         "nixpkgs": "nixpkgs"
       }
     }
