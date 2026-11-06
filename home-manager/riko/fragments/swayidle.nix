@@ -10,8 +10,8 @@ let
   lockIsActive = "${systemctl} --user is-active screen-locker";
   kbdBacklightCmd =
     level: "${lib.getExe config.namedPackages.kbd-backlight} --silent ${toString level}";
-  swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
-  displays = status: "${swaymsg} 'output * power ${status}' > /dev/null";
+  niriCmd = lib.getExe' config.wayland.windowManager.niri.package "niri";
+  displays = status: "${niriCmd} msg action power-${status}-monitors";
   dimScreenPkg = (pkgs.callPackage ../packages/dim-screen.nix { });
   dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
 in
