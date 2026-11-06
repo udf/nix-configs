@@ -1,0 +1,26 @@
+{ lib, ... }:
+# TODO: remove this after merging home-manager and nixos configs
+with lib;
+{
+  listFilesWithExt =
+    {
+      dir,
+      ext,
+      relative ? false,
+    }:
+    map (f: if relative then "${f}" else dir + "/${f}") (
+      attrNames (filterAttrs (k: v: (v == "regular" && hasSuffix ext k)) (readDir dir))
+    );
+
+  listImportable =
+    dir:
+    map (f: dir + "/${f}") (
+      attrNames (
+        filterAttrs (
+          k: v:
+          (v == "regular" && hasSuffix ".nix" k)
+          || (v == "directory" && pathExists ((dir + "/${k}/default.nix")))
+        ) (readDir dir)
+      )
+    );
+}

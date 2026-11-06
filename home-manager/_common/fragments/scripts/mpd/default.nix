@@ -1,7 +1,11 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  customUtils,
+  ...
+}:
 let
-  listFilesWithExt =
-    ((import ../../../helpers/list-files.nix) { inherit lib pkgs; }).listFilesWithExt;
+  inherit (customUtils) listFilesWithExt;
   pythonBin = lib.getExe (
     with pkgs;
     python3.withPackages (ps: [

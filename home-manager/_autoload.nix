@@ -1,7 +1,7 @@
 sourceDir:
-{ lib, ... }:
+{ customUtils, ... }:
 let
-  listImportable = ((import ./_common/helpers/list-files.nix) { inherit lib; }).listImportable;
+  inherit (customUtils) listImportable;
 in
 {
   imports = (

@@ -7,7 +7,7 @@ with lib;
       ext,
       relative ? false,
     }:
-    map (f: if relative then "${f}" else d + "/${f}") (
+    map (f: if relative then "${f}" else dir + "/${f}") (
       attrNames (filterAttrs (k: v: (v == "regular" && hasSuffix ext k)) (readDir dir))
     );
 
@@ -18,7 +18,7 @@ with lib;
         filterAttrs (
           k: v:
           (v == "regular" && hasSuffix ".nix" k)
-          || (v == "directory" && pathExists ((dir + "/${k}/default.nix")))
+          || (v == "directory" && pathExists (dir + "/${k}/default.nix"))
         ) (readDir dir)
       )
     );

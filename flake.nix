@@ -38,6 +38,7 @@
           specialArgs = {
             inputs = allInputs;
             hostFlakePath = lib.removePrefix "path:" hostFlakePath;
+            customUtils = (import ./common/utils.nix) { lib = pkgs.lib; };
           };
           modules = [
             (./. + "/nixos/${host}/configuration.nix")
@@ -57,6 +58,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
                 inputs = allInputs;
+                customUtils = (import ./common/utils.nix) { lib = pkgs.lib; };
               };
               home-manager.sharedModules = extraHomeManagerModules;
             }

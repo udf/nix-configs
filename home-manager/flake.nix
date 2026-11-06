@@ -27,6 +27,7 @@
             inherit pkgs;
             extraSpecialArgs = {
               inherit inputs;
+              customUtils = (import ./_common/helpers/utils.nix) { lib = pkgs.lib; };
             };
             modules = modules ++ [
               (./. + "/${host}/home.nix")

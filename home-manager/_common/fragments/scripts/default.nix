@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ customUtils, ... }:
 let
-  listImportable = ((import ../../helpers/list-files.nix) { inherit lib pkgs; }).listImportable;
+  inherit (customUtils) listImportable;
 in
 {
   imports = builtins.filter (p: p != ./default.nix) (listImportable ./.);
