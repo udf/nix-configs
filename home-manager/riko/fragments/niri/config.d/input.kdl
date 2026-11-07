@@ -1,0 +1,25 @@
+input {
+  focus-follows-mouse max-scroll-amount="0%"
+
+  keyboard {
+    numlock
+  }
+
+  touchpad {
+    tap
+    natural-scroll
+  }
+
+  mouse {
+  }
+}
+
+gestures {
+  hot-corners {
+    off
+  }
+}
+
+clipboard {
+  disable-primary
+}

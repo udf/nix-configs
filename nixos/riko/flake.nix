@@ -19,6 +19,10 @@
       url = "github:willybarret/niri/wip/virtual-outputs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-main = {
+      url = "github:niri-wm/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     wayland-pipewire-idle-inhibit = {
       # MARK: pinned version
       url = "github:rafaelrc7/wayland-pipewire-idle-inhibit/948aa87003f6c94080650804a6974182e5948ca1";

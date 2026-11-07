@@ -157,6 +157,27 @@
         "type": "github"
       }
     },
+    "niri-main": {
+      "inputs": {
+        "nixpkgs": [
+          "riko",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794079117,
+        "narHash": "sha256-Y3nkQZjOE+OpgKrUxoistNClYXv/eq6q5AGUjAs78PQ=",
+        "owner": "niri-wm",
+        "repo": "niri",
+        "rev": "da0ab810d463d26da2fa6d9cf9f7abdb1928f9a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niri-wm",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "niri-virtual-outputs": {
       "inputs": {
         "nixpkgs": [
@@ -395,6 +416,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
+        "niri-main": "niri-main",
         "niri-virtual-outputs": "niri-virtual-outputs",
         "nix-colorizer": "nix-colorizer",
         "nixos-hardware": "nixos-hardware_2",
@@ -403,7 +425,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-dYgXBnUS+m5D736mSNdFfP7FThCF6O+4QamA3YD5RGc=",
+        "narHash": "sha256-nMFj6oBTRgGw9j7SgW2ka6KIGSOjaYtV0lcqiQYCOXM=",
         "path": "./nixos/riko",
         "type": "path"
       },

@@ -1,0 +1,7 @@
+screenshot-path "/tmp/screenshots/%Y-%m-%d_%H-%M-%S.png"
+
+binds {
+  Mod+Shift+S { screenshot; }
+  Mod+Ctrl+Shift+S { screenshot-screen; }
+  Mod+Alt+Shift+S { screenshot-window; }
+}

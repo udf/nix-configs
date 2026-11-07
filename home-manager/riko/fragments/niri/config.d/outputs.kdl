@@ -1,0 +1,43 @@
+output "eDP-1" {
+  position x=640 y=1440
+  mode "1920x1080@120.030"
+  scale 1
+  transform "normal"
+  variable-refresh-rate
+}
+
+output "Dell Inc. DELL S2721DGF CZ7Q023" {
+  position x=0 y=0
+  mode "2560x1440@59.951"
+  scale 1
+  variable-refresh-rate
+  max-bpc 8
+}
+
+// output "SKYDATA S.P.A. TV-monitor 0x01010101" {
+//   position x=0 y=1080
+//   layout {
+//     struts {
+//       top 1080
+//     }
+
+//     preset-column-widths {
+//       proportion 0.25
+//       proportion 0.5
+//     }
+//   }
+// }
+
+// output "SKYDATA-virtual-split" {
+//   position x=0 y=0
+//   create-virtual
+//   mode "3840x1080@60.000"
+//   scale 1.0
+//   layout {
+//     preset-column-widths {
+//       proportion 0.25
+//       proportion 0.5
+//     }
+//   }
+// }
+

@@ -1,0 +1,25 @@
+binds {
+  Mod+Q repeat=false { toggle-overview; }
+  Mod+X repeat=false { close-window; }
+
+  // Resizing
+  Mod+R { switch-preset-column-width; }
+  Mod+Shift+R { switch-preset-column-width-back; }
+
+  Mod+Ctrl+R { switch-preset-window-height; }
+  Mod+Ctrl+Shift+R { reset-window-height; }
+
+  Mod+F { maximize-column; }
+  Mod+Shift+F { maximize-window-to-edges; }
+  Mod+Ctrl+Shift+F { fullscreen-window; }
+
+  // Expand the focused column to space not taken up by other fully visible columns.
+  // Makes the column "fill the rest of the space".
+  Mod+Ctrl+F { expand-column-to-available-width; }
+
+  Mod+Ctrl+Left { set-column-width "-5%"; }
+  Mod+Ctrl+Right { set-column-width "+5%"; }
+
+  Mod+Ctrl+Up { set-window-height "-5%"; }
+  Mod+Ctrl+Down { set-window-height "+5%"; }
+}
