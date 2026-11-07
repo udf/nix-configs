@@ -18,10 +18,10 @@
 
     exec "$bwrap_bin" \
       --ro-bind / / \
+      --bind /tmp /tmp \
       --bind "$PWD" "$PWD" \
       --dev /dev \
       --proc /proc \
-      --tmpfs /tmp \
       --tmpfs "$HOME/.ssh" \
       --unshare-user --unshare-pid --unshare-uts --unshare-ipc \
       --die-with-parent -- "$@"
