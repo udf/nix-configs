@@ -103,6 +103,8 @@ if [[ -v DISPLAY ]] && (( $+commands[codium] )); then
   alias code='codium'
 fi
 
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 # Edit command line with alt-e
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^[e' edit-command-line
