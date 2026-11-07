@@ -51,7 +51,7 @@ in
         monitor =
         size = 100%, 5.5
         color = ${accentColorRGBA}
-        rounding = -1
+        rounding = 0
         border_size = 0
         border_color = rgb(0, 0, 0, 0.0)
 
