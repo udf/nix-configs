@@ -15,6 +15,7 @@
       NIX_CONFIG+=$'\neval-cache = false'
     fi
     export NIX_CONFIG
+    export XDG_CACHE_HOME="/tmp/scratch/cache"
 
     exec "$bwrap_bin" \
       --ro-bind / / \
@@ -23,6 +24,7 @@
       --dev /dev \
       --proc /proc \
       --tmpfs "$HOME/.ssh" \
+      --tmpfs "/tmp/scratch" \
       --unshare-user --unshare-pid --unshare-uts --unshare-ipc \
       --die-with-parent -- "$@"
   '';
