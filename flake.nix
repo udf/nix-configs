@@ -32,13 +32,18 @@
           home-manager = flake.inputs.home-manager or null;
           extraModules = flake.extraModules or [ ];
           extraHomeManagerModules = flake.extraHomeManagerModules or [ ];
+          customUtils = (import ./common/utils.nix) {
+            lib = pkgs.lib;
+            repoRootPath = ./.;
+            repoRealRoot = builtins.readFile ./.root;
+          };
         in
         pkgs.lib.nixosSystem {
           system = null;
           specialArgs = {
             inputs = allInputs;
-            hostFlakePath = lib.removePrefix "path:" hostFlakePath;
-            customUtils = (import ./common/utils.nix) { lib = pkgs.lib; };
+            hostFlakePath = hostFlakePath;
+            customUtils = customUtils;
           };
           modules = [
             (./. + "/nixos/${host}/configuration.nix")
@@ -58,7 +63,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
                 inputs = allInputs;
-                customUtils = (import ./common/utils.nix) { lib = pkgs.lib; };
+                customUtils = customUtils;
               };
               home-manager.sharedModules = extraHomeManagerModules;
             }

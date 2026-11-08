@@ -1,4 +1,9 @@
-{ lib, ... }:
+{
+  lib,
+  repoRootPath,
+  repoRealRoot,
+  ...
+}:
 with lib;
 {
   listFilesWithExt =
@@ -22,4 +27,12 @@ with lib;
         ) (readDir dir)
       )
     );
+
+  getRealAbsolutePath =
+    path:
+    let
+      realRootPath = /. + repoRealRoot;
+      pathRelative = lib.path.removePrefix (/. + repoRootPath) path;
+    in
+    lib.path.append realRootPath pathRelative;
 }
