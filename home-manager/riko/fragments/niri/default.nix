@@ -15,7 +15,7 @@ let
   );
 in
 {
-  imports = [ ./config.d.nix ];
+  imports = builtins.filter (p: p != ./default.nix) (customUtils.listImportable ./.);
 
   wayland.windowManager.niri = {
     enable = true;
@@ -50,8 +50,6 @@ in
   };
 
   home.packages = with pkgs; [
-    fuzzel
-    waybar
     wl-mirror
     wlr-randr
   ];
