@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 let
@@ -9,5 +10,24 @@ let
   kdlPaths = map (name: "${./config.d}/${name}") kdlNames;
 in
 {
+  imports = [
+    # binds-fn-mediakeys.kdl
+    ../playerctld.nix
+
+    # binds-programs.kdl
+    ../alacritty.nix
+  ];
+
   custom.niri.extraConfigFiles = kdlPaths;
+
+  home.packages = with pkgs; [
+    # binds-fn-mediakeys.kdl
+    brightnessctl
+
+    # binds-programs.kdl
+    fuzzel
+
+    # startup-programs.kdl
+    waybar
+  ];
 }
