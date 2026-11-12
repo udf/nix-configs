@@ -51,7 +51,7 @@ in
     ];
     events = {
       "before-sleep" = "${lockCmd}; ${lib.getExe pkgs.playerctl} --all-players pause";
-      "after-resume" = displays "on";
+      "after-resume" = "${displays "on"}; ${kbdBacklightCmd 1}";
       "lock" = lockCmd;
     };
   };
