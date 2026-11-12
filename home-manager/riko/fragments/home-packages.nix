@@ -16,5 +16,9 @@
     nodejs
     prettier
     eslint
+
+    # power
+    acpi
+    powertop
   ];
 }
