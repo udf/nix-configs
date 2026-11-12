@@ -1,14 +1,36 @@
 binds {
-  XF86AudioRaiseVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-  XF86AudioLowerVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+  // Audio Volume Controls
+  XF86AudioRaiseVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
+  XF86AudioLowerVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-"; }
   XF86AudioMute { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
   XF86AudioMicMute { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-  XF86AudioPlay { spawn-sh "playerctl play-pause"; }
-  XF86AudioStop { spawn-sh "playerctl stop"; }
-  XF86AudioPrev { spawn-sh "playerctl previous"; }
-  XF86AudioNext { spawn-sh "playerctl next"; }
+  Mod+Alt+D { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
+  Mod+Alt+C { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-"; }
+  Mod+Alt+E { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
 
+  // Media controls
+  XF86AudioPlay { spawn-sh "playerctl play-pause"; }
+  XF86AudioNext { spawn-sh "playerctl next"; }
+  XF86AudioPrev { spawn-sh "playerctl previous"; }
+  Mod+Alt+S { spawn-sh "playerctl -p playerctld play-pause"; }
+  Mod+Alt+X { spawn-sh "playerctl -p playerctld next"; }
+  Mod+Alt+Z { spawn-sh "playerctl -p playerctld previous"; }
+
+  Mod+Ctrl+XF86AudioRaiseVolume { spawn-sh "playerctl -p playerctld volume 0.01+"; }
+  Mod+Ctrl+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld volume 0.01-"; }
+  Mod+Alt+F { spawn-sh "playerctl -p playerctld volume 0.01+"; }
+  Mod+Alt+V { spawn-sh "playerctl -p playerctld volume 0.01-"; }
+
+  Mod+XF86AudioNext repeat=false { spawn-sh "playerctld shift"; }
+  Mod+XF86AudioPrev repeat=false { spawn-sh "playerctld unshift"; }
+  Mod+Alt+W repeat=false { spawn-sh "playerctld shift"; }
+  Mod+Alt+Q repeat=false { spawn-sh "playerctld unshift"; }
+
+  Mod+XF86AudioRaiseVolume { spawn-sh "playerctl -p playerctld position 2+"; }
+  Mod+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld position 2-"; }
+
+  // Brightness controls
   XF86MonBrightnessUp { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
   XF86MonBrightnessDown { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 }
