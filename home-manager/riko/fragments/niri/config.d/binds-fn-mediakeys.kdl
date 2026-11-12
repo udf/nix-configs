@@ -10,9 +10,9 @@ binds {
   Mod+Alt+E { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
 
   // Media controls
-  XF86AudioPlay { spawn-sh "playerctl play-pause"; }
-  XF86AudioNext { spawn-sh "playerctl next"; }
-  XF86AudioPrev { spawn-sh "playerctl previous"; }
+  XF86AudioPlay { spawn-sh "playerctl -p playerctld play-pause"; }
+  XF86AudioNext { spawn-sh "playerctl -p playerctld next"; }
+  XF86AudioPrev { spawn-sh "playerctl -p playerctld previous"; }
   Mod+Alt+S { spawn-sh "playerctl -p playerctld play-pause"; }
   Mod+Alt+X { spawn-sh "playerctl -p playerctld next"; }
   Mod+Alt+Z { spawn-sh "playerctl -p playerctld previous"; }
