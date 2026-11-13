@@ -1,27 +1,28 @@
 binds {
-  Mod+Up { focus-window-up; }
-  Mod+Down { focus-window-down; }
+  Mod+Up { focus-workspace-up; }
+  Mod+Down { focus-workspace-down; }
   Mod+Left { focus-column-left; }
   Mod+Right { focus-column-right; }
+  Mod+Home { focus-column-first; }
+  Mod+End { focus-column-last; }
 
   Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
   Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
   Mod+Shift+Left  { move-column-left; }
   Mod+Shift+Right { move-column-right; }
 
-  // Mod+Alt - Workspace related bindings
-  Mod+Alt+Up { focus-workspace-up; }
-  Mod+Alt+Down { focus-workspace-down; }
-  Mod+Alt+Left  { focus-column-first; }
-  Mod+Alt+Right { focus-column-last; }
+  Mod+Alt+Up { focus-window-up; }
+  Mod+Alt+Down { focus-window-down; }
+  Mod+Alt+Left  { focus-monitor-left; }
+  Mod+Alt+Right { focus-monitor-right; }
 
   Mod+Alt+Shift+Up   { move-column-to-workspace-up; }
   Mod+Alt+Shift+Down { move-column-to-workspace-down; }
   Mod+Alt+Shift+Left { move-column-to-first; }
   Mod+Alt+Shift+Right  { move-column-to-last; }
 
-  Mod+Alt+Shift+Page_Up { move-workspace-down; }
-  Mod+Alt+Shift+Page_Down   { move-workspace-up; }
+  Mod+Page_Up { move-workspace-down; }
+  Mod+Page_Down   { move-workspace-up; }
 
   Mod+1 { focus-workspace 1; }
   Mod+2 { focus-workspace 2; }
