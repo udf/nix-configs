@@ -1,5 +1,9 @@
 { ... }:
 {
+  boot.kernelParams = [
+    "amdgpu.panel_power_savings=1"
+  ];
+
   services.tlp = {
     enable = true;
     settings = {
@@ -18,6 +22,7 @@
 
       RUNTIME_PM_ON_AC = "auto";
       RUNTIME_PM_ON_BAT = "auto";
+      RUNTIME_PM_DENYLIST = "01:00.0 01:00.1";
 
       SOUND_POWER_SAVE_ON_AC = 1;
       SOUND_POWER_SAVE_ON_BAT = 1;
