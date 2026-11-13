@@ -9,7 +9,7 @@
     text = ''
       #!${pkgs.runtimeShell}
       if [ "$PAM_TYPE" = "open_session" ] && [ -n "$PAM_TTY" ] && [ -w "$PAM_TTY" ]; then
-        printf 'sudo: authentication successful!\n' > "$PAM_TTY"
+        printf '[pam] authentication successful!\n' > "$PAM_TTY"
       fi
     '';
   };
