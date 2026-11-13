@@ -5,6 +5,15 @@
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  boot = {
+    extraModprobeConfig = ''
+      options nvidia NVreg_DynamicPowerManagement=0x03
+    '';
+    kernelParams = [
+      "nvidia-drm.fbdev=0"
+    ];
+  };
+
   hardware.nvidia = {
     modesetting.enable = true;
 
