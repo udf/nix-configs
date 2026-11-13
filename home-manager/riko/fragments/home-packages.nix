@@ -5,12 +5,18 @@
     # gui tools
     xpra
 
-    # graphics editors
+    # tools
+    ffmpeg
+
+    # graphical editors
     gimp
     inkscape
+    kdePackages.kdenlive
 
     # chat
     vesktop
+    telegram-desktop
+    signal-desktop
 
     # node
     nodejs
