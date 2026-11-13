@@ -1,0 +1,5 @@
+debug {
+  // Use AMD iGPU and ignore NVIDIA dGPU
+  render-drm-device "/dev/dri/by-path/pci-0000:08:00.0-render"
+  ignore-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+}
