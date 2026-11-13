@@ -35,6 +35,12 @@
     ];
   };
 
+  fileSystems."/syncthing" = {
+    device = "/dev/mapper/vg-root";
+    fsType = "btrfs";
+    options = [ "subvol=@syncthing" ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B5D6-BC15";
     fsType = "vfat";
