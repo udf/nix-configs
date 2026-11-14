@@ -8,10 +8,14 @@
     # tools
     ffmpeg
 
+    # media
+    mpv
+
     # graphical editors
     gimp
     inkscape
     kdePackages.kdenlive
+    aegisub
 
     # chat
     vesktop
