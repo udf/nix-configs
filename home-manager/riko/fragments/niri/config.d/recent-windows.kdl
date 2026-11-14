@@ -16,6 +16,7 @@ recent-windows {
 
   binds {
     Alt+Tab { next-window scope="workspace"; }
+    Alt+Shift+Tab { previous-window scope="workspace"; }
     Mod+Tab { next-window scope="output"; }
     Mod+Shift+Tab { previous-window scope="all"; }
   }
