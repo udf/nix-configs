@@ -84,11 +84,13 @@ class NiriConnection:
 
 async def focus_urgent(conn: NiriConnection, urgency_queue: dict[int, bool]):
   focus_window_cmd = lambda window_id: {'Action': {'FocusWindow': {'id': window_id}}}
-  for window_id in reversed(urgency_queue):
-    print(f'Focusing most recently urgent window: {window_id}')
+  for window_id in list(reversed(urgency_queue)):
+    print(f'Trying to focus most recently urgent window: {window_id}')
     await conn.command(focus_window_cmd(window_id))
     urgency_queue.pop(window_id, None)
-    return
+    response = await conn.command('FocusedWindow')
+    if response['Ok'].get('FocusedWindow', {}).get('id', None) == window_id:
+      return
   windows_rsp = await conn.command('Windows')
   urgent_windows = [window for window in windows_rsp['Ok']['Windows'] if window['is_urgent']]
   if not urgent_windows:
