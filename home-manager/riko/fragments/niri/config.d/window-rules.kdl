@@ -1,4 +1,8 @@
 window-rule {
+  on-xdg-activate "set-urgent"
+}
+
+window-rule {
   match app-id=r#"firefox$"# title="^Picture-in-Picture$"
   open-floating true
 }
@@ -17,6 +21,20 @@ window-rule {
 }
 
 window-rule {
+  match app-id=r#"^org.telegram.desktop$"#
+  on-xdg-activate "focus"
+}
+
+window-rule {
+  match app-id="^vesktop$"
+  on-xdg-activate "focus"
+}
+
+window-rule {
   geometry-corner-radius 4
   clip-to-geometry true
+}
+
+debug {
+  honor-xdg-activation-with-invalid-serial
 }
