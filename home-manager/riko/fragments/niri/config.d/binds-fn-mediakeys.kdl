@@ -31,6 +31,6 @@ binds {
   Mod+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld position 2-"; }
 
   // Brightness controls
-  XF86MonBrightnessUp { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-  XF86MonBrightnessDown { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+  XF86MonBrightnessUp { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+  XF86MonBrightnessDown { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
 }
