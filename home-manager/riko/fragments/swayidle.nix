@@ -18,6 +18,13 @@ in
 {
   imports = [ ./screen-locker.nix ];
 
+  system.services.acpid.handlers = {
+    user-restart-swayidle = {
+      event = "ac_adapter/*";
+      action = "systemctl --user -M sam@ try-restart swayidle.service";
+    };
+  };
+
   services.swayidle = {
     enable = true;
     extraArgs = [ ];
