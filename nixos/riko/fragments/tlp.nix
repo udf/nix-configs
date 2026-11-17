@@ -9,7 +9,10 @@
     handlers = {
       tlp-reset = {
         event = "ac_adapter/*";
-        action = "${pkgs.tlp}/bin/tlp start";
+        action = ''
+          ${pkgs.coreutils}/bin/sleep 3
+          ${pkgs.tlp}/bin/tlp start
+        '';
       };
     };
   };
