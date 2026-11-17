@@ -7,12 +7,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-RWTWLi9GuwKQxX0Xl1ojSgcSa0E99T04FGeEAujqE2Y=",
-        "path": "./nixos/ananke",
+        "narHash": "sha256-fBmIkRi9MAE/IRs4pkrXv/PLgshMC3LEziYEjQ6aXYQ=",
+        "path": "./headless/ananke",
         "type": "path"
       },
       "original": {
-        "path": "./nixos/ananke",
+        "path": "./headless/ananke",
         "type": "path"
       }
     },
@@ -67,12 +67,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-2w/tyGDAxVzf8lyr092ay0v3GRODYsFxHFD9Iihbnas=",
-        "path": "./nixos/durga",
+        "narHash": "sha256-M5KzZJnVpo4aC1worqqjplkkL6qPj2HWJAG8v7tfPMw=",
+        "path": "./headless/durga",
         "type": "path"
       },
       "original": {
-        "path": "./nixos/durga",
+        "path": "./headless/durga",
         "type": "path"
       }
     },
@@ -403,12 +403,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-GzAP72Ie7VOZrVkAwg3+Ea5JP1V/DIPHmn7+QlFDF2E=",
-        "path": "./nixos/phanes",
+        "narHash": "sha256-40BhCkGDNYoSJiJSGNa3u7V0ydojw0NjT9hrvSJZhb4=",
+        "path": "./headless/phanes",
         "type": "path"
       },
       "original": {
-        "path": "./nixos/phanes",
+        "path": "./headless/phanes",
         "type": "path"
       }
     },
@@ -425,12 +425,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-kecuvXanfvW1R0CUwBsBmsO759RrwB42Tc0sclnrSI8=",
-        "path": "./nixos/riko",
+        "narHash": "sha256-HHDaFp2rIv2DHlZd6uBpmLZaYPDANP325C3SRi5ypGU=",
+        "path": "./graphical/riko",
         "type": "path"
       },
       "original": {
-        "path": "./nixos/riko",
+        "path": "./graphical/riko",
         "type": "path"
       }
     },

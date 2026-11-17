@@ -7,7 +7,7 @@ git add -N .
 
 for host in "$@"; do
   echo "Syncing to $host..."
-  rsync -rah --info=progress2 --exclude=flake.lock --delete ./ $host:~/nixos/
+  rsync -rah --info=progress2 --exclude=flake.lock --delete --delete-excluded ./ $host:~/nixos/
 
   echo "Updating lockfiles on $host..."
   rsync -au --info=progress2 \

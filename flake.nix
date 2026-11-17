@@ -10,16 +10,22 @@
     };
 
     # host inputs
-    ananke.url = "path:./nixos/ananke";
-    durga.url = "path:./nixos/durga";
-    phanes.url = "path:./nixos/phanes";
-    riko.url = "path:./nixos/riko";
+    ananke.url = "path:./headless/ananke";
+    durga.url = "path:./headless/durga";
+    phanes.url = "path:./headless/phanes";
+    riko.url = "path:./graphical/riko";
   };
 
   outputs =
     inputs:
     let
       inherit (inputs.nixpkgs) lib;
+      hostDirs = {
+        ananke = "headless/ananke";
+        durga = "headless/durga";
+        phanes = "headless/phanes";
+        riko = "graphical/riko";
+      };
       mkConfig =
         {
           host,
@@ -32,7 +38,7 @@
           home-manager = flake.inputs.home-manager or null;
           extraModules = flake.extraModules or [ ];
           extraHomeManagerModules = flake.extraHomeManagerModules or [ ];
-          customUtils = (import ./common/utils.nix) {
+          customUtils = (import ./common/injectable/utils.nix) {
             lib = pkgs.lib;
             repoRootPath = ./.;
             repoRealRoot = builtins.readFile ./.root;
@@ -46,7 +52,7 @@
             customUtils = customUtils;
           };
           modules = [
-            (./. + "/nixos/${host}/configuration.nix")
+            (./. + "/${hostDirs.${host}}/configuration.nix")
             {
               nix.nixPath = [
                 "nixpkgs=${pkgs}"
@@ -76,7 +82,7 @@
         mkConfig {
           host = h;
           flake = inputs.${h};
-          hostFlakePath = "./nixos/${h}";
+          hostFlakePath = "./${hostDirs.${h}}";
         }
       );
     };
