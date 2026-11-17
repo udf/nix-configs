@@ -425,7 +425,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-QCgeX8Mhnsss5kfEp1Rcjti5UXv+lBE718DpnjE4gHY=",
+        "narHash": "sha256-Wzx9EFruanlaaF6abFiMxFnSRESQTc5LQGf/y/1qKEM=",
         "path": "./nixos/riko",
         "type": "path"
       },

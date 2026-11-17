@@ -4,16 +4,15 @@
     "amdgpu.panel_power_savings=1"
   ];
 
-  services.acpid = {
-    enable = true;
-    handlers = {
-      tlp-reset = {
-        event = "ac_adapter/*";
-        action = ''
+  services.acpid.handlers = {
+    tlp-reset = {
+      event = "ac_adapter/*";
+      action = ''
+        (
           ${pkgs.coreutils}/bin/sleep 3
           ${pkgs.tlp}/bin/tlp start
-        '';
-      };
+        ) &
+      '';
     };
   };
 
