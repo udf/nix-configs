@@ -4,7 +4,7 @@
   ...
 }:
 let
-  venvSetupCode = import ../../../common/helpers/gen-venv-setup.nix {
+  venvSetupCode = import ../../_common/helpers/gen-venv-setup.nix {
     inherit pkgs;
     pythonPkg = pkgs.python3;
   };

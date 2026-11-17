@@ -5,11 +5,11 @@
   ...
 }:
 let
-  homeHostname = (import ../../../common/constants/private.nix).homeHostname;
+  homeHostname = (import ../../_common/constants/private.nix).homeHostname;
   serverHost = config.services.nginxProxy.serverHost;
   proxySubdomain = "gaia";
   subMap = "$sub_subdomain_${proxySubdomain}";
-  util = (import ../../../common/helpers/nginx-util.nix) { inherit lib pkgs; };
+  util = (import ../../_common/helpers/nginx-util.nix) { inherit lib pkgs; };
 in
 {
   security.acme.certs."${serverHost}".extraDomainNames = [

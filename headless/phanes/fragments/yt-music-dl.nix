@@ -245,7 +245,7 @@ let
     "zhnoi"
   ];
   pythonPkg = pkgs.python3.withPackages (ps: with ps; [ curl-cffi ]);
-  genVenvSetup = import ../../../common/helpers/gen-venv-setup.nix;
+  genVenvSetup = import ../../_common/helpers/gen-venv-setup.nix;
   venvSetupCode = genVenvSetup {
     inherit pythonPkg;
     inherit pkgs;

@@ -10,7 +10,7 @@ let
   XDisplay = "100";
   unstablePkgs = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
   nicotinePkg = (
-    pkgs.callPackage ../../../../common/packages/nicotine-plus-gtk3.nix {
+    pkgs.callPackage ../../../_common/packages/nicotine-plus-gtk3.nix {
       inherit config;
       unstablePkgs = unstablePkgs;
     }

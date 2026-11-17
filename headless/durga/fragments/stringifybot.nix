@@ -3,7 +3,7 @@ let
   # MARK: pinned version
   python-pkg = pkgs.python311.withPackages (
     ps: with ps; [
-      (callPackage ../../../common/packages/telethon.nix { })
+      (callPackage ../../_common/packages/telethon.nix { })
       (callPackage ../packages/bprint.nix { })
     ]
   );

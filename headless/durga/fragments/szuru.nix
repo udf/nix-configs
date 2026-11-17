@@ -28,7 +28,7 @@ in
     gid = 8008;
   };
 
-  services.watcher-bot.plugins = [ "${../../../common/constants/watcher}/szuru_ip" ];
+  services.watcher-bot.plugins = [ "${../../_common/constants/watcher}/szuru_ip" ];
   systemd.services.watcher-bot = {
     wants = [ "${ipsetCfg.asnDBServiceName}.service" ];
     environment = {

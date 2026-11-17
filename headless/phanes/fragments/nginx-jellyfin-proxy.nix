@@ -5,8 +5,8 @@
   ...
 }:
 let
-  serverHost = (import ../../../common/constants/private.nix).homeHostname;
-  util = (import ../../../common/helpers/nginx-util.nix) { inherit lib pkgs; };
+  serverHost = (import ../../_common/constants/private.nix).homeHostname;
+  util = (import ../../_common/helpers/nginx-util.nix) { inherit lib pkgs; };
   upstreamHost = "192.168.0.2:8096";
   commonOptions = ''
     proxy_connect_timeout 5s;

@@ -6,7 +6,7 @@
 }:
 let
   defaultServerHost = "churro.withsam.org";
-  serverHost = (import ../../../common/constants/private.nix).homeHostname;
+  serverHost = (import ../../_common/constants/private.nix).homeHostname;
 in
 {
   services.nginxProxy = {

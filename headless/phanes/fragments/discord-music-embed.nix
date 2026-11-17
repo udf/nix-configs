@@ -10,7 +10,7 @@ let
   );
   port = 36900;
   coverCacheDir = "/var/cache/discord-music-embed/covers/";
-  serverHost = (import ../../../common/constants/private.nix).homeHostname;
+  serverHost = (import ../../_common/constants/private.nix).homeHostname;
 in
 {
   systemd.services.discord-music-embed = {

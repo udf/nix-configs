@@ -5,7 +5,7 @@
   ...
 }:
 let
-  private = (import ../../../common/constants/private.nix).ananke;
+  private = (import ../../_common/constants/private.nix).ananke;
   states = [
     "ONLINE"
     "ONBATT"

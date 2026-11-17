@@ -6,6 +6,8 @@ in
 {
   imports = (
     (listImportable ../common/fragments)
+    ++ (listImportable ./_common/modules)
+    ++ (listImportable ../common/fragments)
     ++ (listImportable ../common/modules)
     ++ (listImportable (sourceDir + "/fragments"))
   );

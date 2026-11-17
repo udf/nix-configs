@@ -6,7 +6,7 @@
 }:
 let
   port = 64738;
-  private = import ../../../common/constants/private.nix;
+  private = import ../../_common/constants/private.nix;
 in
 {
   systemd.services.murmur.after = [ "acme-renew-durga.withsam.org.timer" ];
