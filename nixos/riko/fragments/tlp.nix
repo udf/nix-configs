@@ -1,13 +1,27 @@
-{ ... }:
+{ pkgs, ... }:
 {
   boot.kernelParams = [
     "amdgpu.panel_power_savings=1"
   ];
 
+  services.acpid = {
+    enable = true;
+    handlers = {
+      tlp-reset = {
+        event = "ac_adapter/*";
+        action = "${pkgs.tlp}/bin/tlp start";
+      };
+    };
+  };
+
   services.tlp = {
     enable = true;
     pd.enable = true;
     settings = {
+      TLP_AUTO_SWITCH = 1;
+      TLP_PROFILE_AC = "PRF";
+      TLP_PROFILE_BAT = "BAL";
+
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
