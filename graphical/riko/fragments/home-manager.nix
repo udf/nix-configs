@@ -7,6 +7,7 @@ let
     "security"
   ];
 
+  # TODO: rename to osConfigBridge and assert for unknown namespaces
   forwardedSystemConfig = builtins.listToAttrs (
     map (namespace: {
       name = namespace;
