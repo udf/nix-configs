@@ -11,6 +11,8 @@ in
     kdePackages.qtsvg
   ];
 
+  system.services.gvfs.enable = true;
+
   wayland.windowManager.sway = {
     config = {
       keybindings = {
