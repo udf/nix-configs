@@ -5,25 +5,11 @@
   ...
 }:
 let
-  # TODO: move backlight stuff to riko fragment
-  systemctl = "${pkgs.systemd}/bin/systemctl";
-  lockCmd = "${systemctl} start --no-block --user screen-locker";
-  lockIsActive = "${systemctl} --user is-active screen-locker";
-  kbdBacklightCmd =
-    level: "${lib.getExe config.namedPackages.kbd-backlight} --silent ${toString level}";
   niriCmd = lib.getExe' config.wayland.windowManager.niri.package "niri";
-  displays = status: "${niriCmd} msg action power-${status}-monitors";
   dimScreenPkg = (pkgs.callPackage ../packages/dim-screen.nix { });
-  dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
+  kbdBacklightExe = lib.getExe config.namedPackages.kbd-backlight;
 in
 {
-  assertions = [
-    {
-      assertion = config.systemd.user.services ? "screen-locker";
-      message = "a screen-locker.service is required for this swayidle config";
-    }
-  ];
-
   system.services.acpid.handlers = {
     user-restart-swayidle = {
       event = "ac_adapter/*";
@@ -31,41 +17,14 @@ in
     };
   };
 
-  services.swayidle = {
-    enable = true;
-    extraArgs = [ ];
-    timeouts = [
-      {
-        timeout = 20;
-        command = "${lockIsActive} && ${displays "off"} && ${kbdBacklightCmd 0}";
-        resumeCommand = "${displays "on"} && ${kbdBacklightCmd 1}";
-      }
-      {
-        timeout = 110;
-        command = "${pkgs.libnotify}/bin/notify-send 'Session will be locked soon' -t 5000";
-      }
-      {
-        timeout = 110;
-        command = "${dimScreen 10}";
-      }
-      {
-        timeout = 120;
-        command = lockCmd;
-      }
-      {
-        timeout = 125;
-        command = "${kbdBacklightCmd 0}; ${displays "off"}";
-        resumeCommand = "${kbdBacklightCmd 1}; ${displays "on"}";
-      }
-      {
-        timeout = 300;
-        command = "${lib.getExe' pkgs.systemd "systemd-ac-power"} || ${systemctl} suspend";
-      }
-    ];
-    events = {
-      "before-sleep" = "${lockCmd}; ${lib.getExe pkgs.playerctl} --all-players pause";
-      "after-resume" = "${displays "on"}; ${kbdBacklightCmd 1}";
-      "lock" = lockCmd;
-    };
-  };
+  custom.swayidle.commands.displayOn = ''
+    ${niriCmd} msg action power-on-monitors
+    ${kbdBacklightExe} --silent 1
+  '';
+  custom.swayidle.commands.displayOff = ''
+    ${niriCmd} msg action power-off-monitors
+    ${kbdBacklightExe} --silent 0
+  '';
+  custom.swayidle.commands.dimScreen =
+    "${lib.getExe dimScreenPkg} --alpha 0.66 --duration 10";
 }
