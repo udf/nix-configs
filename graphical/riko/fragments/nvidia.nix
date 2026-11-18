@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 {
@@ -30,7 +31,21 @@
       offload = {
         enable = true;
         enableOffloadCmd = true;
+        offloadCmdMainProgram = "nvidia-offload-old";
       };
     };
   };
+
+  # Use AMD GPU by default
+  environment.sessionVariables = {
+    VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
+  };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "nvidia-offload" ''
+      unset VK_DRIVER_FILES
+      exec nvidia-offload-old "$@"
+    '')
+  ];
+
 }
