@@ -3,6 +3,9 @@ input {
 
   keyboard {
     numlock
+    xkb {
+      options "compose:ralt"
+    }
   }
 
   touchpad {

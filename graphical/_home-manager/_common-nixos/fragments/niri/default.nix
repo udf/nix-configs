@@ -7,8 +7,7 @@
   ...
 }:
 let
-  system = pkgs.stdenv.hostPlatform.system;
-  niriPkg = inputs.niri-main.packages.${system}.default;
+  niriPkg = config.wayland.windowManager.niri.package;
   scratchpadPath = ./scratchpad.kdl;
   scratchpadSymlink = config.lib.file.mkOutOfStoreSymlink (
     customUtils.getRealAbsolutePath scratchpadPath
@@ -19,7 +18,6 @@ in
 
   wayland.windowManager.niri = {
     enable = true;
-    package = niriPkg;
     checkConfig = false;
   };
 
