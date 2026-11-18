@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  hmRootPath,
   ...
 }:
 let
@@ -12,10 +13,10 @@ in
 {
   imports = [
     # binds-fn-mediakeys.kdl
-    ../playerctld.nix
+    (hmRootPath + "/_common-nixos/fragments/playerctld.nix")
 
     # binds-programs.kdl
-    ../alacritty.nix
+    (hmRootPath + "/_common-nixos/fragments/alacritty.nix")
   ];
 
   custom.niri.extraConfigFiles = kdlPaths;

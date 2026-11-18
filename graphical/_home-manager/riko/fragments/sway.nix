@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hmRootPath,
   ...
 }:
 let
@@ -13,7 +14,7 @@ let
 in
 {
   imports = [
-    ./alacritty.nix
+    (hmRootPath + "/_common-nixos/fragments/alacritty.nix")
   ];
 
   home.pointerCursor.sway.enable = true;

@@ -2,9 +2,11 @@
   pkgs,
   config,
   lib,
+  hmRootPath,
   ...
 }:
 let
+  # TODO: move backlight stuff to riko fragment
   systemctl = "${pkgs.systemd}/bin/systemctl";
   lockCmd = "${systemctl} start --no-block --user screen-locker";
   lockIsActive = "${systemctl} --user is-active screen-locker";
@@ -16,7 +18,7 @@ let
   dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
 in
 {
-  imports = [ ./screen-locker.nix ];
+  imports = [ (hmRootPath + "/_common-nixos/fragments/screen-locker.nix") ];
 
   system.services.acpid.handlers = {
     user-restart-swayidle = {

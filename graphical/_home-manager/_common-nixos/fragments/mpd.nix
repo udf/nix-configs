@@ -59,6 +59,8 @@ in
     '';
   };
 
+  services.mpdris2.enable = true;
+
   services.mpd-ratings-sync = {
     enable = true;
     ratingsDBDir = "${config.services.mpd.dataDir}/ratings_sync";

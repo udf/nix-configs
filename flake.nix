@@ -70,6 +70,7 @@
               home-manager.extraSpecialArgs = {
                 inputs = allInputs;
                 customUtils = customUtils;
+                hmRootPath = ./graphical/_home-manager;
               };
               home-manager.sharedModules = extraHomeManagerModules;
             }
