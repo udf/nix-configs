@@ -1,8 +1,4 @@
-{ config, pkgs, ... }:
-let
-  swayCfg = config.wayland.windowManager.sway;
-  mod = swayCfg.config.modifier;
-in
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     pcmanfm-qt
@@ -12,12 +8,4 @@ in
   ];
 
   system.services.gvfs.enable = true;
-
-  wayland.windowManager.sway = {
-    config = {
-      keybindings = {
-        "${mod}+b" = "exec pcmanfm-qt";
-      };
-    };
-  };
 }

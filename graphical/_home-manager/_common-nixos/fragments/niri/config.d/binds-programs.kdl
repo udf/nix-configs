@@ -1,5 +1,6 @@
 binds {
-  Mod+C hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-  Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+  Mod+C hotkey-overlay-title="Run: alacritty" { spawn "alacritty"; }
+  Mod+D hotkey-overlay-title="Run: fuzzel" { spawn "fuzzel"; }
+  Mod+B hotkey-overlay-title="Run: pcmanfm-qt" { spawn "pcmanfm-qt"; }
   Mod+L hotkey-overlay-title="Lock the Screen" { spawn-sh "loginctl lock-session"; }
 }
