@@ -46,7 +46,7 @@
         in
         pkgs.lib.nixosSystem {
           system = null;
-          specialArgs = {
+          specialArgs = allInputs // {
             inputs = allInputs;
             hostFlakePath = hostFlakePath;
             customUtils = customUtils;

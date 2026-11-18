@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   ...
@@ -10,7 +9,6 @@ let
 in
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
     (import ../_autoload.nix ./.)
   ];
 
@@ -44,8 +42,6 @@ in
       ];
     };
   };
-  # Override kernel from nixos-hardware to be mainline instead
-  # boot.kernelPackages = pkgs.linuxPackages;
 
   # ttyAMA0 is the serial console broken out to the GPIO
   boot.kernelParams = [
@@ -65,18 +61,8 @@ in
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  hardware = {
-    raspberry-pi.firmware = {
-      enable = true;
-      uboot.enable = true;
-    };
-    enableRedistributableFirmware = true;
-    raspberry-pi."4".apply-overlays-dtmerge.enable = true;
-    deviceTree = {
-      enable = true;
-      filter = "*rpi-4-*.dtb";
-    };
-  };
+  # hardware.enableRedistributableFirmware = true;
+
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11";
 
