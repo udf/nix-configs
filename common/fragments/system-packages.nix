@@ -26,6 +26,7 @@
     usbutils
     pciutils
     compsize
+    nvd
 
     # shell utilities
     jq
