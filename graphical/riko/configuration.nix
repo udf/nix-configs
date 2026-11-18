@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -18,27 +18,14 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  networking = {
-    hostName = "riko";
-    networkmanager.enable = true;
-  };
+  networking.hostName = "riko";
   services.openssh.enable = true;
 
   time.timeZone = "Africa/Johannesburg";
 
-  i18n.defaultLocale = "en_ZA.UTF-8";
-  i18n.extraLocales = [ "en_GB.UTF-8/UTF-8" ];
-
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-  };
-
-  services.printing.enable = true;
-
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = lib.mkForce pkgs.pinentry-qt;
   };
 
   nix.gc.options = "--delete-older-than 30d";
