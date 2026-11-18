@@ -2,5 +2,6 @@ binds {
   Mod+C hotkey-overlay-title="Run: alacritty" { spawn "alacritty"; }
   Mod+D hotkey-overlay-title="Run: fuzzel" { spawn "fuzzel"; }
   Mod+B hotkey-overlay-title="Run: pcmanfm-qt" { spawn "pcmanfm-qt"; }
+  Mod+N hotkey-overlay-title="Run: firefox" { spawn "firefox"; }
   Mod+L hotkey-overlay-title="Lock the Screen" { spawn-sh "loginctl lock-session"; }
 }

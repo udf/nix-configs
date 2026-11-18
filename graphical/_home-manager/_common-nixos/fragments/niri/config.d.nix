@@ -23,6 +23,7 @@ in
     # binds-programs.kdl
     (hmRootPath + "/_common-nixos/fragments/alacritty.nix")
     (hmRootPath + "/_common-nixos/fragments/pcmanfm-qt.nix")
+    (hmRootPath + "/_common-nixos/fragments/firefox.nix")
   ];
 
   custom.niri.extraConfigFiles = kdlPaths;
