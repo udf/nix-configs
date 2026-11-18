@@ -28,26 +28,6 @@ layout {
   //
   // Alternatively, you can override it with a window rule called
   // `draw-border-with-background`.
-
-  focus-ring {
-    width 2
-
-    active-color "#7fc8ff"
-    inactive-color "#00000000"
-    urgent-color "#ff5555"
-  }
-}
-
-// Add red "border" on urgent windows (needed for inactive windows)
-window-rule {
-  match is-urgent=true
-  shadow {
-    on
-    softness 0
-    spread 3
-    offset x=0 y=0
-    color "#ff5555"
-  }
 }
 
 animations {
