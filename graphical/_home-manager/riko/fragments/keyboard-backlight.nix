@@ -45,16 +45,5 @@ let
   '';
 in
 {
-  imports = [ ./swayosd.nix ];
-
   namedPackages.kbd-backlight = kbdBacklight;
-
-  wayland.windowManager.sway = {
-    config = {
-      keybindings = {
-        "XF86KbdBrightnessUp" = "exec ${lib.getExe kbdBacklight} up";
-        "XF86KbdBrightnessDown" = "exec ${lib.getExe kbdBacklight} down";
-      };
-    };
-  };
 }
