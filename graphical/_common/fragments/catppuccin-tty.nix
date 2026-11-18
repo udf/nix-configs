@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
+}@args:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") {
-    inherit lib pkgs inputs;
-    blackBackground = true;
-  };
+  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") (
+    args // { blackBackground = true; }
+  );
   inherit (catppuccinOptions) paletteHex paletteHexExtra;
 in
 {

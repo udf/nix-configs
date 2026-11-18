@@ -3,11 +3,9 @@
   pkgs,
   inputs,
   ...
-}:
+}@args:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") {
-    inherit lib pkgs inputs;
-  };
+  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
 
 in
 {
