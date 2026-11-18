@@ -7,6 +7,4 @@
 
     trusted-nix-caches
   ];
-
-  # boot.loader.raspberry-pi.bootloader = "kernel";
 }

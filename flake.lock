@@ -11,7 +11,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-9+1g6FrU6uLioSJ734pDYKwnTw7YGimuo5RRkMUWbwQ=",
+        "narHash": "sha256-9DUsE7OUwWZWBWwsk7yp4V6J3WVrJ4lwNMn50C+b4yc=",
         "path": "./headless/ananke",
         "type": "path"
       },
