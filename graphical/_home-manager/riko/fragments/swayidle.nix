@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  hmRootPath,
   ...
 }:
 let
@@ -18,7 +17,12 @@ let
   dimScreen = duration: "${lib.getExe dimScreenPkg} --alpha 0.66 --duration ${toString duration}";
 in
 {
-  imports = [ (hmRootPath + "/_common-nixos/fragments/screen-locker.nix") ];
+  assertions = [
+    {
+      assertion = config.systemd.user.services ? "screen-locker";
+      message = "a screen-locker.service is required for this swayidle config";
+    }
+  ];
 
   system.services.acpid.handlers = {
     user-restart-swayidle = {
