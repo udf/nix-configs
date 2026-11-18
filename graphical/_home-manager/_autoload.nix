@@ -1,12 +1,12 @@
 sourceDir:
 { customUtils, ... }:
 let
-  inherit (customUtils) listImportable;
+  inherit (customUtils) listImportables;
 in
 {
-  imports = (
-    (listImportable ./_common/fragments)
-    ++ (listImportable ./_common/modules)
-    ++ (listImportable (sourceDir + "/fragments"))
-  );
+  imports = listImportables [
+    ./_common/fragments
+    ./_common/modules
+    (sourceDir + "/fragments")
+  ];
 }

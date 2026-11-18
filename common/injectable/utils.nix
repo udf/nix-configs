@@ -5,7 +5,7 @@
   ...
 }:
 with lib;
-{
+rec {
   listFilesWithExt =
     {
       dir,
@@ -27,6 +27,8 @@ with lib;
         ) (readDir dir)
       )
     );
+
+  listImportables = dirs: builtins.concatMap listImportable dirs;
 
   getRealAbsolutePath =
     path:
