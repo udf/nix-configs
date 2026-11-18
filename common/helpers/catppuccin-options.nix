@@ -1,8 +1,10 @@
 {
   lib,
   pkgs,
-  inputs,
+  nix-colorizer,
+  catppuccin,
   blackBackground ? false,
+  ...
 }:
 let
   colorOverrides = {
@@ -35,12 +37,13 @@ let
     if assignments == [ ] then "." else lib.concatStringsSep " | " assignments;
 
   hostPlatform = pkgs.stdenv.hostPlatform.system;
-  darken = inputs.nix-colorizer.hex.darken;
+  darken = nix-colorizer.hex.darken;
+  lighten = nix-colorizer.hex.lighten;
 in
 rec {
   inherit colorOverrides prefixedColorOverrides;
 
-  sources = inputs.catppuccin.packages.${hostPlatform}.overrideScope (
+  sources = catppuccin.packages.${hostPlatform}.overrideScope (
     final: prev: {
       palette = pkgs.runCommand "catppuccin-palette-overridden" { nativeBuildInputs = [ pkgs.jq ]; } ''
         mkdir -p "$out"
@@ -69,6 +72,14 @@ rec {
   accent = "mauve";
 
   mkDark = colorHex: darken colorHex 0.12;
+  mkLight = colorHex: lighten colorHex 0.12;
+  mkSaturated =
+    with nix-colorizer;
+    color: amount:
+    let
+      c = hex.to.oklch color;
+    in
+    oklch.to.hex (c // { C = c.C + amount; });
   palette = (lib.importJSON "${sources.palette}/palette.json").${flavor}.colors;
   paletteHex = lib.mapAttrs (_name: color: color.hex) palette;
   paletteHexExtra = lib.listToAttrs (
@@ -94,4 +105,5 @@ rec {
         "lavender"
       ]
   );
+  accentColourHex = paletteHex.${accent};
 }

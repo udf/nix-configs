@@ -3,13 +3,10 @@
   pkgs,
   inputs,
   ...
-}:
+}@args:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") {
-    inherit lib pkgs inputs;
-  };
-  inherit (catppuccinOptions) accent paletteHex;
-  accentColourHex = paletteHex.${accent};
+  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
+  inherit (catppuccinOptions) accentColourHex paletteHex;
   accentColorRGBA = "rgba(${lib.removePrefix "#" accentColourHex}ff)";
   backgroundColourHex = paletteHex.base;
   hyprlockAccentLineWebp =

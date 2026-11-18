@@ -67,7 +67,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
+              home-manager.extraSpecialArgs = allInputs // {
                 inputs = allInputs;
                 customUtils = customUtils;
                 hmRootPath = ./graphical/_home-manager;
