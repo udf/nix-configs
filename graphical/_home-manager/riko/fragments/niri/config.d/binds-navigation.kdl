@@ -21,8 +21,8 @@ binds {
   Mod+Alt+Shift+Left { move-column-to-first; }
   Mod+Alt+Shift+Right  { move-column-to-last; }
 
-  Mod+Page_Up { move-workspace-down; }
-  Mod+Page_Down   { move-workspace-up; }
+  Mod+Page_Up { move-workspace-up; }
+  Mod+Page_Down   { move-workspace-down; }
 
   Mod+1 { focus-workspace 1; }
   Mod+2 { focus-workspace 2; }
