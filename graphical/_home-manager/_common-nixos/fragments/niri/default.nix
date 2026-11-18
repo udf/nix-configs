@@ -50,6 +50,7 @@ in
   home.packages = with pkgs; [
     wl-mirror
     wlr-randr
+    wl-clipboard
   ];
 
   system.services.displayManager = {
