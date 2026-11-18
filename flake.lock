@@ -11,7 +11,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-R1sJXQLsYcHwG9uonFM54ANePxOvN791/2Rt+MRDCDA=",
+        "narHash": "sha256-9+1g6FrU6uLioSJ734pDYKwnTw7YGimuo5RRkMUWbwQ=",
         "path": "./headless/ananke",
         "type": "path"
       },
@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792249008,
-        "narHash": "sha256-lk60ysBytg9QwroDcNRY5BXPWs2j6bgE+NQCps7T1Wc=",
+        "lastModified": 1794920985,
+        "narHash": "sha256-V7oZrRltvJ55YwLeGWtTdZ/LMTWZM7CLGgypLpWi1Us=",
         "owner": "hercules-ci",
         "repo": "arion",
-        "rev": "b12c8655e62561e9f19f1c5a7b11ad3228318bb5",
+        "rev": "a7c8163c7fb739e224d66380a677912de7cb15a7",
         "type": "github"
       },
       "original": {
@@ -87,7 +87,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-M5KzZJnVpo4aC1worqqjplkkL6qPj2HWJAG8v7tfPMw=",
+        "narHash": "sha256-N73IB1tiUpL4uwXSNsYW0hX9V/7bNFzEqju9V0z6CEM=",
         "path": "./headless/durga",
         "type": "path"
       },
@@ -120,11 +120,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790898470,
-        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
+        "lastModified": 1793576659,
+        "narHash": "sha256-V1h85lUaJBQoHFrB2vpXZOE0Ju1MYSnIpsehoVZYlDo=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
+        "rev": "ea2630b7470978622c7689a1ff75d2b389175399",
         "type": "github"
       },
       "original": {
@@ -374,11 +374,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1792615934,
-        "narHash": "sha256-MlvRfa1O5Cqc2/a+gG+l9TSuowEoCKCmrJ1d9oAVm0I=",
+        "lastModified": 1794872590,
+        "narHash": "sha256-E+XLAfnC7+bdr4qlEgRv6cdGmiqTU5oeFNKCha7epqQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "da6dc0e7b26060f2f71ce3ef7088fb56ee44fa36",
+        "rev": "f68407657ad294471eb4b2e65d193df26edf729f",
         "type": "github"
       },
       "original": {
@@ -456,7 +456,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-40BhCkGDNYoSJiJSGNa3u7V0ydojw0NjT9hrvSJZhb4=",
+        "narHash": "sha256-pUslcRdHe5dT9Jwx97JeGzLn9syQmwjPT0RVysAYcCM=",
         "path": "./headless/phanes",
         "type": "path"
       },
@@ -478,7 +478,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-HHDaFp2rIv2DHlZd6uBpmLZaYPDANP325C3SRi5ypGU=",
+        "narHash": "sha256-rl8ud9DKgLb5h80EaR7v4WKte/XKDQ39TsW95vUnqTE=",
         "path": "./graphical/riko",
         "type": "path"
       },
