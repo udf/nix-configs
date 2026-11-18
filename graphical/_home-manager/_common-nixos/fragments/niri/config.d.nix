@@ -2,13 +2,18 @@
   lib,
   pkgs,
   hmRootPath,
+  osConfig,
   ...
 }:
 let
-  kdlNames = lib.filter (name: lib.hasSuffix ".kdl" name) (
-    lib.attrNames (builtins.readDir ./config.d)
-  );
-  kdlPaths = map (name: "${./config.d}/${name}") kdlNames;
+  readDirIfExists = dir: if builtins.pathExists dir then builtins.readDir dir else { };
+  listKdlPaths =
+    dir:
+    map (name: "${dir}/${name}") (
+      lib.filter (name: lib.hasSuffix ".kdl" name) (lib.attrNames (readDirIfExists dir))
+    );
+  kdlPaths =
+    (listKdlPaths ./config.d) ++ (listKdlPaths (./config.d + "/${osConfig.networking.hostName}"));
 in
 {
   imports = [
