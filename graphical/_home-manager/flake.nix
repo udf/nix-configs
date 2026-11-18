@@ -27,7 +27,11 @@
             inherit pkgs;
             extraSpecialArgs = {
               inherit inputs;
-              customUtils = (import ./_common/helpers/utils.nix) { lib = pkgs.lib; };
+              customUtils = (import ../../common/injectable/utils.nix) {
+                lib = pkgs.lib;
+                repoRootPath = ../..;
+                repoRealRoot = builtins.readFile ../../.root;
+              };
             };
             modules = modules ++ [
               (./. + "/${host}/home.nix")

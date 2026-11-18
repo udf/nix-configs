@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  zshrc = (import ../../../common/fragments/zsh/zshrc.nix) { inherit lib pkgs; };
+  zshrc = (import ../../../../common/fragments/zsh/zshrc.nix) { inherit lib pkgs; };
   cfg = config.programs.zsh-config;
 in
 {
