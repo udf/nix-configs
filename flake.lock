@@ -87,7 +87,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-N73IB1tiUpL4uwXSNsYW0hX9V/7bNFzEqju9V0z6CEM=",
+        "narHash": "sha256-8dAlFbLMaaHS0+wHzpiaMmwZ4uybxhbmDa+T53vV6kA=",
         "path": "./headless/durga",
         "type": "path"
       },
@@ -374,16 +374,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1794872590,
-        "narHash": "sha256-E+XLAfnC7+bdr4qlEgRv6cdGmiqTU5oeFNKCha7epqQ=",
+        "lastModified": 1795098939,
+        "narHash": "sha256-zmAhBnYUn1isWKdRr5T+qnQNJ4iwRvpMtnsbQfSh3Pg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f68407657ad294471eb4b2e65d193df26edf729f",
+        "rev": "69467f449339164b3f036b1dfa27b1b0c5e38925",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-26.05",
+        "ref": "nixos-26.05-small",
         "repo": "nixpkgs",
         "type": "github"
       }
