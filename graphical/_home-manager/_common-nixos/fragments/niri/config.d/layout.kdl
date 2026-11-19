@@ -1,6 +1,4 @@
 layout {
-  gaps 6
-
   center-focused-column "never"
 
   always-center-single-column
@@ -14,7 +12,7 @@ layout {
   preset-window-heights {
     proportion 0.5
     proportion 1.0
-   }
+  }
 
   default-column-width { proportion 0.5; }
 
