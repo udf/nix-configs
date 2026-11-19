@@ -10,7 +10,7 @@
       name = "focus-recent-urgent.kdl";
       text = ''
         binds {
-          Mod+Z { spawn-sh "systemctl --user kill -s SIGUSR1 niri-recent-urgent.service"; }
+          Mod+Z { spawn "systemctl" "--user" "kill" "-s" "SIGUSR1" "niri-recent-urgent.service"; }
         }
       '';
     })

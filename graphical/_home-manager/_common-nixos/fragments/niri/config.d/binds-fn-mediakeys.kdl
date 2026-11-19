@@ -1,34 +1,34 @@
 binds {
   // Audio Volume Controls
-  XF86AudioRaiseVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
-  XF86AudioLowerVolume { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-"; }
-  XF86AudioMute { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-  XF86AudioMicMute { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+  XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01+" "-l" "1.0"; }
+  XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01-"; }
+  XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+  XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-  Mod+Alt+D { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01+ -l 1.0"; }
-  Mod+Alt+C { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.01-"; }
-  Mod+Alt+E { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+  Mod+Alt+D { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01+" "-l" "1.0"; }
+  Mod+Alt+C { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.01-"; }
+  Mod+Alt+E { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
 
   // Media controls
-  XF86AudioPlay { spawn-sh "playerctl -p playerctld play-pause"; }
-  XF86AudioNext { spawn-sh "playerctl -p playerctld next"; }
-  XF86AudioPrev { spawn-sh "playerctl -p playerctld previous"; }
-  Mod+Alt+S { spawn-sh "playerctl -p playerctld play-pause"; }
-  Mod+Alt+X { spawn-sh "playerctl -p playerctld next"; }
-  Mod+Alt+Z { spawn-sh "playerctl -p playerctld previous"; }
+  XF86AudioPlay { spawn "playerctl" "-p" "playerctld" "play-pause"; }
+  XF86AudioNext { spawn "playerctl" "-p" "playerctld" "next"; }
+  XF86AudioPrev { spawn "playerctl" "-p" "playerctld" "previous"; }
+  Mod+Alt+S { spawn "playerctl" "-p" "playerctld" "play-pause"; }
+  Mod+Alt+X { spawn "playerctl" "-p" "playerctld" "next"; }
+  Mod+Alt+Z { spawn "playerctl" "-p" "playerctld" "previous"; }
 
-  Mod+Ctrl+XF86AudioRaiseVolume { spawn-sh "playerctl -p playerctld volume 0.01+"; }
-  Mod+Ctrl+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld volume 0.01-"; }
-  Mod+Alt+F { spawn-sh "playerctl -p playerctld volume 0.01+"; }
-  Mod+Alt+V { spawn-sh "playerctl -p playerctld volume 0.01-"; }
+  Mod+Ctrl+XF86AudioRaiseVolume { spawn "playerctl" "-p" "playerctld" "volume" "0.01+"; }
+  Mod+Ctrl+XF86AudioLowerVolume { spawn "playerctl" "-p" "playerctld" "volume" "0.01-"; }
+  Mod+Alt+F { spawn "playerctl" "-p" "playerctld" "volume" "0.01+"; }
+  Mod+Alt+V { spawn "playerctl" "-p" "playerctld" "volume" "0.01-"; }
 
-  Mod+XF86AudioNext repeat=false { spawn-sh "playerctld shift"; }
-  Mod+XF86AudioPrev repeat=false { spawn-sh "playerctld unshift"; }
-  Mod+Alt+W repeat=false { spawn-sh "playerctld shift"; }
-  Mod+Alt+Q repeat=false { spawn-sh "playerctld unshift"; }
+  Mod+XF86AudioNext repeat=false { spawn "playerctld" "shift"; }
+  Mod+XF86AudioPrev repeat=false { spawn "playerctld" "unshift"; }
+  Mod+Alt+W repeat=false { spawn "playerctld" "shift"; }
+  Mod+Alt+Q repeat=false { spawn "playerctld" "unshift"; }
 
-  Mod+XF86AudioRaiseVolume { spawn-sh "playerctl -p playerctld position 2+"; }
-  Mod+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld position 2-"; }
+  Mod+XF86AudioRaiseVolume { spawn "playerctl" "-p" "playerctld" "position" "2+"; }
+  Mod+XF86AudioLowerVolume { spawn "playerctl" "-p" "playerctld" "position" "2-"; }
   Mod+TouchpadScrollLeft  { spawn "playerctl" "-p" "playerctld" "position" "2+"; }
   Mod+TouchpadScrollRight { spawn "playerctl" "-p" "playerctld" "position" "2-"; }
 
