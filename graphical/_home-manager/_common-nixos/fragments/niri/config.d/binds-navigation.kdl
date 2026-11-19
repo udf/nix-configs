@@ -43,25 +43,25 @@ binds {
   Mod+Shift+8 { move-column-to-workspace 8; }
   Mod+Shift+9 { move-column-to-workspace 9; }
 
-  // Mod+Ctrl - Monitor related bindings
+  // Monitor related bindings
   Mod+Ctrl+Alt+Up    { focus-monitor-up; }
   Mod+Ctrl+Alt+Down  { focus-monitor-down; }
   Mod+Ctrl+Alt+Left  { focus-monitor-left; }
   Mod+Ctrl+Alt+Right { focus-monitor-right; }
 
-  Mod+Ctrl+Alt+Shift+Up    { move-column-to-monitor-up; }
-  Mod+Ctrl+Alt+Shift+Down  { move-column-to-monitor-down; }
-  Mod+Ctrl+Alt+Shift+Left  { move-column-to-monitor-left; }
-  Mod+Ctrl+Alt+Shift+Right { move-column-to-monitor-right; }
+  Mod+Alt+Shift+Up    { move-column-to-monitor-up; }
+  Mod+Alt+Shift+Down  { move-column-to-monitor-down; }
+  Mod+Alt+Shift+Left  { move-column-to-monitor-left; }
+  Mod+Alt+Shift+Right { move-column-to-monitor-right; }
 
   Mod+Grave { focus-monitor-next; }
   Mod+Shift+Grave { move-column-to-monitor-next; }
   Mod+Alt+Shift+Grave { move-workspace-to-monitor-next; }
 
-  Mod+Alt+Shift+Up    { move-workspace-to-monitor-up; }
-  Mod+Alt+Shift+Down  { move-workspace-to-monitor-down; }
-  Mod+Alt+Shift+Left  { move-workspace-to-monitor-left; }
-  Mod+Alt+Shift+Right { move-workspace-to-monitor-right; }
+  Mod+Ctrl+Alt+Shift+Up    { move-workspace-to-monitor-up; }
+  Mod+Ctrl+Alt+Shift+Down  { move-workspace-to-monitor-down; }
+  Mod+Ctrl+Alt+Shift+Left  { move-workspace-to-monitor-left; }
+  Mod+Ctrl+Alt+Shift+Right { move-workspace-to-monitor-right; }
 
   // Columns
   Mod+I  { consume-window-into-column; }
