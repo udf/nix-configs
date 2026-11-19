@@ -53,5 +53,24 @@ in
 
       "volume" = "90";
     };
+
+    bindings =
+      let
+        cuberoot2 = 1.2599210498948732;
+      in
+      {
+        "WHEEL_UP" = "seek 10";
+        "WHEEL_DOWN" = "seek -10";
+        "WHEEL_LEFT" = "add volume -2";
+        "WHEEL_RIGHT" = "add volume 2";
+
+        "ctrl+1" = "set speed 1.0";
+        "ctrl+2" = "set speed 2.0";
+        "ctrl+3" = "set speed 3.0";
+        "ctrl+4" = "set speed 4.0";
+
+        "]" = "multiply speed ${toString cuberoot2}";
+        "[" = "multiply speed ${toString (1.0 / cuberoot2)}";
+      };
   };
 }
