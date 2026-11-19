@@ -456,7 +456,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-pUslcRdHe5dT9Jwx97JeGzLn9syQmwjPT0RVysAYcCM=",
+        "narHash": "sha256-3T10McN9E5QrS7fpqDmfdTx0B7jr0UOUnXfkyzLRhCc=",
         "path": "./headless/phanes",
         "type": "path"
       },

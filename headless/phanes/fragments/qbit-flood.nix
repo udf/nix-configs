@@ -62,6 +62,10 @@ in
         MemoryHigh = "4G";
         MemoryMax = "4G";
         MemorySwapMax = "2G";
+        ExecStartPre = [
+          # prevent stale but reused pid in lockfile from causing a restart loop
+          "-${pkgs.coreutils}/bin/rm -f ${config.services.qbittorrent.profileDir}/qBittorrent/config/lockfile"
+        ];
       };
     }
   ];
