@@ -26,7 +26,7 @@
     usbutils
     pciutils
     compsize
-    nvd
+    nix-diff
 
     # shell utilities
     jq
