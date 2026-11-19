@@ -53,7 +53,7 @@ in
     wl-clipboard
   ];
 
-  system.services.displayManager = {
+  systemConfig.services.displayManager = {
     defaultSession = "niri";
     sessionPackages = [ niriPkg ];
   };

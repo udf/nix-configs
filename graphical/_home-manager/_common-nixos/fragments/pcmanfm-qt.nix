@@ -7,5 +7,5 @@
     kdePackages.qtsvg
   ];
 
-  system.services.gvfs.enable = true;
+  systemConfig.services.gvfs.enable = true;
 }

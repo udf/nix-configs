@@ -7,11 +7,11 @@ let
     "security"
   ];
 
-  # TODO: rename to osConfigBridge and assert for unknown namespaces
+  # TODO: Assert for unknown namespaces
   forwardedSystemConfig = builtins.listToAttrs (
     map (namespace: {
       name = namespace;
-      value = lib.attrByPath [ "home-manager" "users" "sam" "system" namespace ] { } config;
+      value = lib.attrByPath [ "home-manager" "users" "sam" "systemConfig" namespace ] { } config;
     }) forwardedSystemNamespaces
   );
 in

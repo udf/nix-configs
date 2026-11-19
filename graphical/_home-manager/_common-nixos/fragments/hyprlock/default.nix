@@ -78,7 +78,7 @@ in
       }
     '';
   };
-  system.security.pam.services.hyprlock = {
+  systemConfig.security.pam.services.hyprlock = {
     enable = true;
     fprintAuth = false;
   };

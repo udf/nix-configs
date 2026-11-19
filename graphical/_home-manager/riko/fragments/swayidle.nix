@@ -10,7 +10,7 @@ let
   kbdBacklightExe = lib.getExe config.namedPackages.kbd-backlight;
 in
 {
-  system.services.acpid.handlers = {
+  systemConfig.services.acpid.handlers = {
     user-restart-swayidle = {
       event = "ac_adapter/*";
       action = "systemctl --user -M sam@ try-restart swayidle.service";
@@ -25,6 +25,5 @@ in
     ${niriCmd} msg action power-off-monitors
     ${kbdBacklightExe} --silent 0
   '';
-  custom.swayidle.commands.dimScreen =
-    "${lib.getExe dimScreenPkg} --alpha 0.66 --duration 10";
+  custom.swayidle.commands.dimScreen = "${lib.getExe dimScreenPkg} --alpha 0.66 --duration 10";
 }
