@@ -1,4 +1,6 @@
 layout {
+  empty-workspace-above-first
+
   center-focused-column "never"
 
   always-center-single-column
