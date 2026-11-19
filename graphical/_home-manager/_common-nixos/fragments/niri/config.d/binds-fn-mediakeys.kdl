@@ -29,6 +29,8 @@ binds {
 
   Mod+XF86AudioRaiseVolume { spawn-sh "playerctl -p playerctld position 2+"; }
   Mod+XF86AudioLowerVolume { spawn-sh "playerctl -p playerctld position 2-"; }
+  Mod+TouchpadScrollLeft  { spawn "playerctl" "-p" "playerctld" "position" "2+"; }
+  Mod+TouchpadScrollRight { spawn "playerctl" "-p" "playerctld" "position" "2-"; }
 
   // Brightness controls
   XF86MonBrightnessUp { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
