@@ -66,12 +66,12 @@ in
       notifyIdle = lib.mkOption {
         type = lib.types.lines;
         default = "";
-        description = "Shell command lines for the notify idle timeout (110s)";
+        description = "Shell command lines for the notify idle timeout (105s)";
       };
       dimScreen = lib.mkOption {
         type = lib.types.lines;
         default = "";
-        description = "Shell command lines for the dim screen timeout (115s)";
+        description = "Shell command lines for the dim screen timeout (110s)";
       };
       lock = lib.mkOption {
         type = lib.types.lines;
@@ -146,11 +146,11 @@ in
           resumeCommand = toScript "locked-idle-resume" cfg.resumeCommands.lockedIdle;
         }
         {
-          timeout = 110;
+          timeout = 105;
           command = toScript "notify-idle" cfg.timeouts.notifyIdle;
         }
         {
-          timeout = 115;
+          timeout = 110;
           command = toScript "dim-screen" cfg.timeouts.dimScreen;
         }
         {
