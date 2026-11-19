@@ -8,9 +8,6 @@
     # tools
     ffmpeg
 
-    # media
-    mpv
-
     # graphical editors
     gimp
     inkscape
