@@ -13,8 +13,8 @@ binds {
 
   Mod+Alt+Up { focus-window-up; }
   Mod+Alt+Down { focus-window-down; }
-  Mod+Alt+Left  { focus-monitor-left; }
-  Mod+Alt+Right { focus-monitor-right; }
+  Mod+Alt+Left  { focus-window-up; }
+  Mod+Alt+Right { focus-window-down; }
 
   Mod+Ctrl+Shift+Up   { move-column-to-workspace-up; }
   Mod+Ctrl+Shift+Down { move-column-to-workspace-down; }
