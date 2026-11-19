@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -6,7 +6,11 @@
     kdePackages.partitionmanager
     gparted-full
     e2fsprogs
+
     bottles
+
     bintools
+
+    nvtopPackages.full
   ];
 }

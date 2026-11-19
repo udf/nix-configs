@@ -27,7 +27,6 @@
     pciutils
     compsize
     nvd
-    nvtopPackages.full
 
     # shell utilities
     jq
