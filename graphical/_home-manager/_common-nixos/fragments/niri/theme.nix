@@ -10,15 +10,16 @@ let
   urgentColour = mkSaturated paletteHex.flamingo 0.3;
   layoutMetrics = rec {
     border = 3;
+    focusRing = 1;
     gaps = 4;
     verticalOuterGaps = 2;
     horizontalOuterGaps = 0;
     tabGap = 1;
     struts = {
-      left = -gaps + horizontalOuterGaps;
-      right = -gaps + horizontalOuterGaps;
-      top = -gaps + verticalOuterGaps;
-      bottom = -gaps + verticalOuterGaps;
+      left = -gaps + focusRing + horizontalOuterGaps;
+      right = -gaps + focusRing + horizontalOuterGaps;
+      top = -gaps + focusRing + verticalOuterGaps;
+      bottom = -gaps + focusRing + verticalOuterGaps;
     };
   };
 in
@@ -37,22 +38,22 @@ in
             bottom ${toString layoutMetrics.struts.bottom}
           }
 
-          background-color "${paletteHex.surface2}"
+          background-color "${paletteHex.crust}"
           fullscreen-backdrop-color "#00000080"
 
           focus-ring {
-            off
-            width ${toString layoutMetrics.border}
-            active-color "${accentColourHex}"
-            inactive-color "#00000000"
-            urgent-color "${urgentColour}"
+            on
+            width ${toString layoutMetrics.focusRing}
+            active-color "transparent"
+            inactive-color "${accentColourHex}"
+            urgent-color "transparent"
           }
 
           border {
             on
             width ${toString layoutMetrics.border}
             active-color "${accentColourHex}"
-            inactive-color "${paletteHex.surface2}"
+            inactive-color "${paletteHex.overlay0}"
             urgent-color "${urgentColour}"
           }
 
