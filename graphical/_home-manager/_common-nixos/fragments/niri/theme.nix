@@ -9,16 +9,16 @@ let
   inherit (catppuccinOptions) accentColourHex paletteHex mkSaturated;
   urgentColour = mkSaturated paletteHex.flamingo 0.3;
   layoutMetrics = rec {
-    focusRing = 3;
-    gaps = 7;
-    verticalGaps = 2;
-    tabActualGap = 1;
-    tabGap = focusRing + tabActualGap;
+    border = 3;
+    gaps = 4;
+    verticalOuterGaps = 2;
+    horizontalOuterGaps = 0;
+    tabGap = 1;
     struts = {
-      left = -gaps + focusRing;
-      right = -gaps + focusRing;
-      top = -gaps + focusRing + verticalGaps;
-      bottom = -gaps + focusRing + verticalGaps;
+      left = -gaps + horizontalOuterGaps;
+      right = -gaps + horizontalOuterGaps;
+      top = -gaps + verticalOuterGaps;
+      bottom = -gaps + verticalOuterGaps;
     };
   };
 in
@@ -37,17 +37,20 @@ in
             bottom ${toString layoutMetrics.struts.bottom}
           }
 
-          background-color "${paletteHex.surface1}"
+          background-color "${paletteHex.surface2}"
           fullscreen-backdrop-color "#00000080"
 
           focus-ring {
-            width ${toString layoutMetrics.focusRing}
+            off
+            width ${toString layoutMetrics.border}
             active-color "${accentColourHex}"
             inactive-color "#00000000"
             urgent-color "${urgentColour}"
           }
 
           border {
+            on
+            width ${toString layoutMetrics.border}
             active-color "${accentColourHex}"
             inactive-color "${paletteHex.surface2}"
             urgent-color "${urgentColour}"
@@ -59,8 +62,8 @@ in
             width 8
             corner-radius 4
             position "top"
-            gaps-between-tabs 2
-            length total-proportion=1.0
+            gaps-between-tabs ${toString layoutMetrics.gaps}
+            length total-proportion=0.999
             hide-when-single-tab
             place-within-column
             active-color "${accentColourHex}"
@@ -70,18 +73,6 @@ in
 
           insert-hint {
             color "${accentColourHex}66"
-          }
-        }
-
-        // Add red "border" on urgent windows (needed for inactive windows)
-        window-rule {
-          match is-urgent=true
-          shadow {
-            on
-            softness 0
-            spread ${toString layoutMetrics.focusRing}
-            offset x=0 y=0
-            color "${urgentColour}"
           }
         }
       '';
