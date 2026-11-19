@@ -478,7 +478,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-5weXCJRiGg8K8ELKKSZfHYcHfFM2fkGnkPYKjp1Hu3s=",
+        "narHash": "sha256-sOUMKT8SCg8mSaHVGjPMgGQp7Cn844Rgzz/rDSeYROc=",
         "path": "./graphical/riko",
         "type": "path"
       },
