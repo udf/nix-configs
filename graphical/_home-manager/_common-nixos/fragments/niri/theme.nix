@@ -1,12 +1,11 @@
 {
-  inputs,
+  osConfig,
   pkgs,
   lib,
   ...
-}@args:
+}:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
-  inherit (catppuccinOptions) accentColourHex paletteHex mkSaturated;
+  inherit (osConfig.custom.catppuccin) accentColourHex paletteHex mkSaturated;
   urgentColour = mkSaturated paletteHex.flamingo 0.3;
   layoutMetrics = rec {
     border = 3;

@@ -1,14 +1,10 @@
 {
-  inputs,
+  config,
   lib,
-  pkgs,
   ...
-}@args:
+}:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") (
-    args // { blackBackground = true; }
-  );
-  inherit (catppuccinOptions) paletteHex paletteHexExtra;
+  inherit (config.custom.catppuccin.black) paletteHex paletteHexExtra;
 in
 {
   catppuccin.tty.enable = false;

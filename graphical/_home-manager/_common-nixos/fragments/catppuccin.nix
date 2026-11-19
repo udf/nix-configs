@@ -1,13 +1,7 @@
 {
-  lib,
-  pkgs,
-  inputs,
+  osConfig,
   ...
-}@args:
-let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
-
-in
+}:
 {
   catppuccin = {
     enable = true;
@@ -18,6 +12,6 @@ in
     kvantum.apply = true;
     gtk.icon.enable = true;
 
-    inherit (catppuccinOptions) flavor accent sources;
+    inherit (osConfig.custom.catppuccin) flavor accent sources;
   };
 }

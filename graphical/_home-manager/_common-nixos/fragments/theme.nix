@@ -1,13 +1,9 @@
 {
-  inputs,
-  lib,
+  osConfig,
   config,
   pkgs,
   ...
-}@args:
-let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
-in
+}:
 {
   home.pointerCursor = {
     enable = true;
@@ -34,7 +30,7 @@ in
     enable = true;
     theme =
       let
-        inherit (catppuccinOptions) flavor accent;
+        inherit (osConfig.custom.catppuccin) flavor accent;
       in
       {
         name = "catppuccin-${flavor}-${accent}-standard";

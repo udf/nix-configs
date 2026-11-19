@@ -1,12 +1,11 @@
 {
+  osConfig,
   lib,
   pkgs,
-  inputs,
   ...
-}@args:
+}:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
-  inherit (catppuccinOptions) accentColourHex paletteHex;
+  inherit (osConfig.custom.catppuccin) accentColourHex paletteHex;
   accentColorRGBA = "rgba(${lib.removePrefix "#" accentColourHex}ff)";
   backgroundColourHex = paletteHex.base;
   hyprlockAccentLineWebp =

@@ -2,12 +2,9 @@
   config,
   lib,
   pkgs,
-  inputs,
+  osConfig,
   ...
-}@args:
-let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") args;
-in
+}:
 {
   programs.vscodium = {
     enable = true;
@@ -24,7 +21,7 @@ in
     profiles.default.extensions = [
       (config.catppuccin.sources.vscode.override {
         catppuccinOptions = {
-          colorOverrides = catppuccinOptions.prefixedColorOverrides;
+          colorOverrides = osConfig.custom.catppuccin.prefixedColorOverrides;
         };
       })
     ];

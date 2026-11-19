@@ -1,14 +1,11 @@
 {
-  inputs,
+  osConfig,
   lib,
   pkgs,
   ...
-}@args:
+}:
 let
-  catppuccinOptions = import (inputs.self + "/common/helpers/catppuccin-options.nix") (
-    args // { blackBackground = true; }
-  );
-  inherit (catppuccinOptions) paletteHexExtra;
+  inherit (osConfig.custom.catppuccin.black) paletteHexExtra;
 in
 {
   programs.alacritty = {
