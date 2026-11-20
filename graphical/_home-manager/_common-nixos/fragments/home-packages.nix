@@ -7,6 +7,7 @@
 
     # tools
     ffmpeg
+    gcc
 
     # graphical editors
     gimp
