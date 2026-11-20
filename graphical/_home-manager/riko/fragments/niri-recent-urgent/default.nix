@@ -2,10 +2,13 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
-  sniri = pkgs.python3Packages.callPackage ../../../../_common/packages/sniri { };
+  sniri = pkgs.python3Packages.callPackage (
+    inputs.self + /graphical/_home-manager/_common-nixos/packages/sniri
+  ) { };
   python = pkgs.python3.withPackages (_: [ sniri ]);
 in
 {

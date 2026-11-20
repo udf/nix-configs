@@ -94,7 +94,7 @@
         pkgs:
         let
           pythonPkg = pkgs.python3.withPackages (_: [
-            (pkgs.python3Packages.callPackage ./graphical/_common/packages/sniri { })
+            (pkgs.python3Packages.callPackage ./graphical/_home-manager/_common-nixos/packages/sniri { })
           ]);
         in
         {
