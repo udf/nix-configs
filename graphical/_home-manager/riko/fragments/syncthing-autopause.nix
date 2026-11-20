@@ -10,12 +10,17 @@ in
 {
   systemd.user.services.syncthing-autopause = {
     Unit = {
-      Description = "Screen locker";
-      Requires = [ "syncthing.service" ];
+      Description = "Automatically (un)pause non-critical syncthing folders";
+      Requisite = [ "syncthing.service" ];
+      After = [ "syncthing.service" ];
+    };
+
+    Install = {
+      WantedBy = [ "default.target" ];
     };
 
     Service = {
-      Type = "simple";
+      Type = "oneshot";
       ExecStart = pkgs.writeShellScript "syncthing-autopause.sh" ''
         ${pkgs.coreutils}/bin/sleep 3
         if systemd-ac-power; then
