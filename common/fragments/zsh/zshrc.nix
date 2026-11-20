@@ -17,6 +17,10 @@ in
   FAST_BLIST_PATTERNS[/mnt/*]=1
   source "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 
+  # zsh-edit
+  source ${pkgs.zsh-edit}/share/zsh/zsh-edit/zsh-edit.plugin.zsh
+  zstyle ':edit:*' word-chars '~*?'
+
   # fzf + custom commands
   export FZF_DEFAULT_OPTS="--color=dark"
   function fzf() { ${pkgs.fzf}/bin/fzf "$@" }
