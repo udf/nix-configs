@@ -20,5 +20,8 @@ deemixf() {
 # ddc
 alias dell_brightness='ddcutil --model "DELL S2721DGF" setvcp 10'
 
+# Add user Python package binaries to path
+export PATH="$HOME/.local/bin:$PATH"
+
 # Add ruby gem binaries to path
 export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"

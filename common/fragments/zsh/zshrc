@@ -144,6 +144,3 @@ alias free='free -m'
 alias gitc='git commit'
 alias gitd='git diff'
 alias gitds='git diff --stat'
-
-# Add user Python package binaries to path
-export PATH="$HOME/.local/bin:$PATH"
