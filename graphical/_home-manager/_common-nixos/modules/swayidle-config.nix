@@ -12,7 +12,7 @@ let
     name: lines: lib.getExe (pkgs.writeShellScriptBin "swayidle-${name}" ("set -e\n" + lines));
 
   defaultLockCommand = "${pkgs.systemd}/bin/systemctl start --no-block --user screen-locker";
-  defaultIsLockActive = "${pkgs.systemd}/bin/systemctl --user is-active screen-locker";
+  defaultIsLockActive = "${pkgs.systemd}/bin/systemctl --user is-active screen-locker > /dev/null";
 in
 {
   options.custom.swayidle = {
@@ -106,6 +106,11 @@ in
         default = "";
         description = "Shell command lines for the lock event";
       };
+      unlock = lib.mkOption {
+        type = lib.types.lines;
+        default = "";
+        description = "Shell command lines for the unlock event";
+      };
     };
   };
 
@@ -133,6 +138,7 @@ in
     custom.swayidle.events.beforeSleep = lib.mkDefault cfg.commands.lock;
     custom.swayidle.events.afterResume = lib.mkDefault cfg.commands.displayOn;
     custom.swayidle.events.lock = lib.mkDefault cfg.commands.lock;
+    custom.swayidle.events.unlock = lib.mkDefault cfg.commands.displayOn;
     custom.swayidle.resumeCommands.lockedIdle = lib.mkDefault cfg.commands.displayOn;
     custom.swayidle.resumeCommands.postLockIdle = lib.mkDefault cfg.commands.displayOn;
 
@@ -171,6 +177,7 @@ in
         "before-sleep" = toScript "before-sleep" cfg.events.beforeSleep;
         "after-resume" = toScript "after-resume" cfg.events.afterResume;
         "lock" = toScript "lock-event" cfg.events.lock;
+        "unlock" = toScript "unlock-event" cfg.events.unlock;
       };
     };
   };
