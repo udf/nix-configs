@@ -5,10 +5,12 @@ KEYTIMEOUT=5
 HISTFILE=~/.histfile
 HISTSIZE=10000000
 SAVEHIST=10000000
-setopt appendhistory
-setopt histignoredups
-setopt histreduceblanks
-setopt INC_APPEND_HISTORY
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY
+setopt NO_APPEND_HISTORY
+setopt HIST_IGNORE_SPACE
 
 # completion
 zmodload zsh/complist
@@ -43,16 +45,16 @@ bindkey "^H" vi-backward-kill-word
 TIMEFMT=$'\nreal\t%*Es\nuser\t%*Us\nsys\t%*Ss'
 
 # automatically cd on dir name
-setopt autocd
+setopt AUTOCD
 
 # print error on glob match failiure
-setopt nomatch
+setopt NOMATCH
 
 # more glob patterns
-setopt extendedglob
+setopt EXTENDEDGLOB
 
 # report background job status immediately
-setopt notify
+setopt NOTIFY
 
 # prompt
 function do_prompt() {
@@ -64,7 +66,7 @@ function do_prompt() {
   echo -n '%# %f%b'
 }
 
-setopt promptsubst
+setopt PROMPTSUBST
 export PROMPT='$(do_prompt)'
 
 # set window title to running command (+username@host if remote/other user)
