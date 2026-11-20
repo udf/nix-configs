@@ -10,9 +10,6 @@
   home.homeDirectory = "/home/sam";
 
   home.file = {
-    ".zshenv".text = ''
-      . "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh"
-    '';
   };
 
   # This value determines the Home Manager release that your configuration is
