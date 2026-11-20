@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   defaultVersion = "3.14";
   uvPkg = pkgs.symlinkJoin {
@@ -11,18 +11,25 @@ let
     '';
     meta = pkgs.uv.meta;
   };
-in
-{
-  home.packages = [
-    pkgs.pypy3
-    (pkgs.python3.withPackages (
+  pythonPkg = (
+    pkgs.python3.withPackages (
       ps: with ps; [
         # TODO: add more packages
         numpy
         matplotlib
       ]
-    ))
+    )
+  );
+in
+{
+  home.packages = [
+    pkgs.pypy3
+    pythonPkg
   ];
+
+  home.sessionVariables = {
+    NIX_PYTHON_PATH = "${lib.getExe pythonPkg}";
+  };
 
   programs.uv = {
     enable = true;
