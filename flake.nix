@@ -20,12 +20,15 @@
     inputs:
     let
       inherit (inputs.nixpkgs) lib;
+      nixpkgs = inputs.nixpkgs;
       hostDirs = {
         ananke = "headless/ananke";
         durga = "headless/durga";
         phanes = "headless/phanes";
         riko = "graphical/riko";
       };
+      forSystems =
+        systems: function: lib.genAttrs systems (system: function nixpkgs.legacyPackages.${system});
       mkConfig =
         {
           host,
@@ -84,6 +87,24 @@
           host = h;
           flake = inputs.${h};
           hostFlakePath = "./${hostDirs.${h}}";
+        }
+      );
+
+      devShells = forSystems [ "x86_64-linux" ] (
+        pkgs:
+        let
+          pythonPkg = pkgs.python3.withPackages (_: [
+            (pkgs.python3Packages.callPackage ./graphical/_common/packages/sniri { })
+          ]);
+        in
+        {
+          default = pkgs.mkShell {
+            shellHook = ''
+              export NIX_PYTHON_PATH="${lib.getExe pythonPkg}"
+            '';
+
+            packages = [ pythonPkg ];
+          };
         }
       );
     };

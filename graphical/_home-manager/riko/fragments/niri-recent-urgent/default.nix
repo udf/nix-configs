@@ -4,6 +4,10 @@
   pkgs,
   ...
 }:
+let
+  sniri = pkgs.python3Packages.callPackage ../../../../_common/packages/sniri { };
+  python = pkgs.python3.withPackages (_: [ sniri ]);
+in
 {
   custom.niri.extraConfigFiles = [
     (pkgs.writeTextFile {
@@ -40,7 +44,7 @@
       Environment = [ "PYTHONUNBUFFERED=1" ];
       Type = "simple";
       Restart = "always";
-      ExecStart = "${lib.getExe pkgs.python3} ${./niri-recent-urgent.py}";
+      ExecStart = "${lib.getExe python} ${./niri-recent-urgent.py}";
     };
   };
 }
