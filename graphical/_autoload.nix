@@ -5,10 +5,10 @@ let
 in
 {
   imports = listImportables [
-    (inputs.self + "/common/fragments")
-    (inputs.self + "/common/modules")
+    (inputs.self + /common/fragments)
+    (inputs.self + /common/modules)
     ./_common/fragments
     ./_common/modules
-    (sourceDir + "/fragments")
+    (sourceDir + /fragments)
   ];
 }
