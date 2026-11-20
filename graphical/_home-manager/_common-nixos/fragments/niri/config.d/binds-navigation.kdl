@@ -56,7 +56,7 @@ binds {
 
   Mod+Grave { focus-monitor-next; }
   Mod+Shift+Grave { move-column-to-monitor-next; }
-  Mod+Alt+Shift+Grave { move-workspace-to-monitor-next; }
+  Mod+Ctrl+Shift+Grave { move-workspace-to-monitor-next; }
 
   Mod+Ctrl+Alt+Shift+Up    { move-workspace-to-monitor-up; }
   Mod+Ctrl+Alt+Shift+Down  { move-workspace-to-monitor-down; }
