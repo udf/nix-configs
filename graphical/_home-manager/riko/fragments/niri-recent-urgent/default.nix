@@ -47,6 +47,7 @@ in
       Environment = [ "PYTHONUNBUFFERED=1" ];
       Type = "simple";
       Restart = "always";
+      RestartSec = 5;
       ExecStart = "${lib.getExe python} ${./niri-recent-urgent.py}";
     };
   };
