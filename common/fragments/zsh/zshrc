@@ -36,9 +36,12 @@ bindkey "\e[3~" delete-char       # DELETE
 bindkey "\e[2~" quoted-insert     # INSERT
 bindkey -s "^[OM" "^M"            # keypad enter
 
-export WORDCHARS=
-bindkey "\e[1;5C" emacs-forward-word
-bindkey "\e[1;5D" emacs-backward-word
+autoload -Uz select-word-style
+select-word-style shell-subword
+zle -A vi-forward-word forward-word
+zle -A vi-backward-word backward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
 bindkey "^H" vi-backward-kill-word
 
 # make time builtin look like bash
