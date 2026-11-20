@@ -22,7 +22,7 @@
     settings = {
       TLP_AUTO_SWITCH = 1;
       TLP_PROFILE_AC = "PRF";
-      TLP_PROFILE_BAT = "BAL";
+      TLP_PROFILE_BAT = "SAV";
 
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";

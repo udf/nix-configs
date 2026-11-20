@@ -93,9 +93,12 @@
       devShells = forSystems [ "x86_64-linux" ] (
         pkgs:
         let
-          pythonPkg = pkgs.python3.withPackages (_: [
-            (pkgs.python3Packages.callPackage ./graphical/_home-manager/_common-nixos/packages/sniri { })
-          ]);
+          pythonPkg = pkgs.python3.withPackages (
+            _: with pkgs.python3Packages; [
+              (pkgs.python3Packages.callPackage ./graphical/_home-manager/_common-nixos/packages/sniri { })
+              dbus-fast
+            ]
+          );
         in
         {
           default = pkgs.mkShell {
