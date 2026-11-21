@@ -5,6 +5,7 @@
     # tools
     ffmpeg
     gcc
+    hyperfine
 
     # graphical editors
     gimp
