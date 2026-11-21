@@ -3,6 +3,8 @@ let
   nonCriticalFolderIds = [
     # Projects - Other
     "dy5hy-9y2dd"
+    # Projects - Cloud Versions
+    "hy24x-hzrpb"
     # Transcoded Music (All Playlists)
     "dp4wu-7x2ph"
   ];
