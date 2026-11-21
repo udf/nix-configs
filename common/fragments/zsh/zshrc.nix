@@ -20,6 +20,8 @@ in
   # zsh-edit
   source ${pkgs.zsh-edit}/share/zsh/zsh-edit/zsh-edit.plugin.zsh
   zstyle ':edit:*' word-chars '~*?'
+  bindkey '^[^?' backward-kill-shell-word
+  bindkey '^H'   backward-kill-subword
 
   # fzf + custom commands
   export FZF_DEFAULT_OPTS="--color=dark"
