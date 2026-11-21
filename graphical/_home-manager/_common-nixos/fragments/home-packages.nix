@@ -2,9 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    # gui tools
-    xpra
-
     # tools
     ffmpeg
     gcc
