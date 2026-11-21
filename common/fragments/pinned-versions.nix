@@ -14,7 +14,7 @@
       frigate = "ghcr.io/blakeblackshear/frigate:0.17.2";
     };
     programs = {
-      nicotine-plus = "3.3.10";
+      nicotine-plus = "3.3.11";
       flexget-webui = "2.0.29";
     };
     packages = {
