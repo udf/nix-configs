@@ -75,6 +75,8 @@ async def main():
       match event:
         case {'WindowFocusChanged': _}:
           await evaluate_focus(conn, power_mgr)
+        case {'WindowOpenedOrChanged': _}:
+          await evaluate_focus(conn, power_mgr)
 
 
 if __name__ == '__main__':
