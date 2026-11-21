@@ -14,6 +14,10 @@
           kdePackages.fcitx5-configtool
         ];
         settings.globalOptions = {
+          "Behavior/DisabledAddons" = {
+            "0" = "clipboard";
+          };
+
           "Hotkey/PrevPage" = {
             "0" = "Page_Up";
             "1" = "minus";
