@@ -121,6 +121,7 @@ if [[ -v CLIPCMD ]]; then
   }
   zle -N clip_cmd
   bindkey "^X" clip_cmd
+  bindkey -r "^X^X"
 fi
 
 # colour aliases
