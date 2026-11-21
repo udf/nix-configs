@@ -27,11 +27,6 @@ binds {
   Mod+Alt+W repeat=false { spawn "playerctld" "shift"; }
   Mod+Alt+Q repeat=false { spawn "playerctld" "unshift"; }
 
-  Mod+XF86AudioRaiseVolume { spawn "playerctl" "-p" "playerctld" "position" "2+"; }
-  Mod+XF86AudioLowerVolume { spawn "playerctl" "-p" "playerctld" "position" "2-"; }
-  Mod+Alt+TouchpadScrollLeft  { spawn "playerctl" "-p" "playerctld" "position" "2+"; }
-  Mod+Alt+TouchpadScrollRight { spawn "playerctl" "-p" "playerctld" "position" "2-"; }
-
   // Brightness controls
   XF86MonBrightnessUp { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
   XF86MonBrightnessDown { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
