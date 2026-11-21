@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  boot.kernelParams = [
-    "amdgpu.panel_power_savings=1"
-  ];
-
   services.acpid.handlers = {
     tlp-reset = {
       event = "ac_adapter/*";
@@ -23,6 +19,10 @@
       TLP_AUTO_SWITCH = 1;
       TLP_PROFILE_AC = "PRF";
       TLP_PROFILE_BAT = "SAV";
+
+      AMDGPU_ABM_LEVEL_ON_AC = 0;
+      AMDGPU_ABM_LEVEL_ON_BAT = 0;
+      AMDGPU_ABM_LEVEL_ON_SAV = 0;
 
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
