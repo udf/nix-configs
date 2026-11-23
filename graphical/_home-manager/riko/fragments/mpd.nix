@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     mpc
     cantata
-    pcmanfm-qt
   ];
 
   services.mpd = {
