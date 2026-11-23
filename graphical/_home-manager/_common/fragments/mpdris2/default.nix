@@ -2,14 +2,12 @@
 {
   services.mpdris2.package = pkgs.mpdris2.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./more-sane-interval.patch ];
-    # MARK: pinned version
-    # https://github.com/eonpatapon/mpDris2/issues/170
-    version = "0.9.1-rc";
+    version = "0.10.0";
     src = pkgs.fetchFromGitHub {
       owner = "eonpatapon";
       repo = "mpDris2";
-      rev = "d73f32c2b74528e94032331cd6cecb0b7e7bcada";
-      hash = "sha256-J0OApalIqYCGiaxuE/10K6n2GyP6WoZHF7NcRG3FXnA=";
+      rev = "55d571f1d1e719b673f2bba7662628207e0ec78d";
+      hash = "sha256-Caw7WZIpTgwaXJ/voKI6rsDigvyrHK3t/QM4B3WJlE0=";
     };
   });
 }
