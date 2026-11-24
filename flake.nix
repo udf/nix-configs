@@ -21,19 +21,13 @@
     let
       inherit (inputs.nixpkgs) lib;
       nixpkgs = inputs.nixpkgs;
-      hostDirs = {
-        ananke = "headless/ananke";
-        durga = "headless/durga";
-        phanes = "headless/phanes";
-        riko = "graphical/riko";
-      };
       forSystems =
         systems: function: lib.genAttrs systems (system: function nixpkgs.legacyPackages.${system});
       mkConfig =
         {
-          host,
+          hostName,
+          hostDir,
           flake,
-          hostFlakePath ? "",
         }:
         let
           allInputs = inputs // flake.inputs;
@@ -51,16 +45,16 @@
           system = null;
           specialArgs = allInputs // {
             inputs = allInputs;
-            hostFlakePath = hostFlakePath;
+            hostFlakePath = "./${hostDir}";
             customUtils = customUtils;
           };
           modules = [
-            (./. + "/${hostDirs.${host}}/configuration.nix")
+            (./. + "/${hostDir}/configuration.nix")
             {
               nix.nixPath = [
                 "nixpkgs=${pkgs}"
               ];
-              networking.hostName = host;
+              networking.hostName = hostName;
             }
             inputs.nix-index-database.nixosModules.default
           ]
@@ -81,14 +75,21 @@
         };
     in
     {
-      nixosConfigurations = lib.genAttrs [ "ananke" "durga" "phanes" "riko" ] (
-        h:
-        mkConfig {
-          host = h;
-          flake = inputs.${h};
-          hostFlakePath = "./${hostDirs.${h}}";
-        }
-      );
+      nixosConfigurations =
+        lib.mapAttrs
+          (
+            hostName: hostDir:
+            mkConfig {
+              inherit hostName hostDir;
+              flake = inputs.${hostName};
+            }
+          )
+          {
+            ananke = "headless/ananke";
+            durga = "headless/durga";
+            phanes = "headless/phanes";
+            riko = "graphical/riko";
+          };
 
       devShells = forSystems [ "x86_64-linux" ] (
         pkgs:
