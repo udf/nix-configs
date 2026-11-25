@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -35,6 +36,7 @@
     ripgrep
     pv
     expect
+    (lib.hiPrio parallel)
 
     # interactive
     ncdu
