@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     # tools
-    ffmpeg
     gcc
     hyperfine
 

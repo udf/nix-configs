@@ -17,5 +17,10 @@ let
 in
 {
   home-manager.users.sam = import ../../_home-manager/riko/home.nix;
+
+  systemd.services."home-manager-sam" = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+  };
 }
 // forwardedSystemConfig
