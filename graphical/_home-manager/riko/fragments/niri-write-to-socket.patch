@@ -1,0 +1,80 @@
+diff --git a/niri-config/src/binds.rs b/niri-config/src/binds.rs
+index fc7b4b57..9f52a71e 100644
+--- a/niri-config/src/binds.rs
++++ b/niri-config/src/binds.rs
+@@ -250,6 +250,10 @@ pub enum Action {
+     ToggleTouchpad,
+     Spawn(#[knuffel(arguments)] Vec<String>),
+     SpawnSh(#[knuffel(argument)] String),
++    WriteToSocket(
++        #[knuffel(argument)] String,
++        #[knuffel(argument)] String,
++    ),
+     DoScreenTransition(#[knuffel(property(name = "delay-ms"))] Option<u16>),
+     #[knuffel(skip)]
+     ConfirmScreenshot {
+@@ -588,6 +592,9 @@ impl From<niri_ipc::Action> for Action {
+             niri_ipc::Action::PowerOnMonitors {} => Self::PowerOnMonitors,
+             niri_ipc::Action::Spawn { command } => Self::Spawn(command),
+             niri_ipc::Action::SpawnSh { command } => Self::SpawnSh(command),
++            niri_ipc::Action::WriteToSocket { address, message } => {
++                Self::WriteToSocket(address, message)
++            }
+             niri_ipc::Action::DoScreenTransition { delay_ms } => Self::DoScreenTransition(delay_ms),
+             niri_ipc::Action::Screenshot { show_pointer, path } => {
+                 Self::Screenshot(show_pointer, path)
+diff --git a/niri-ipc/src/lib.rs b/niri-ipc/src/lib.rs
+index 3302e449..15a4d01e 100644
+--- a/niri-ipc/src/lib.rs
++++ b/niri-ipc/src/lib.rs
+@@ -1195,6 +1195,13 @@ pub enum Action {
+         #[cfg_attr(feature = "clap", arg(long))]
+         path: Option<String>,
+     },
++    /// Write a message to a Unix socket
++    WriteToSocket {
++        /// Unix socket path.
++        address: String,
++        /// Message to write.
++        message: String,
++    },
+ }
+ 
+ /// Change in window or column size.
+diff --git a/src/input/mod.rs b/src/input/mod.rs
+index e075a9e8..116cc08c 100644
+--- a/src/input/mod.rs
++++ b/src/input/mod.rs
+@@ -3,6 +3,10 @@ use std::collections::hash_map::Entry;
+ use std::collections::{HashMap, HashSet};
+ use std::time::Duration;
+ 
++use async_io::Async;
++use std::os::unix::net::UnixStream;
++use futures_util::AsyncWriteExt as _;
++
+ use calloop::timer::{TimeoutAction, Timer};
+ use calloop::RegistrationToken;
+ use input::event::gesture::GestureEventCoordinates as _;
+@@ -996,6 +1000,21 @@ impl State {
+                 let (token, _) = self.niri.activation_state.create_external_token(None);
+                 spawn_sh(command, Some(token.clone()));
+             }
++            Action::WriteToSocket(address, message) => {
++                let future = async move {
++                    match Async::<UnixStream>::connect(&address).await {
++                        Ok(mut stream) => {
++                            if let Err(err) = stream.write_all(message.as_bytes()).await {
++                                warn!("error writing to Unix socket {address:?}: {err:?}");
++                            }
++                        }
++                        Err(err) => warn!("error connecting to Unix socket {address:?}: {err:?}"),
++                    }
++                };
++                if let Err(err) = self.niri.scheduler.schedule(future) {
++                    warn!("error scheduling Unix socket write: {err:?}");
++                }
++            }
+             Action::DoScreenTransition(delay_ms) => {
+                 self.backend.with_primary_renderer(|renderer| {
+                     self.niri.do_screen_transition(renderer, delay_ms);
