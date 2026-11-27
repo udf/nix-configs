@@ -18,34 +18,22 @@ class SeekDaemon:
   def __init__(self):
     self.pending_seek = 0
     self.player = None
+    self.message_bus: MessageBus | None = None
     self.batch_ready = asyncio.Event()
-    self.batch_timer = None
-
-  def schedule_seek_batch(self):
-    if self.batch_timer is not None:
-      return
-
-    loop = asyncio.get_running_loop()
-
-    def fire_batch():
-      self.batch_timer = None
-      self.batch_ready.set()
-
-    self.batch_timer = loop.call_later(BATCH_INTERVAL_SECONDS, fire_batch)
 
   async def connect(self):
-    bus = await MessageBus(bus_type=BusType.SESSION).connect()
-    introspection = await bus.introspect(BUS_NAME, OBJECT_PATH)
-    proxy = bus.get_proxy_object(BUS_NAME, OBJECT_PATH, introspection)
+    self.message_bus = await MessageBus(bus_type=BusType.SESSION).connect()
+    introspection = await self.message_bus.introspect(BUS_NAME, OBJECT_PATH)
+    proxy = self.message_bus.get_proxy_object(BUS_NAME, OBJECT_PATH, introspection)
     self.player = proxy.get_interface(PLAYER_INTERFACE)
 
-  async def handle_connection(self, reader, writer):
+  async def handle_connection(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
     try:
-      data = await reader.read()
+      data = await reader.read(128)
       seek = int(data.strip())
       self.pending_seek += seek
-      if seek:
-        self.schedule_seek_batch()
+      if self.pending_seek:
+        self.batch_ready.set()
     except (ValueError, AttributeError):
       pass
     finally:
@@ -56,6 +44,7 @@ class SeekDaemon:
     while True:
       await self.batch_ready.wait()
       self.batch_ready.clear()
+      await asyncio.sleep(BATCH_INTERVAL_SECONDS)
 
       if self.pending_seek == 0:
         continue
@@ -66,26 +55,28 @@ class SeekDaemon:
         await self.player.call_seek(offset)
       except Exception as error:
         print(f'Failed to seek: {error}', flush=True)
+        raise
 
 
 async def main():
   daemon = SeekDaemon()
   await daemon.connect()
 
-  try:
-    os.unlink(SOCKET_PATH)
-  except FileNotFoundError:
-    pass
-
+  os.umask(0o177)
   server = await asyncio.start_unix_server(
     daemon.handle_connection,
     path=SOCKET_PATH,
   )
-  os.chmod(SOCKET_PATH, 0o600)
 
   batch_task = asyncio.create_task(daemon.batch_seek_loop())
   async with server:
-    await server.serve_forever()
+    serve_task = asyncio.create_task(server.serve_forever())
+    done, pending = await asyncio.wait(
+      (serve_task, batch_task),
+      return_when=asyncio.FIRST_COMPLETED,
+    )
+    for completed_task in done:
+      await completed_task
 
 
 if __name__ == '__main__':
