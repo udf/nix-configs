@@ -87,7 +87,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-8dAlFbLMaaHS0+wHzpiaMmwZ4uybxhbmDa+T53vV6kA=",
+        "narHash": "sha256-vlWhhUccIVEh4KNEdoipNKGStF9VNwtIGwy7++Tj4BU=",
         "path": "./headless/durga",
         "type": "path"
       },
