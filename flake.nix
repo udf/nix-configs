@@ -96,7 +96,7 @@
         let
           pythonPkg = pkgs.python3.withPackages (
             _: with pkgs.python3Packages; [
-              (pkgs.python3Packages.callPackage ./graphical/_home-manager/_common-nixos/packages/sniri { })
+              (pkgs.python3Packages.callPackage inputs.riko.inputs.snirid.lib.snirid { })
               dbus-fast
             ]
           );

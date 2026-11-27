@@ -175,7 +175,27 @@
         "nix-colorizer": "nix-colorizer",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "snirid": "snirid",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit"
+      }
+    },
+    "snirid": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dirtyRev": "516f5a6d0ccd5f3d805b461a0a917c9fe802dc3b-dirty",
+        "dirtyShortRev": "516f5a6-dirty",
+        "lastModified": 1795813855,
+        "narHash": "sha256-jUv6xczInD3H7ZsF+lWUw37ALLkJEEecVNEA0800rzs=",
+        "type": "git",
+        "url": "file:///home/sam/proj/p/snirid"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sam/proj/p/snirid"
       }
     },
     "systems": {

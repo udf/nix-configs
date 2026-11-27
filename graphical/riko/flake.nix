@@ -10,7 +10,12 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Third party sources
+    snirid = {
+      url = "git+file:///home/sam/proj/p/snirid";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Untrusted sources
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +40,9 @@
   outputs = inputs: {
     inherit inputs;
     extraModules = [ inputs.catppuccin.nixosModules.catppuccin ];
-    extraHomeManagerModules = [ inputs.catppuccin.homeModules.catppuccin ];
+    extraHomeManagerModules = [
+      inputs.catppuccin.homeModules.catppuccin
+      inputs.snirid.homeModules.snirid
+    ];
   };
 }
