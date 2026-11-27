@@ -17,7 +17,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = lib.mkDefault "--delete-older-than 30d";
+      options = lib.mkDefault "--delete-older-than 8d";
     };
     # Free up to 4GiB whenever there is less than 1GiB left.
     extraOptions = ''
