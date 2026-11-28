@@ -11,10 +11,6 @@
     })
   ];
 
-  home.packages = [
-    (pkgs.python3Packages.toPythonApplication inputs.snirid.lib.snirid)
-  ];
-
   services.snirid = {
     enable = true;
     pluginDirs = [ ./plugins ];
