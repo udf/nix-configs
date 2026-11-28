@@ -17,7 +17,6 @@ let
   );
 in
 {
-  # TODO: move this to a generic module if more gui users are needed
   systemd.services.xpra-nicotine = {
     description = "Xpra for nicotine";
     after = [
